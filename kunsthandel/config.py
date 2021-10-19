@@ -2,6 +2,10 @@ import os
 
 
 class DebugConfig:
-    # These values are usually set to environment variables. I don't like this procedure of hard coding them into my machine
-    SECRET_KEY = '5c9c4d68d7eea5a7423653599139f072'
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///site.db'  # "///" -> relative path from this file
+    SECRET_KEY = '76d6ec9f1ee1e0b7841452d30421e398' # Secret key - replace with your own
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///develop.db'  # "///" -> relative path from this file
+
+
+class ProductionConfig:
+    SECRET_KEY = 'ff8c8fd92c91b8b8decaecaa719b2b3a'
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///production.db'

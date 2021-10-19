@@ -1,0 +1,40 @@
+== How to Deploy for the first time
+
+=== 1. Build package
+
+==== Prepare Packaging (only neccessary for first setup)
+1. Create `setup.py` file in project root directory.
+    - `python setup.py develop` to install locally (for dev only)
+2. Create `MANIFEST.in`
+    - Python includes `*.py` per default. Insert file name to include here.
+    - `recursive-include kunsthandel *.html *.css` [dir name][file extensions]
+
+==== Packaging
+1. `pip install -U build` (`pip install --upgrade build`)
+    - Installs the package responsible for building the application
+2. `python -m build -w` (`python -m build --wheel`)
+    - (-w = wheel) wheel is a packaging format. Use wheel to build the application
+
+=== 2. Distribute to server
+1. Copy wheel to server
+
+=== 3. Install on server
+1. `python3 -m venv venv` creates virtual environment named `venv`
+2. `source venv/bin/activate` activates venv
+3. `pip install --upgrade pip wheel setuptools` update important packages
+4. `pip install ./name_of_wheel_file.whl` install the package on the server
+5. `pip install waitress` install waitress to use a production ready server
+    - If at some point a package is not recognized, deactivate and activate venv
+
+=== 4. Serve module
+1. `export FLASK_ENV={envi}` ({envi}:development/production)
+2. `waitress-serve --port '80' --call 'kunsthandel:create_app'`
+
+=== Useful notes:
+- `tmux attach -t [sessionName]` to attach to a detached session
+- `chmod u+x [filename]` mark file as executable
+
+== Help I'm stuck
+
+https://packaging.python.org/tutorials/packaging-projects/
+https://tmuxcheatsheet.com/
