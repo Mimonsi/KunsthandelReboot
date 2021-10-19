@@ -22,7 +22,11 @@ def create_app(config_class=DebugConfig):
     login_manager.init_app(app)
 
     from kunsthandel.main.routes import main
+    from kunsthandel.users.routes import users
+    from kunsthandel.admin.routes import admin
     app.register_blueprint(main)
+    app.register_blueprint(users)
+    app.register_blueprint(admin)
 
     with app.app_context():
         db.create_all()

@@ -3,7 +3,7 @@ import os
 
 class DebugConfig:
     SECRET_KEY = '76d6ec9f1ee1e0b7841452d30421e398' # Secret key - replace with your own
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///develop.db'  # "///" -> relative path from this file
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///development.db'  # "///" -> relative path from this file
 
 
 class ProductionConfig:

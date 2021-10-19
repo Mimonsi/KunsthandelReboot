@@ -8,6 +8,8 @@
       <sourceFolder url="file://$MODULE_DIR$" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/venv" />
       <excludeFolder url="file://$MODULE_DIR$/.idea/dataSources" />
+      <excludeFolder url="file://$MODULE_DIR$/build" />
+      <excludeFolder url="file://$MODULE_DIR$/dist" />
     </content>
     <orderEntry type="jdk" jdkName="Python 3.9 (KunsthandelReboot)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
@@ -16,7 +18,7 @@
     <option name="TEMPLATE_CONFIGURATION" value="Jinja2" />
     <option name="TEMPLATE_FOLDERS">
       <list>
-        <option value="$MODULE_DIR$/../KunsthandelReboot\templates" />
+        <option value="$MODULE_DIR$/kunsthandel/templates" />
       </list>
     </option>
   </component>
