@@ -129,3 +129,5 @@ dmypy.json
 .pyre/
 /.idea/deployment.xml
 /.idea/inspectionProfiles/Project_Default.xml
+/.idea/dataSources.xml
+.db

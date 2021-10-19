@@ -17,11 +17,15 @@ def create_app(config_class=DebugConfig):
     app.config.from_object(DebugConfig)
 
     db.init_app(app)
+
     bcrypt.init_app(app)
     login_manager.init_app(app)
 
     from kunsthandel.main.routes import main
     app.register_blueprint(main)
+
+    with app.app_context():
+        db.create_all()
 
     return app
 
