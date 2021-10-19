@@ -1,0 +1,26 @@
+= Kunsthandel Reboot - Scope
+
+=== Framework and Languages
+
+* Flask with Jinja2
+* Database (SQLite and MySQL)
+* Bootstrap
+
+=== Essential Features
+
+* Authentication (flask_login?)
+* Authorization
+** Different User Levels
+*** User
+*** Administrator
+*** Editor
+* Encryption (bcrypt)
+* QR Code Creation ()
+
+=== User Scenarios
+* User: View datasets without writing access
+* Editor: Add/Edit datasets without writing access
+* Administrator: Add/Edit users/editors
+* User Scans QR-Code and gets access to the page.
+** QR-Code contains special token to "authorize" the user for only viewing the dataset the code is for, without further authentication
+** OR: User has to enter password to gain access. This is part of a new user group that gets authenticated with a session so he does not have to enter the password for a period of time when scanning multiple codes
