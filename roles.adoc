@@ -1,0 +1,36 @@
+= Kunsthandel Reboot - Roles
+
+** 0 - External
+*** [ ] `Scan QR Codes`
+*** [ ] `Dataset Read Access`
+*** [ ] `Dataset Write Access`
+*** [ ] `Edit User Permissions`
+*** [ ] `Create User Accounts`
+
+** 1 - Visitor
+*** [x] `Scan QR Codes`
+*** [ ] `Dataset Read Access`
+*** [ ] `Dataset Write Access`
+*** [ ] `Edit User Permissions`
+*** [ ] `Create User Accounts`
+
+** 2 - User
+*** [x] `Scan QR Codes`
+*** [x] `Dataset Read Access`
+*** [ ] `Dataset Write Access`
+*** [ ] `Edit User Permissions`
+*** [ ] `Create User Accounts`
+
+** 3 - Editor
+*** [x] `Scan QR Codes`
+*** [x] `Dataset Read Access`
+*** [x] `Dataset Write Access`
+*** [ ] `Edit User Permissions`
+*** [ ] `Create User Accounts`
+
+** 4 - Administrator
+*** [x] `Scan QR Codes`
+*** [x] `Dataset Read Access`
+*** [x] `Dataset Write Access`
+*** [x] `Edit User Permissions`
+*** [x] `Create User Accounts`
