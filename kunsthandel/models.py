@@ -30,7 +30,7 @@ class User(db.Model, UserMixin):
 
     # role could also be used as external table with foreign key, but roles are hard-coded 0 < 1 < 2 < 3 < 4
     def __repr__(self):
-        return f"User('{self.username}, '{self.role_id}')"
+        return f'<User> (username={self.username}, role_id={self.role_id})'
 
     def role(self):
         return Role(self.role_id).name
@@ -42,11 +42,15 @@ class User(db.Model, UserMixin):
 class Location(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255), nullable=False)
+    def __repr__(self):
+        return f'<Location> (id={self.id}, name={self.name})'
 
 
 class Origin(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255), nullable=False)
+    def __repr__(self):
+        return f'<Origin> (id={self.id}, name={self.name})'
 
 
 class Image(db.Model):
@@ -55,13 +59,16 @@ class Image(db.Model):
     gallery_id = db.Column(db.Integer, db.ForeignKey('gallery.id'), nullable=True)
     gallery = db.relationship('Gallery', backref='images', lazy=True)
 
+    def __repr__(self):
+        return f'<Image> (id={self.id}, name={self.name}, path={self.path}, gallery_id={self.gallery_id})'
+
 
 class Type(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255), nullable=False)
 
     def __repr__(self):
-        return '<Type %r>' % self.name
+        return f'<Type> (id={self.id}, name={self.name})'
 
 
 class Gallery(db.Model):
@@ -69,7 +76,7 @@ class Gallery(db.Model):
     name = db.Column(db.String(255), nullable=False)
 
     def __repr__(self):
-        return '<Type %r>' % self.name
+        return f'<Gallery> (id={self.id}, name={self.name})'
 
 
 class Item(db.Model):
@@ -95,7 +102,7 @@ class Item(db.Model):
     # Maybe add hashlink for QR codes here
 
     def __repr__(self):
-        return '<Item %r>' % self.name
+        return f'<Item> (id={self.id}, name={self.name}, type={self.type}, origin={self.origin})'
 
 
 def create_account(username, password, role):
