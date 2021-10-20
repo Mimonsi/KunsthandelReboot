@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <div class="content-section">
+        <div class="media">
+            <img class="rounded-circle account-img" src="{{ thumbnail }}">
+            <div class="media-body">
+                <h2 class="account-heading">{{ item.id }} - {{ item.name }}</h2>
+                <p class="text-secondary">{{ item.type.name }}</p>
+            </div>
+        </div>
+        <legend class="border-bottom mb-4">Details</legend>
+        <p>ID: {{ item.id }}</p>
+        <p>Name: {{ item.name }}</p>
+        <p>Location: {{ item.location.name }}</p>
+        <p>Origin: {{ item.origin.name }}</p>
+        <p>Size: {{ item.size }}</p>
+        <p>Last edited by: {{ item.edited.username }}</p>
+        <p>{{ item.comment }}</p>
+        <p>Gallery placeholder</p>
+        {% for image in images %}
+            <img src="{{ url_for('static', filename='images/' + image.path) }}" class="img-fluid" style="padding-top:20px">
+        {% endfor %}
+    </div>
+{% endblock content %}

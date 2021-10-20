@@ -4,6 +4,8 @@ import flask_bcrypt
 from flask_login import UserMixin
 from flask import current_app
 from flask_login import UserMixin
+from sqlalchemy.orm import relationship
+
 from kunsthandel import db, login_manager
 
 
@@ -50,9 +52,19 @@ class Origin(db.Model):
 class Image(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     path = db.Column(db.String, nullable=False)
+    gallery_id = db.Column(db.Integer, db.ForeignKey('gallery.id'), nullable=True)
+    gallery = db.relationship('Gallery', backref='images', lazy=True)
 
 
 class Type(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(255), nullable=False)
+
+    def __repr__(self):
+        return '<Type %r>' % self.name
+
+
+class Gallery(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255), nullable=False)
 
@@ -72,8 +84,14 @@ class Item(db.Model):
     origin = db.relationship('Origin', backref='items', lazy=True)
 
     name = db.Column(db.String(255), nullable=True)
-    #images = db.relationship('Image', backref='item', lazy=True)
+    gallery_id = db.Column(db.Integer, db.ForeignKey('gallery.id'), nullable=True)
+    gallery = db.relationship('Gallery', backref='items', lazy=True)
+
+    edited_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
+    edited = db.relationship('User', backref='items', lazy=True)
+
     comment = db.Column(db.String(255), nullable=True)
+    size = db.Column(db.String(255), nullable=True)
     # Maybe add hashlink for QR codes here
 
     def __repr__(self):

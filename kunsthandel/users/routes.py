@@ -102,5 +102,6 @@ def delete_user(id):
 @role_required(Role.Administrator)
 def overview():
     page = request.args.get('page', type=int)
-    users = User.query.paginate(page=page, per_page=5)
+    #per_page = int(request.args.get("display", 50))
+    users = User.query.paginate(page=page, per_page=50)
     return render_template("users/users.html", title='Manage User Accounts', users=users)

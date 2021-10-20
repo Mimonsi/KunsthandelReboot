@@ -27,14 +27,21 @@
                 <td>{{ item.location.name }}</td>
                 <td>{{ item.origin.name }}</td>
                 <td>{{ item.name }}</td>
-                <td>{{ item.images }}</td>
+                <td>{{ item.gallery.images|length }}</td>
                 <td>{{ item.comment }}</td>
                 <td>
                     <div class="btn-group">
                         <form action="/items/{{ item.id }}" class="floated" method="GET">
+                            <button id="submit" class="btn btn-info" type="submit">Details</button>
+                        </form>
+                    </div>
+                {% if current_user.has_permission(3) %}
+                    <div class="btn-group">
+                        <form action="/items/{{ item.id }}/edit" class="floated" method="GET">
                             <button id="submit" class="btn btn-outline-info" type="submit">Edit</button>
                         </form>
                     </div>
+                {% endif %}
                 </td>
             </tr>
         {% endfor %}
