@@ -8,11 +8,11 @@ from kunsthandel import db, login_manager
 
 
 class Role(Enum):
-    external = 0
-    visitor = 1
-    user = 2
-    editor = 3
-    administrator = 4
+    External = 0
+    Visitor = 1
+    User = 2
+    Editor = 3
+    Administrator = 4
 
 
 @login_manager.user_loader
@@ -29,6 +29,12 @@ class User(db.Model, UserMixin):
     # role could also be used as external table with foreign key, but roles are hard-coded 0 < 1 < 2 < 3 < 4
     def __repr__(self):
         return f"User('{self.username}, '{self.role_id}')"
+
+    def role(self):
+        return Role(self.role_id).name
+
+    def has_permission(self, level: int):
+        return self.role_id >= level
 
 
 def create_account(username, password, role):

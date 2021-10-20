@@ -1,6 +1,7 @@
 from flask import Blueprint, request, abort, render_template
 from flask_login import login_required
 
+from kunsthandel.main.utils import role_required
 from kunsthandel.models import create_account, Role
 
 main = Blueprint('main', __name__)
@@ -8,7 +9,7 @@ main = Blueprint('main', __name__)
 
 @main.route('/')
 @main.route('/home')
-@login_required
+@role_required(Role.Visitor)
 def home():
     return render_template("home.html")
 
