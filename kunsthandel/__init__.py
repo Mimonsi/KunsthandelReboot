@@ -24,9 +24,11 @@ def create_app(config_class=DebugConfig):
     from kunsthandel.main.routes import main
     from kunsthandel.users.routes import users
     from kunsthandel.admin.routes import admin
+    from kunsthandel.items.routes import items
     app.register_blueprint(main)
     app.register_blueprint(users)
     app.register_blueprint(admin)
+    app.register_blueprint(items)
 
     with app.app_context():
         db.create_all()

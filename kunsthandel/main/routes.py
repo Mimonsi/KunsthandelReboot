@@ -20,5 +20,5 @@ def create_admin():
         abort(400)
     username = request.args.get('username')
     password = request.args.get('password')
-    user = create_account(username, password, role=Role.administrator)
+    user = create_account(username, password, role=Role.Administrator)
     return "Account created: " + str(user)

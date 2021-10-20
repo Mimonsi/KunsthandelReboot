@@ -37,6 +37,49 @@ class User(db.Model, UserMixin):
         return self.role_id >= level
 
 
+class Location(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(255), nullable=False)
+
+
+class Origin(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(255), nullable=False)
+
+
+class Image(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    path = db.Column(db.String, nullable=False)
+
+
+class Type(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(255), nullable=False)
+
+    def __repr__(self):
+        return '<Type %r>' % self.name
+
+
+class Item(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    type_id = db.Column(db.Integer, db.ForeignKey('type.id'), nullable=True)
+    type = db.relationship('Type', backref=db.backref('items', lazy=True))
+
+    location_id = db.Column(db.Integer, db.ForeignKey('location.id'), nullable=True)
+    location = db.relationship('Location', backref='items', lazy=True)
+
+    origin_id = db.Column(db.Integer, db.ForeignKey('origin.id'), nullable=True)
+    origin = db.relationship('Origin', backref='items', lazy=True)
+
+    name = db.Column(db.String(255), nullable=True)
+    #images = db.relationship('Image', backref='item', lazy=True)
+    comment = db.Column(db.String(255), nullable=True)
+    # Maybe add hashlink for QR codes here
+
+    def __repr__(self):
+        return '<Item %r>' % self.name
+
+
 def create_account(username, password, role):
     hashed_password = flask_bcrypt.generate_password_hash(password).decode('utf-8')
     new_account = User(username=username, password=hashed_password, role_id=role.value)

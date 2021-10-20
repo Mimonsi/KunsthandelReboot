@@ -61,7 +61,7 @@ def edit_user(id):
         user.role_id = form.role.data
         db.session.commit()
         flash("The account has been updated!", "success")
-        return redirect(url_for('users.users_overview'))
+        return redirect(url_for('users.overview'))
     elif request.method == 'GET':
         form.old_username.data = user.username
         form.username.data = user.username
@@ -80,7 +80,9 @@ def create_user():
         db.session.add(user)
         db.session.commit()
         flash("User account with id " + str(user.id) + " has been created!", "success")
-        return redirect(url_for('users.users_overview'))
+        if request.args.get("multiple", False):
+            return redirect(url_for('users.create_user', multiple=True))
+        return redirect(url_for('users.overview'))
     elif request.method == 'GET':
         form.role.data = "1" # Default role
     return render_template("users/user.html", title="Create new user", user=None, form=form)
@@ -93,12 +95,12 @@ def delete_user(id):
     db.session.delete(user)
     db.session.commit()
     flash("This user account has been deleted!", "success")
-    return redirect(url_for("users.users_overview"))
+    return redirect(url_for("users.overview"))
 
 
 @users.route('/users')
 @role_required(Role.Administrator)
-def users_overview():
+def overview():
     page = request.args.get('page', type=int)
     users = User.query.paginate(page=page, per_page=5)
     return render_template("users/users.html", title='Manage User Accounts', users=users)
