@@ -11,7 +11,6 @@ Flask-WTF==0.15.1
 greenlet==1.1.2
 itsdangerous==2.0.1
 Jinja2==3.0.2
--e git+https://github.com/kosch104/KunsthandelReboot.git@e64dafd10c973591f5f821264af287fda7109e61#egg=Kunsthandel_Reboot
 MarkupSafe==2.0.1
 mysql-connector-python==8.0.27
 packaging==21.0
