@@ -56,8 +56,10 @@ class Origin(db.Model):
 class Image(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     path = db.Column(db.String, nullable=False)
-    gallery_id = db.Column(db.Integer, db.ForeignKey('gallery.id'), nullable=True)
-    gallery = db.relationship('Gallery', backref='images', lazy=True)
+    is_thumbnail = db.Column(db.Boolean, nullable=False, default=False)
+    item_id = db.Column(db.Integer, db.ForeignKey('item.id'), nullable=True)
+    item = db.relationship('Item', backref='images', lazy=True)
+    #item = db.relationship('Item', lazy=True)
 
     def __repr__(self):
         return f'<Image> (id={self.id}, name={self.name}, path={self.path}, gallery_id={self.gallery_id})'
@@ -71,16 +73,10 @@ class Type(db.Model):
         return f'<Type> (id={self.id}, name={self.name})'
 
 
-class Gallery(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(255), nullable=False)
-
-    def __repr__(self):
-        return f'<Gallery> (id={self.id}, name={self.name})'
-
-
 class Item(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(255), nullable=True)
+
     type_id = db.Column(db.Integer, db.ForeignKey('type.id'), nullable=True)
     type = db.relationship('Type', backref=db.backref('items', lazy=True))
 
@@ -90,19 +86,19 @@ class Item(db.Model):
     origin_id = db.Column(db.Integer, db.ForeignKey('origin.id'), nullable=True)
     origin = db.relationship('Origin', backref='items', lazy=True)
 
-    name = db.Column(db.String(255), nullable=True)
-    gallery_id = db.Column(db.Integer, db.ForeignKey('gallery.id'), nullable=True)
-    gallery = db.relationship('Gallery', backref='items', lazy=True)
-
     edited_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
     edited = db.relationship('User', backref='items', lazy=True)
 
     comment = db.Column(db.String(255), nullable=True)
     size = db.Column(db.String(255), nullable=True)
-    # Maybe add hashlink for QR codes here
+
+    qr_hash = db.Column(db.String(32), nullable=False)
 
     def __repr__(self):
         return f'<Item> (id={self.id}, name={self.name}, type={self.type}, origin={self.origin})'
+
+    def images(self):
+        return Image.query.filter_by(item_id=self.id).all()
 
 
 def create_account(username, password, role):

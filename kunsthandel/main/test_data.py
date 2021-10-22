@@ -1,16 +1,11 @@
 import random
 
 from kunsthandel import db
-from kunsthandel.models import User, create_account, Role, Gallery, Location, Origin, Type, Item
+from kunsthandel.main import utils
+from kunsthandel.models import User, create_account, Role, Location, Origin, Type, Item, Image
 
 
 def create_test_items():
-    gallery = Gallery(name="Gallery 1")
-    gallery2 = Gallery(name="Ma-Galerie")
-    gallery3 = Gallery(name="Gallery 5")
-    db.session.add(gallery)
-    db.session.add(gallery2)
-    db.session.add(gallery3)
 
     location1 = Location(name="Kunsthandel Raum 1")
     location2 = Location(name="Kunsthandel Raum 3")
@@ -38,9 +33,14 @@ def create_test_items():
     db.session.add(type3)
 
     for i in range(0, random.randint(50, 250)):
-        db.session.add(Item(type_id=random.randint(1, 3), gallery_id=random.randint(1, 3), location_id=random.randint(1, 4), origin_id=random.randint(1, 4), name="Testname", comment="Comment for longer texts", size="10cm"))
+        item = Item(type_id=random.randint(1, 3), location_id=random.randint(1, 4), origin_id=random.randint(1, 4), name="Testname", comment="Comment for longer texts", size="10cm")
+        item.qr_hash = utils.get_qr_hash()
+        db.session.add(item)
+        db.session.commit()
+        thumbnail = Image(path="dummy/" + str(random.randint(0, 63)) + ".png", is_thumbnail=True, item_id=item.id)
+        db.session.add(thumbnail)
     db.session.commit()
-    return i
+    return i*2
 
 
 def create_test_users():

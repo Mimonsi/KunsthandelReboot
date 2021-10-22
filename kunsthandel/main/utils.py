@@ -1,3 +1,4 @@
+import secrets
 from functools import wraps
 from flask import abort, request, current_app
 
@@ -25,3 +26,7 @@ def role_required(access_level: Role): # Also implements all functionality of @l
         return wrapper
 
     return decorator
+
+
+def get_qr_hash():
+    return secrets.token_urlsafe(16)
