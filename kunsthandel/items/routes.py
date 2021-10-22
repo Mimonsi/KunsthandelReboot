@@ -11,7 +11,17 @@ items = Blueprint('items', __name__)
 @items.route('/code/<string:hash>')
 @role_required(Role.Visitor)
 def token(hash):
-    pass
+    item = Item.query.filter_by(qr_hash=hash).first_or_404()
+
+    thumbnail = url_for('static', filename='images/default.jpg')  # TODO: Replace with correct logic
+    images = Image.query.filter_by(item_id=item.id).all()
+    if len(images) > 0:
+        first_picture = Image.query.filter_by(item_id=item.id, is_thumbnail=True).first()
+        thumbnail = url_for('static', filename='images/' + first_picture.path)
+    return render_template("items/item.html", title="Item Details - " + str(id), item=item, thumbnail=thumbnail, images=images)
+
+
+
 
 
 @items.route('/items')
