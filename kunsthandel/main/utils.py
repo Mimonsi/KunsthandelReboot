@@ -45,3 +45,14 @@ def create_qr_code(id, url, version, box_size, border):
     img = qr.make_image()
     img.save(filename)
     return str(id) + ".png"
+
+
+def format_filesize(bytes):
+    steps = [" B", " KB", " MB", " GB", " TB", " PB"]
+    steps_done = 0
+    number = bytes
+    while number > 1000:
+        steps_done += 1
+        number /= 1024
+    number = round(number, 2)
+    return str(number) + steps[steps_done]

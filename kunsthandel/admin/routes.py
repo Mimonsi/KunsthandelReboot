@@ -2,6 +2,8 @@ from flask import Blueprint, render_template, flash, redirect, url_for, current_
 
 from kunsthandel.admin.forms import CreateUsersForm, CreateItemsForm, CreateQRCodesForm
 from kunsthandel.admin.database_functions import create_test_items, create_test_users
+from kunsthandel.admin.storage_manager import get_database_usage, get_directory_usage
+from kunsthandel.main import utils
 from kunsthandel.main.utils import role_required, create_qr_code
 from kunsthandel.models import Role, Item
 
@@ -55,4 +57,20 @@ def qr_printsheet():
         return render_template('qrcode_printscreen.html', urls=urls)
     flash("Something went wrong. This is awkward...", "danger")
     return redirect(url_for('admin.home'))
+
+
+@admin.route('/admin/storage_overview')
+@role_required(Role.Administrator)
+def storage_overview():
+    database_usage = get_database_usage()
+    all = [database_usage]
+    all.append(get_directory_usage(local_path="static/texts", name="Texts"))
+    all.append(get_directory_usage(local_path="static/qr", name="QR Codes"))
+    all.append(get_directory_usage(local_path="static/images", name="Images"))
+
+    total = 0
+    for single in all:
+        total += single[3]
+    all.append(("Total", "", utils.format_filesize(total), total))
+    return render_template('admin/storage_overview.html', all=all)
 
