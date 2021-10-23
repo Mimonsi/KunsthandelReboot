@@ -45,13 +45,12 @@ def item_details(id):
 @items.route('/items/create', methods=['GET', 'POST'])
 @role_required(Role.Editor)
 def create_item():
-    item = Item.query.get_or_404(id)
     form = CreateItemForm()
     if form.validate_on_submit():
         print("Test")
     elif request.method == 'GET':
         print("Test 2")
-    return render_template("items/create_item.html", title="Edit Item Details - " + str(id), item=item, form=form)
+    return render_template("items/create_item.html", title="Create new Item", form=form)
 
 
 @items.route('/items/<int:id>/edit', methods=['GET', 'POST'])
