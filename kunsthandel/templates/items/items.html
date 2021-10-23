@@ -29,15 +29,11 @@
                 <td>{{ item.comment }}</td>
                 <td>
                     <div class="btn-group">
-                        <form action="/items/{{ item.id }}" class="floated" method="GET">
-                            <button id="submit" class="btn btn-info" type="submit">Details</button>
-                        </form>
+                        <a href="{{ url_for("items.item_details", id=item.id) }}" class="btn btn-info">Details</a>
                     </div>
                 {% if current_user.has_permission(3) %}
                     <div class="btn-group">
-                        <form action="/items/{{ item.id }}/edit" class="floated" method="GET">
-                            <button id="submit" class="btn btn-outline-info" type="submit">Edit</button>
-                        </form>
+                        <a href="{{ url_for("items.edit_item", id=item.id) }}" class="btn btn-outline-info">Edit</a>
                     </div>
                 {% endif %}
                 </td>
