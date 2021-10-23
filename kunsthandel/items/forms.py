@@ -1,17 +1,17 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, PasswordField, SelectField, BooleanField, IntegerField, HiddenField
 from wtforms.ext.sqlalchemy.fields import QuerySelectField
-from wtforms.validators import DataRequired, EqualTo, Length, ValidationError
+from wtforms.validators import DataRequired, EqualTo, Length, ValidationError, Optional
 
 from kunsthandel.models import User, Role, Type, Location, Origin
 
 
 class CreateItemForm(FlaskForm):
-    name = StringField('Name', validators=[DataRequired(), Length(min=2, max=50)])
-    type = QuerySelectField('Type', query_factory=lambda: Type.query.all(), get_label="name")
-    location = QuerySelectField('Location', query_factory=lambda: Location.query.all(), get_label="name")
-    origin = QuerySelectField('Origin', query_factory=lambda: Origin.query.all(), get_label="name")
-    size = StringField('Size', validators=[Length(min=2, max=50)])
+    name = StringField('Name*', validators=[DataRequired(), Length(min=2, max=50)])
+    type = QuerySelectField('Type*', query_factory=lambda: Type.query.all(), get_label="name")
+    location = QuerySelectField('Location*', query_factory=lambda: Location.query.all(), get_label="name")
+    origin = QuerySelectField('Origin*', query_factory=lambda: Origin.query.all(), get_label="name")
+    size = StringField('Size', validators=[Length(max=50)])
     comment = StringField('Comment')
 
 
