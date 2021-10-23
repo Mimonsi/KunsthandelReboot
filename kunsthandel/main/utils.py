@@ -35,11 +35,11 @@ def get_qr_hash():
     return secrets.token_urlsafe(16)
 
 
-def create_qr_code(id, url):
+def create_qr_code(id, url, version, box_size, border):
     filename = os.path.join(current_app.root_path, 'static/qr/' + str(id) + ".png")
     #qr = qrcode.make(url)
     #qr.save(filename)
-    qr = qrcode.QRCode(version=1, box_size=10, border=5)
+    qr = qrcode.QRCode(version=version, box_size=box_size, border=border) # 1, 10, 5
     qr.add_data(url)
     qr.make(fit=True)
     img = qr.make_image()

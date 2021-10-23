@@ -1,6 +1,6 @@
-from flask import Blueprint, render_template, flash, redirect, url_for, current_app, request
+from flask import Blueprint, render_template, flash, redirect, url_for, current_app, request, abort
 
-from kunsthandel.admin.forms import CreateUsersForm, CreateItemsForm
+from kunsthandel.admin.forms import CreateUsersForm, CreateItemsForm, CreateQRCodesForm
 from kunsthandel.admin.database_functions import create_test_items, create_test_users
 from kunsthandel.main.utils import role_required, create_qr_code
 from kunsthandel.models import Role, Item
@@ -13,53 +13,46 @@ admin = Blueprint('admin', __name__)
 @role_required(Role.Administrator)
 def home():
     create_user_form = CreateUsersForm()
-    if create_user_form.validate_on_submit():
-        users_created = create_test_users(create_user_form.account_amount.data, create_user_form.password.data)
-        flash("Successfully created " + str(users_created) + " User Accounts.", "success")
-
     create_items_form = CreateItemsForm()
-    if create_items_form.validate_on_submit():
-        datasets_created = create_test_items(item_amount=create_items_form.item_amount.data, type_amount=create_items_form.type_amount.data,
-                                          location_amount=create_items_form.location_amount.data, origin_amount=create_items_form.origin_amount.data)
-        flash("Successfully created " + str(datasets_created) + " Datasets.", "success")
-    return render_template("admin/home.html", create_user_form=create_user_form, create_items_form=create_items_form)
+    create_qr_codes_form = CreateQRCodesForm()
+    return render_template("admin/home.html", create_user_form=create_user_form, create_items_form=create_items_form, create_qr_codes_form=create_qr_codes_form)
 
 
-@admin.route('/create_items_and_users')
-def create_items_and_users():
-    user_amount = create_test_users()
-    item_amount = create_test_items()
-    flash("Created " + str(user_amount+item_amount) + " datasets!", "success")
-    return redirect(url_for('main.home'))
-
-
-@admin.route('/create_users', methods=['GET', 'POST'])
+@admin.route('/admin/create_users', methods=['POST'])
+@role_required(Role.Administrator)
 def create_users():
     form = CreateUsersForm()
     if form.validate_on_submit():
-        amount_created = create_test_users()
-        flash("Created " + str(amount_created) + " user accounts.", "success")
-    if request.method == 'GET':
-        pass
+        users_created = create_test_users(form.account_amount.data, form.password.data)
+        flash("Successfully created " + str(users_created) + " User Accounts.", "success")
     return redirect(url_for('admin.home'))
 
 
-@admin.route('/create_users')
+@admin.route('/admin/create_items', methods=['POST'])
+@role_required(Role.Administrator)
 def create_items():
-    item_amount = create_test_items()
-    flash("Created " + str(item_amount) + " item datasets!", "success")
-    return redirect(url_for('main.home'))
+    form = CreateItemsForm()
+    if form.validate_on_submit():
+        datasets_created = create_test_items(item_amount=form.item_amount.data, type_amount=form.type_amount.data,
+                                             location_amount=form.location_amount.data,
+                                             origin_amount=form.origin_amount.data)
+        flash("Successfully created " + str(datasets_created) + " Datasets.", "success")
+    return redirect(url_for('admin.home'))
 
 
-@admin.route('/qr_printsheet')
-def bulk_qr_code():
-    items = Item.query.all()
-    base_url = current_app.config["BASE_URL"]
-    urls = []
-    for item in items:
-        filename = create_qr_code(item.id, base_url + "/code/" + str(item.qr_hash))
-        urls.append(base_url + url_for('static', filename='qr/' + filename))
-    return render_template('qrcode_printscreen.html', urls=urls)
-
-
+@admin.route('/admin/qr_printsheet', methods=['POST'])
+@role_required(Role.Administrator)
+def qr_printsheet():
+    form = CreateQRCodesForm()
+    if form.validate_on_submit():
+        items = Item.query.all()
+        base_url = current_app.config["BASE_URL"]
+        urls = []
+        for item in items:
+            filename = create_qr_code(item.id, base_url + "/code/" + str(item.qr_hash), version=form.code_version.data,
+                                      box_size=form.code_size.data, border=form.code_border_size.data)
+            urls.append(base_url + url_for('static', filename='qr/' + filename))
+        return render_template('qrcode_printscreen.html', urls=urls)
+    flash("Something went wrong. This is awkward...", "danger")
+    return redirect(url_for('admin.home'))
 
