@@ -1,0 +1,137 @@
+{% extends "layout.html" %}
+{% block content %}
+    <h1>Welcome, {{ current_user.username }}</h1>
+    <article class="media content-section">
+      <div class="media-body">
+          <h2>General Functions</h2>
+          <a href="{{ url_for('users.overview') }}" class="btn btn-primary" style="margin-top: 10px; margin-bottom: 10px">Open User Account Overview</a>
+      </div>
+    </article>
+
+    <article class="media content-section">
+      <div class="media-body">
+        <h2 class="border-bottom mb-4">Create User Accounts</h2>
+        <form method="POST" action="" enctype="multipart/form-data">
+        {{ create_user_form.hidden_tag() }}
+          <fieldset class="form-group">
+            <div class="form-group">
+              {{ create_user_form.account_amount.label(class="form-control-label") }}
+              {% if create_user_form.account_amount.errors %}
+                {{ create_user_form.account_amount(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+              {% for error in create_user_form.account_amount.errors %}
+                <span>{{ error }}</span>
+              {% endfor %}
+            </div>
+              {% else %}
+                {{ create_user_form.account_amount(class="form-control form-control-lg") }}
+              {% endif %}
+            </div>
+
+            <div class="form-group">
+              {{ create_user_form.password.label(class="form-control-label") }}
+              {% if create_user_form.password.errors %}
+                {{ create_user_form.password(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                  {% for error in create_user_form.password.errors %}
+                    <span>{{ error }}</span>
+                  {% endfor %}
+                </div>
+              {% else %}
+                {{ create_user_form.password(class="form-control form-control-lg") }}
+              {% endif %}
+            </div>
+
+            <div class="form-group">
+              {{ create_user_form.confirm_password.label(class="form-control-label") }}
+              {% if create_user_form.confirm_password.errors %}
+                {{ create_user_form.confirm_password(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                  {% for error in create_user_form.confirm_password.errors %}
+                    <span>{{ error }}</span>
+                  {% endfor %}
+                </div>
+              {% else %}
+                {{ create_user_form.confirm_password(class="form-control form-control-lg") }}
+              {% endif %}
+            </div>
+          </fieldset>
+          <div class="form-group">
+            {{ create_user_form.submit(class="btn btn-outline-info") }}
+          </div>
+        </form>
+      </div>
+    </article>
+
+
+    <article class="media content-section">
+      <div class="media-body">
+        <h2 class="border-bottom mb-4">Create Items</h2>
+        <form method="POST" action="" enctype="multipart/form-data">
+        {{ create_items_form.hidden_tag() }}
+          <fieldset class="form-group">
+            <div class="form-group">
+              {{ create_items_form.item_amount.label(class="form-control-label") }}
+              {% if create_items_form.item_amount.errors %}
+                {{ create_items_form.item_amount(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+              {% for error in create_user_form.account_amount.errors %}
+                <span>{{ error }}</span>
+              {% endfor %}
+            </div>
+              {% else %}
+                {{ create_items_form.item_amount(class="form-control form-control-lg") }}
+              {% endif %}
+            </div>
+
+            <div class="form-group">
+              {{ create_items_form.type_amount.label(class="form-control-label") }}
+              {% if create_items_form.type_amount.errors %}
+                {{ create_items_form.type_amount(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+              {% for error in create_user_form.account_amount.errors %}
+                <span>{{ error }}</span>
+              {% endfor %}
+            </div>
+              {% else %}
+                {{ create_items_form.type_amount(class="form-control form-control-lg") }}
+              {% endif %}
+            </div>
+
+            <div class="form-group">
+              {{ create_items_form.location_amount.label(class="form-control-label") }}
+              {% if create_items_form.location_amount.errors %}
+                {{ create_items_form.location_amount(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+              {% for error in create_user_form.account_amount.errors %}
+                <span>{{ error }}</span>
+              {% endfor %}
+            </div>
+              {% else %}
+                {{ create_items_form.location_amount(class="form-control form-control-lg") }}
+              {% endif %}
+            </div>
+
+            <div class="form-group">
+              {{ create_items_form.origin_amount.label(class="form-control-label") }}
+              {% if create_items_form.origin_amount.errors %}
+                {{ create_items_form.origin_amount(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+              {% for error in create_user_form.account_amount.errors %}
+                <span>{{ error }}</span>
+              {% endfor %}
+            </div>
+              {% else %}
+                {{ create_items_form.origin_amount(class="form-control form-control-lg") }}
+              {% endif %}
+            </div>
+
+          </fieldset>
+          <div class="form-group">
+            {{ create_items_form.submit(class="btn btn-outline-info") }}
+          </div>
+        </form>
+      </div>
+    </article>
+
+{% endblock content %}

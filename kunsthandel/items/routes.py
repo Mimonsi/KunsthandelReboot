@@ -9,7 +9,6 @@ items = Blueprint('items', __name__)
 
 
 @items.route('/code/<string:hash>')
-@role_required(Role.Visitor)
 def token(hash):
     item = Item.query.filter_by(qr_hash=hash).first_or_404()
 
@@ -19,9 +18,6 @@ def token(hash):
         first_picture = Image.query.filter_by(item_id=item.id, is_thumbnail=True).first()
         thumbnail = url_for('static', filename='images/' + first_picture.path)
     return render_template("items/item.html", title="Item Details - " + str(id), item=item, thumbnail=thumbnail, images=images)
-
-
-
 
 
 @items.route('/items')
@@ -76,4 +72,4 @@ def edit_item(id):
 @items.route('/items/<int:id>/delete')
 @role_required(Role.Editor)
 def delete_item(id):
-    pass
+    abort(404)
