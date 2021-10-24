@@ -20,7 +20,8 @@ def token(hash):
     if len(images) > 0:
         first_picture = Image.query.filter_by(item_id=item.id, is_thumbnail=True).first()
         thumbnail = url_for('static', filename='images/' + first_picture.path)
-    return render_template("items/item.html", title="Item Details - " + str(id), item=item, thumbnail=thumbnail, images=images)
+    return render_template("items/item.html", title="Item Details - " + str(id), item=item, thumbnail=thumbnail,
+                           images=images)
 
 
 @items.route('/items')
@@ -55,27 +56,45 @@ def create_item():
             save_images(form.images.data, item)
         flash("Item with ID " + str(item.id) + " successfully created", "success")
         return redirect(url_for("items.overview"))
-    elif request.method == 'GET':
-        print("Test 2")
     return render_template("items/create_item.html", title="Create new Item", form=form)
 
 
 @items.route('/items/<int:id>/edit', methods=['GET', 'POST'])
 @role_required(Role.Editor)
 def edit_item(id):
-    abort(404)
-    """
     item = Item.query.get_or_404(id)
-    form = EditItemForm()
+    form = CreateItemForm()
+    form.submit.label.text = "Confirm Changes"
     if form.validate_on_submit():
-        print("Test")
-    elif request.method == 'GET':
-        print("Test 2")
-    return render_template("items/create_item.html", title="Edit Item Details - " + str(id), item=item, form=form)
-    """
+        if form.thumbnail.data:
+            save_thumbnail(form.thumbnail.data, item)
+        if form.images.data:
+            save_images(form.images.data, item)
+        item.name = form.name.data
+        item.type = form.type.data
+        item.location = form.location.data
+        item.origin = form.origin.data
+        item.size = form.size.data
+        item.comment = form.comment.data
+        flash("Item with ID " + str(item.id) + " successfully updated", "success")
+        return redirect(url_for("items.overview"))
+    if request.method == 'GET':
+        item = Item.query.get_or_404(id)
+        form.name.data = item.name
+        form.type.data = item.type
+        form.location.data = item.location
+        form.origin.data = item.origin
+        form.size.data = item.size
+        form.comment.data = item.comment
+        return render_template("items/create_item.html", title="Edit Item " + str(id), form=form, item=item)
+    return render_template("items/create_item.html", title="Create new Item", form=form)
 
 
-@items.route('/items/<int:id>/delete')
+@items.route('/items/<int:id>/delete', methods=['POST'])
 @role_required(Role.Editor)
 def delete_item(id):
-    abort(404)
+    item = Item.query.get_or_404(id)
+    db.session.delete(item)
+    db.session.commit()
+    flash("This item has been deleted!", "success")
+    return redirect(url_for("items.overview"))

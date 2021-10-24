@@ -4,8 +4,9 @@
 <div class="content-section">
     <div class="media">
         <div class="media-body">
-            <h2 class="account-heading">Create new item</h2>
+            <h2 class="account-heading">{{ title }}</h2>
             <p class="text-secondary">Minitext</p>
+            <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">Delete</button>
         </div>
     </div>
 
@@ -107,6 +108,10 @@
                 {% endif %}
             </div>
 
+            {% if item %}
+                <img class="rounded-circle account-img" src="{{ item.thumbnail().url() }}">
+            {% endif %}
+
             <div class="form-group">
                 {{ form.images.label() }}
                 {{ form.images(class="form-control-file") }}
@@ -117,6 +122,12 @@
                 {% endif %}
             </div>
 
+            {% if item %}
+                {% for image in item.images %}
+                    <img src="{{ image.url() }}" class="img-fluid" style="padding-top:20px">
+                {% endfor %}
+            {% endif %}
+
         </fieldset>
         <div class="form-group">
             {{ form.submit(class="btn btn-outline-info") }}
@@ -125,7 +136,7 @@
 </div>
 
 
-{% if user %}
+{% if item %}
 <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">

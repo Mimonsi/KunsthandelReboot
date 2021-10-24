@@ -86,6 +86,8 @@ def save_images(form_images, item):
     if not os.path.exists(dir_path):
         os.mkdir(dir_path)
     for form_image in form_images:
+        if form_image.filename == '': # This covers the case of no files being attached
+            continue
         _, f_ext = os.path.splitext(form_image.filename)  # _ -> Throws away value, not needed
         picture_fn = str(index) + f_ext
         picture_path = os.path.join(current_app.root_path, 'static/images/' + str(item.id) + "/", picture_fn)

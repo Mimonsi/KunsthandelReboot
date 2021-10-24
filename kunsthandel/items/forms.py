@@ -16,30 +16,10 @@ class CreateItemForm(FlaskForm):
     size = StringField('Size', validators=[Length(max=50)])
     comment = StringField('Comment')
 
-    thumbnail = FileField('Upload thumbnail', validators=[FileAllowed(['jpg', 'png'])])
-    images = MultipleFileField('Upload images', validators=[FileAllowed(['jpg', 'png'])])
+    thumbnail = FileField('Upload thumbnail')
+    images = MultipleFileField('Upload images') # validators=[FileAllowed(['jpg', 'png'])]
 
     submit = SubmitField('Create')
-
-    """
-    id = db.Column(db.Integer, primary_key=True)
-    type_id = db.Column(db.Integer, db.ForeignKey('type.id'), nullable=True)
-    type = db.relationship('Type', backref=db.backref('items', lazy=True))
-
-    location_id = db.Column(db.Integer, db.ForeignKey('location.id'), nullable=True)
-    location = db.relationship('Location', backref='items', lazy=True)
-
-    origin_id = db.Column(db.Integer, db.ForeignKey('origin.id'), nullable=True)
-    origin = db.relationship('Origin', backref='items', lazy=True)
-
-    name = db.Column(db.String(255), nullable=True)
-
-    edited_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
-    edited = db.relationship('User', backref='items', lazy=True)
-
-    comment = db.Column(db.String(255), nullable=True)
-    size = db.Column(db.String(255), nullable=True)
-    """
 
     #def validate_username(self, username):
     #    existing_user = User.query.filter_by(username=username.data).first()
