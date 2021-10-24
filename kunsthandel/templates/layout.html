@@ -34,7 +34,10 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="{{ url_for('admin.home') }}" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Administration</a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <a class="dropdown-item" href="{{ url_for('admin.home') }}">Administration Homepage</a>
+                      <div class="dropdown-divider"></div>
                       <a class="dropdown-item" href="{{ url_for('users.overview') }}">User Account Mangement</a>
+                      <a class="dropdown-item" href="{{ url_for('admin.storage_overview') }}">Storage Overview</a>
                     </div>
                 </li>
               {% endif %}

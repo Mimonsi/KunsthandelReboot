@@ -1,0 +1,10 @@
+Maske männlich
+Maske weiblich
+Statue männlich
+Statue weiblich
+Stuhl groß
+Stuhl klein
+Behälter
+Büste
+Unbekannt
+Undefiniert

@@ -14,10 +14,10 @@ class LoginForm(FlaskForm):
 
 
 class CreateAccountForm(FlaskForm):
-    username = StringField('Username', validators=[DataRequired(), Length(min=2, max=20)])
-    password = PasswordField('Password', validators=[DataRequired()])
-    confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])#
-    role = SelectField('Role', choices=[(r.value, r.name) for r in Role])
+    username = StringField('Username*', validators=[DataRequired(), Length(min=2, max=20)])
+    password = PasswordField('Password*', validators=[DataRequired()])
+    confirm_password = PasswordField('Confirm Password*', validators=[DataRequired(), EqualTo('password')])#
+    role = SelectField('Role*', choices=[(r.value, r.name) for r in Role])
 
     submit = SubmitField('Create')
 

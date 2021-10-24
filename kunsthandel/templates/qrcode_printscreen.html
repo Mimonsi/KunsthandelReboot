@@ -2,7 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    {% for url in urls %}
+        <img src="{{ url }}" width="128" height="128">
+    {% endfor %}
 </head>
 <body>
 

@@ -2,7 +2,7 @@ from enum import Enum
 
 import flask_bcrypt
 from flask_login import UserMixin
-from flask import current_app
+from flask import current_app, url_for
 from flask_login import UserMixin
 from sqlalchemy.orm import relationship
 
@@ -56,11 +56,16 @@ class Origin(db.Model):
 class Image(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     path = db.Column(db.String, nullable=False)
-    gallery_id = db.Column(db.Integer, db.ForeignKey('gallery.id'), nullable=True)
-    gallery = db.relationship('Gallery', backref='images', lazy=True)
+    is_thumbnail = db.Column(db.Boolean, nullable=False, default=False)
+    item_id = db.Column(db.Integer, db.ForeignKey('item.id'), nullable=True)
+    item = db.relationship('Item', backref='images', lazy=True)
+    #item = db.relationship('Item', lazy=True)
 
     def __repr__(self):
-        return f'<Image> (id={self.id}, name={self.name}, path={self.path}, gallery_id={self.gallery_id})'
+        return f'<Image> (id={self.id}, path={self.path}, item_id={self.item_id}, is_thumbnail={self.is_thumbnail})'
+
+    def url(self):
+        return url_for('static', filename='images/' + self.path)
 
 
 class Type(db.Model):
@@ -71,16 +76,10 @@ class Type(db.Model):
         return f'<Type> (id={self.id}, name={self.name})'
 
 
-class Gallery(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(255), nullable=False)
-
-    def __repr__(self):
-        return f'<Gallery> (id={self.id}, name={self.name})'
-
-
 class Item(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(255), nullable=True)
+
     type_id = db.Column(db.Integer, db.ForeignKey('type.id'), nullable=True)
     type = db.relationship('Type', backref=db.backref('items', lazy=True))
 
@@ -90,19 +89,23 @@ class Item(db.Model):
     origin_id = db.Column(db.Integer, db.ForeignKey('origin.id'), nullable=True)
     origin = db.relationship('Origin', backref='items', lazy=True)
 
-    name = db.Column(db.String(255), nullable=True)
-    gallery_id = db.Column(db.Integer, db.ForeignKey('gallery.id'), nullable=True)
-    gallery = db.relationship('Gallery', backref='items', lazy=True)
-
     edited_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
     edited = db.relationship('User', backref='items', lazy=True)
 
     comment = db.Column(db.String(255), nullable=True)
     size = db.Column(db.String(255), nullable=True)
-    # Maybe add hashlink for QR codes here
+
+    qr_hash = db.Column(db.String(32), nullable=False)
 
     def __repr__(self):
-        return f'<Item> (id={self.id}, name={self.name}, type={self.type}, origin={self.origin})'
+        return f'<Item> (id={self.id}, name={self.name}, type={self.type}, location={self.location}, origin={self.origin})'
+
+    def images(self):
+        return Image.query.filter_by(item_id=self.id).all()
+
+    def thumbnail(self):
+        thumbnail = Image.query.filter_by(item_id=self.id, is_thumbnail=True).first()
+        return thumbnail
 
 
 def create_account(username, password, role):

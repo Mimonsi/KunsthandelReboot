@@ -5,7 +5,7 @@ from flask_login import LoginManager
 
 from kunsthandel.config import DebugConfig, ProductionConfig
 
-db = SQLAlchemy()
+db = SQLAlchemy(use_native_unicode="utf8")
 bcrypt = Bcrypt()
 login_manager = LoginManager()
 login_manager.login_view = 'users.login'
@@ -31,7 +31,19 @@ def create_app(config_class=DebugConfig):
     app.register_blueprint(items)
 
     with app.app_context():
-        db.create_all()
-
+        prepare_database(app, db)
     return app
+
+
+def prepare_database(app, db):
+    print("Preparing database")
+    db.create_all()
+    from kunsthandel.models import create_account
+    from kunsthandel.models import Role
+    from kunsthandel.models import User
+    if len(User.query.all()) < 1: # Create first admin account - this is supposed to be a temporary account until replaced by an actualy administrator account
+        root_admin = create_account(username="admin", password="admin", role=Role.Administrator)
+        db.session.add(root_admin)
+        db.session.commit()
+        print("Admin account created")
 
