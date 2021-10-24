@@ -10,9 +10,9 @@ from kunsthandel.models import User, Role, Type, Location, Origin
 
 class CreateItemForm(FlaskForm):
     name = StringField('Name*', validators=[DataRequired(), Length(min=2, max=50)])
-    type = QuerySelectField('Type*', query_factory=lambda: Type.query.all(), get_label="name")
-    location = QuerySelectField('Location*', query_factory=lambda: Location.query.all(), get_label="name")
-    origin = QuerySelectField('Origin*', query_factory=lambda: Origin.query.all(), get_label="name")
+    type = QuerySelectField('Type', query_factory=lambda: Type.query.all(), get_label="name", allow_blank=True)
+    location = QuerySelectField('Location', query_factory=lambda: Location.query.all(), get_label="name", allow_blank=True)
+    origin = QuerySelectField('Origin', query_factory=lambda: Origin.query.all(), get_label="name", allow_blank=True)
     size = StringField('Size', validators=[Length(max=50)])
     comment = StringField('Comment')
 

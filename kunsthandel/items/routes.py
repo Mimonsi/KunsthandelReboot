@@ -1,7 +1,7 @@
 import bdb
 
 from flask import Blueprint, request, abort, render_template, url_for, flash, redirect
-from flask_login import login_required
+from flask_login import login_required, current_user
 
 from kunsthandel import db
 from kunsthandel.items.forms import CreateItemForm
@@ -46,7 +46,7 @@ def create_item():
     form = CreateItemForm()
     if form.validate_on_submit():
         item = Item(name=form.name.data, type=form.type.data, location=form.location.data, origin=form.origin.data,
-                    size=form.size.data, comment=form.comment.data, qr_hash=get_qr_hash())
+                    size=form.size.data, comment=form.comment.data, qr_hash=get_qr_hash(), edited=current_user)
         db.session.add(item)
         db.session.commit()
         if form.thumbnail.data:
