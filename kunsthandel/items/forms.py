@@ -1,5 +1,7 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, PasswordField, SelectField, BooleanField, IntegerField, HiddenField
+from flask_wtf.file import FileField, FileAllowed
+from wtforms import StringField, SubmitField, PasswordField, SelectField, BooleanField, IntegerField, HiddenField, \
+    MultipleFileField
 from wtforms.ext.sqlalchemy.fields import QuerySelectField
 from wtforms.validators import DataRequired, EqualTo, Length, ValidationError, Optional
 
@@ -14,7 +16,8 @@ class CreateItemForm(FlaskForm):
     size = StringField('Size', validators=[Length(max=50)])
     comment = StringField('Comment')
 
-
+    thumbnail = FileField('Upload thumbnail', validators=[FileAllowed(['jpg', 'png'])])
+    images = MultipleFileField('Upload images', validators=[FileAllowed(['jpg', 'png'])])
 
     submit = SubmitField('Create')
 

@@ -97,6 +97,26 @@
                 {% endif %}
             </div>
 
+            <div class="form-group">
+                {{ form.thumbnail.label() }}
+                {{ form.thumbnail(class="form-control-file") }}
+                {% if form.thumbnail.errors %}
+                    {% for error in form.thumbnail.errors %}
+                        <span class="text-danger">{{ error }}</span><br>
+                    {% endfor %}
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                {{ form.images.label() }}
+                {{ form.images(class="form-control-file") }}
+                {% if form.images.errors %}
+                    {% for error in form.images.errors %}
+                        <span class="text-danger">{{ error }}</span><br>
+                    {% endfor %}
+                {% endif %}
+            </div>
+
         </fieldset>
         <div class="form-group">
             {{ form.submit(class="btn btn-outline-info") }}

@@ -3,7 +3,7 @@
 {% block content %}
     <div class="content-section">
         <div class="media">
-            <img class="rounded-circle account-img" src="{{ thumbnail }}">
+            <img class="rounded-circle account-img" src="{{ item.thumbnail().url() }}">
             <div class="media-body">
                 <h2 class="account-heading">{{ item.id }} - {{ item.name }}</h2>
                 <p class="text-secondary">{{ item.type.name }}</p>
@@ -18,8 +18,8 @@
         <p>Last edited by: {{ item.edited.username }}</p>
         <p>{{ item.comment }}</p>
         <p>Gallery placeholder</p>
-        {% for image in images %}
-            <img src="{{ url_for('static', filename='images/' + image.path) }}" class="img-fluid" style="padding-top:20px">
+        {% for image in item.images %}
+            <img src="{{ image.url() }}" class="img-fluid" style="padding-top:20px">
         {% endfor %}
     </div>
 {% endblock content %}
