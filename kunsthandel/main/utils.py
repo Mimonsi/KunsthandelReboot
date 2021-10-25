@@ -5,6 +5,7 @@ from functools import wraps
 import qrcode as qrcode
 from PIL import Image
 from flask import abort, request, current_app
+from flask_babel import format_decimal
 
 from flask_login import current_user, login_required
 from flask_login.config import EXEMPT_METHODS
@@ -58,7 +59,7 @@ def format_filesize(bytes):
         steps_done += 1
         number /= 1024
     number = round(number, 2)
-    return str(number) + steps[steps_done]
+    return format_decimal(number) + steps[steps_done]
 
 
 def save_thumbnail(thumbnail, item):
