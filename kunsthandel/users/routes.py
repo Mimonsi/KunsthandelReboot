@@ -1,5 +1,6 @@
 import flask_bcrypt
 from flask import Blueprint, redirect, url_for, render_template, request, flash
+from flask_babel import gettext
 from flask_login import current_user, login_user, logout_user
 
 from kunsthandel import bcrypt, db
@@ -20,17 +21,17 @@ def login():
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             login_user(user, remember=form.remember.data)
             next_page = request.args.get('next')
-            flash('Login successful', 'success')
+            flash(gettext('Login successful'), 'success')
             return redirect(next_page) if next_page else redirect(url_for('main.home'))
         else:
-            flash('Login unsuccessful. Please check username and password', 'danger')
+            flash(gettext('Login unsuccessful. Please check username and password'), 'danger')
     return render_template('users/login.html', title='Login', form=form)
 
 
 @users.route('/logout')
 def logout():
     logout_user()
-    flash('You have been logged out', 'success')
+    flash(gettext('You have been logged out'), 'success')
     return redirect(url_for('main.home'))
 
 
@@ -43,7 +44,7 @@ def edit_own_user():
         hashed_password = flask_bcrypt.generate_password_hash(form.password.data).decode('utf-8')
         user.password = hashed_password
         db.session.commit()
-        flash("Your account has been updated!", "success")
+        flash(gettext("Your account has been updated!"), "success")
         return redirect(url_for('users.edit_own_user'))
     return render_template("users/user_own.html", title="Edit User Account", user=user, form=form)
 
@@ -60,7 +61,7 @@ def edit_user(id):
             user.password = hashed_password
         user.role_id = form.role.data
         db.session.commit()
-        flash("The account has been updated!", "success")
+        flash(gettext("The account has been updated!"), "success")
         return redirect(url_for('users.overview'))
     elif request.method == 'GET':
         form.old_username.data = user.username
@@ -79,7 +80,7 @@ def create_user():
         user = User(username=form.username.data, password=hashed_password, role_id=int(form.role.data))
         db.session.add(user)
         db.session.commit()
-        flash("User account with id " + str(user.id) + " has been created!", "success")
+        flash(gettext("User account with id %s has been created!") % str(user.id), "success")
         if request.args.get("multiple", False):
             return redirect(url_for('users.create_user', multiple=True))
         return redirect(url_for('users.overview'))
@@ -94,7 +95,7 @@ def delete_user(id):
     user = User.query.get_or_404(id)
     db.session.delete(user)
     db.session.commit()
-    flash("This user account has been deleted!", "success")
+    flash(gettext("This user account has been deleted!"), "success")
     return redirect(url_for("users.overview"))
 
 

@@ -1,0 +1,13 @@
+1. Create `babel.cfg` file with content:
+
+[python: **.py]
+[jinja2: **/templates/**.html]
+extensions=jinja2.ext.autoescape, jinja2.ext.with_
+
+2. Execute `pybabel extract -F babel.cfg -k lazy_gettext -o messages.pot .` to find all translatable Strings
+
+3. `pybabel init -i messages.pot -d translations -l de` to create German translation file
+
+4. `pybabel compile -d translations` to compile the translations
+
+5. `pybabel update -i messages.pot -d translations` to update and not replace changes (again after step 2)

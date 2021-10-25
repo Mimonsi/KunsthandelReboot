@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, flash, redirect, url_for, current_app, request, abort
+from flask_babel import gettext
 
 from kunsthandel.admin.forms import CreateUsersForm, CreateItemsForm, CreateQRCodesForm
 from kunsthandel.admin.database_functions import create_test_items, create_test_users
@@ -26,7 +27,7 @@ def create_users():
     form = CreateUsersForm()
     if form.validate_on_submit():
         users_created = create_test_users(form.account_amount.data, form.password.data)
-        flash("Successfully created " + str(users_created) + " User Accounts.", "success")
+        flash(gettext("Successfully created %(amount) User Accounts.", users_created=str(amount)), "success") #str(users_created)
     return redirect(url_for('admin.home'))
 
 
@@ -38,7 +39,7 @@ def create_items():
         datasets_created = create_test_items(item_amount=form.item_amount.data, type_amount=form.type_amount.data,
                                              location_amount=form.location_amount.data,
                                              origin_amount=form.origin_amount.data)
-        flash("Successfully created " + str(datasets_created) + " Datasets.", "success")
+        flash(gettext("Successfully created %(amount) Datasets.", amount=str(datasets_created)), "success")
     return redirect(url_for('admin.home'))
 
 
@@ -55,7 +56,7 @@ def qr_printsheet():
                                       box_size=form.code_size.data, border=form.code_border_size.data)
             urls.append(base_url + url_for('static', filename='qr/' + filename))
         return render_template('qrcode_printscreen.html', urls=urls)
-    flash("Something went wrong. This is awkward...", "danger")
+    flash(gettext("Something went wrong. This is awkward..."), "danger")
     return redirect(url_for('admin.home'))
 
 
@@ -71,6 +72,6 @@ def storage_overview():
     total = 0
     for single in all:
         total += single[3]
-    all.append(("Total", "", utils.format_filesize(total), total))
+    all.append((gettext("Total"), "", utils.format_filesize(total), total))
     return render_template('admin/storage_overview.html', all=all)
 

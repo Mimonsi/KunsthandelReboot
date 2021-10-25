@@ -4,7 +4,7 @@
 <div class="content-section">
     <div class="media">
         <div class="media-body">
-            <h2 class="account-heading">Edit profile - {{ user.username }}</h2>
+            <h2 class="account-heading">{{ _('Edit profile') }} - {{ user.username }}</h2>
             <p class="text-secondary">{{ user.role() }}</p>
         </div>
     </div>
@@ -12,7 +12,7 @@
     <form method="POST" action="" enctype="multipart/form-data">
         {{ form.hidden_tag() }}
         <fieldset class="form-group">
-            <legend class="border-bottom mb-4">Account Info</legend>
+            <legend class="border-bottom mb-4">{{ _('Account Info') }}</legend>
             <div class="form-group">
                 {{ form.password.label(class="form-control-label") }}
                 {% if form.password.errors %}
