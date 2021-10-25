@@ -6,10 +6,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2021-10-25 22:47+0200\n"
+"Report-Msgid-Bugs-To: info@webgadgets.de\n"
+"POT-Creation-Date: 2021-10-25 23:17+0200\n"
 "PO-Revision-Date: 2021-10-24 23:34+0200\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Last-Translator: Konstantin Schwarze <info@webgadgets.de>\n"
 "Language: de\n"
 "Language-Team: de <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
@@ -138,7 +138,7 @@ msgstr "Vorschaubild hochladen"
 msgid "Upload images"
 msgstr "Bilder hochladen"
 
-#: kunsthandel/items/forms.py:23 kunsthandel/users/forms.py:23
+#: kunsthandel/items/forms.py:23 kunsthandel/users/forms.py:25
 msgid "Create"
 msgstr "Erstellen"
 
@@ -183,7 +183,7 @@ msgstr "Details"
 
 #: kunsthandel/templates/generic_type.html:28
 #: kunsthandel/templates/items/items.html:36
-#: kunsthandel/templates/users/users.html:43
+#: kunsthandel/templates/users/users.html:45
 msgid "Edit"
 msgstr "Bearbeiten"
 
@@ -271,7 +271,7 @@ msgstr "Speicherplatz"
 
 #: kunsthandel/templates/items/create_item.html:9
 #: kunsthandel/templates/users/user.html:11
-#: kunsthandel/templates/users/user.html:96
+#: kunsthandel/templates/users/user.html:110
 msgid "Delete"
 msgstr "Löschen"
 
@@ -280,8 +280,8 @@ msgid "Are you sure you want to delete the item?"
 msgstr "Möchten Sie den Gegenstand wirklich löschen?"
 
 #: kunsthandel/templates/items/create_item.html:153
-#: kunsthandel/templates/users/user.html:90
-#: kunsthandel/templates/users/user.html:98
+#: kunsthandel/templates/users/user.html:104
+#: kunsthandel/templates/users/user.html:112
 msgid "Close"
 msgstr "Schließen"
 
@@ -315,7 +315,7 @@ msgstr "Benutzerkonten erstellen"
 msgid "Account Info"
 msgstr "Konto"
 
-#: kunsthandel/templates/users/user.html:89
+#: kunsthandel/templates/users/user.html:103
 msgid "Are you sure you want to delete the user account?"
 msgstr "Möchten Sie den Gegenstand wirklich löschen?"
 
@@ -332,16 +332,20 @@ msgid "Create multiple users"
 msgstr "Mehrere Benutzer erstellen"
 
 #: kunsthandel/templates/users/users.html:29 kunsthandel/users/forms.py:10
-#: kunsthandel/users/forms.py:40
+#: kunsthandel/users/forms.py:43
 msgid "Username"
 msgstr "Benutzername"
 
-#: kunsthandel/templates/users/users.html:30 kunsthandel/users/forms.py:43
+#: kunsthandel/templates/users/users.html:30 kunsthandel/users/forms.py:46
 msgid "Role"
 msgstr "Rolle"
 
-#: kunsthandel/users/forms.py:11 kunsthandel/users/forms.py:32
-#: kunsthandel/users/forms.py:41
+#: kunsthandel/templates/users/users.html:31
+msgid "Locale"
+msgstr "Sprache"
+
+#: kunsthandel/users/forms.py:11 kunsthandel/users/forms.py:34
+#: kunsthandel/users/forms.py:44
 msgid "Password"
 msgstr "Passwort"
 
@@ -365,17 +369,22 @@ msgstr "Passwort bestätigen*"
 msgid "Role*"
 msgstr "Rolle*"
 
-#: kunsthandel/users/forms.py:28 kunsthandel/users/forms.py:50
+#: kunsthandel/users/forms.py:22 kunsthandel/users/forms.py:36
+#: kunsthandel/users/forms.py:47
+msgid "Locale*"
+msgstr "Sprache*"
+
+#: kunsthandel/users/forms.py:30 kunsthandel/users/forms.py:55
 msgid "This username is already taken. Please choose different one"
 msgstr ""
 "Dieser Benutzername ist bereits vergeben. Bitte wählen Sie einen anderen "
 "aus"
 
-#: kunsthandel/users/forms.py:33 kunsthandel/users/forms.py:42
+#: kunsthandel/users/forms.py:35 kunsthandel/users/forms.py:45
 msgid "Confirm Password"
 msgstr "Passwort bestätigen"
 
-#: kunsthandel/users/forms.py:35 kunsthandel/users/forms.py:45
+#: kunsthandel/users/forms.py:38 kunsthandel/users/forms.py:50
 msgid "Update"
 msgstr "Aktualisieren"
 
@@ -397,16 +406,16 @@ msgstr "Sie wurden ausgeloggt"
 msgid "Your account has been updated!"
 msgstr "Ihr Konto wurde aktualsiert!"
 
-#: kunsthandel/users/routes.py:64
+#: kunsthandel/users/routes.py:65
 msgid "The account has been updated!"
 msgstr "Das Konto wurde aktualisiert"
 
-#: kunsthandel/users/routes.py:83
+#: kunsthandel/users/routes.py:85
 #, python-format
 msgid "User account with id %s has been created!"
 msgstr "Benutzerkonto mit ID %s wurde erstellt!"
 
-#: kunsthandel/users/routes.py:98
+#: kunsthandel/users/routes.py:100
 msgid "This user account has been deleted!"
 msgstr "Dieses Benutzerkonto wurde gelöscht!"
 

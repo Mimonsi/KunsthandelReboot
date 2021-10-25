@@ -75,6 +75,20 @@
                 {% endif %}
             </div>
 
+            <div class="form-group">
+                {{ form.locale.label(class="form-control-label") }}
+                {% if form.locale.errors %}
+                    {{ form.locale(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.locale.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.locale(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+
         </fieldset>
         <div class="form-group">
             {{ form.submit(class="btn btn-outline-info") }}

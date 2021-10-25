@@ -26,6 +26,7 @@ class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(20), unique=True, nullable=False)
     password = db.Column(db.String(60), nullable=False)
+    locale = db.Column(db.String(2), nullable=False, default="en")
     role_id = db.Column(db.Integer, nullable=False, default=0) # 0 = No role, unauthorized
 
     # role could also be used as external table with foreign key, but roles are hard-coded 0 < 1 < 2 < 3 < 4

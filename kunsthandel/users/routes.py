@@ -43,6 +43,7 @@ def edit_own_user():
     if form.validate_on_submit():
         hashed_password = flask_bcrypt.generate_password_hash(form.password.data).decode('utf-8')
         user.password = hashed_password
+        user.locale = form.locale.data
         db.session.commit()
         flash(gettext("Your account has been updated!"), "success")
         return redirect(url_for('users.edit_own_user'))
@@ -60,6 +61,7 @@ def edit_user(id):
             hashed_password = flask_bcrypt.generate_password_hash(form.password.data).decode('utf-8')
             user.password = hashed_password
         user.role_id = form.role.data
+        user.locale = form.locale.data
         db.session.commit()
         flash(gettext("The account has been updated!"), "success")
         return redirect(url_for('users.overview'))
@@ -68,6 +70,7 @@ def edit_user(id):
         form.username.data = user.username
         form.password.data = user.password
         form.role.data = str(user.role_id)
+        form.locale.data = user.locale
     return render_template("users/user.html", title="Edit User " + user.username, user=user, form=form)
 
 
@@ -77,7 +80,7 @@ def create_user():
     form = CreateAccountForm()
     if form.validate_on_submit():
         hashed_password = flask_bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-        user = User(username=form.username.data, password=hashed_password, role_id=int(form.role.data))
+        user = User(username=form.username.data, password=hashed_password, role_id=int(form.role.data), locale=form.locale.data)
         db.session.add(user)
         db.session.commit()
         flash(gettext("User account with id %s has been created!") % str(user.id), "success")

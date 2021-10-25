@@ -4,7 +4,7 @@ from flask import Flask, request
 from flask_babel import Babel, gettext
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
-from flask_login import LoginManager
+from flask_login import LoginManager, current_user
 import babel
 
 from kunsthandel.config import DebugConfig, ProductionConfig
@@ -63,7 +63,8 @@ def prepare_database(app, db):
 
 @babel.localeselector
 def get_locale():
-    #return request.accept_languages.best_match(['en', 'de'])
-    return "de"
+    if current_user:
+        return current_user.locale
+    return "en"
 
 
