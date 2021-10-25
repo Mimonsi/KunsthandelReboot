@@ -26,8 +26,8 @@ def home():
 def create_users():
     form = CreateUsersForm()
     if form.validate_on_submit():
-        users_created = create_test_users(form.account_amount.data, form.password.data)
-        flash(gettext("Successfully created %(amount) User Accounts.", users_created=str(amount)), "success") #str(users_created)
+        amount = create_test_users(form.account_amount.data, form.password.data)
+        flash(gettext("Successfully created %(amount) User Accounts.", amount=str(amount)), "success")
     return redirect(url_for('admin.home'))
 
 
@@ -36,10 +36,10 @@ def create_users():
 def create_items():
     form = CreateItemsForm()
     if form.validate_on_submit():
-        datasets_created = create_test_items(item_amount=form.item_amount.data, type_amount=form.type_amount.data,
+        amount = create_test_items(item_amount=form.item_amount.data, type_amount=form.type_amount.data,
                                              location_amount=form.location_amount.data,
                                              origin_amount=form.origin_amount.data)
-        flash(gettext("Successfully created %(amount) Datasets.", amount=str(datasets_created)), "success")
+        flash(gettext("Successfully created %(amount) Datasets.", amount=str(amount)), "success")
     return redirect(url_for('admin.home'))
 
 

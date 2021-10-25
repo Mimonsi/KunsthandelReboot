@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2021-10-25 22:26+0200\n"
+"POT-Creation-Date: 2021-10-25 22:47+0200\n"
 "PO-Revision-Date: 2021-10-24 23:34+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: de\n"
@@ -28,11 +28,11 @@ msgstr "Admin-Account wurde erstellt"
 
 #: kunsthandel/admin/forms.py:8
 msgid "Number of accounts to create (0 for random)"
-msgstr "Anzahl der zu erstellenden Accounts (0 für Zufall)"
+msgstr "Anzahl der zu erstellenden Konten (0 für Zufall)"
 
 #: kunsthandel/admin/forms.py:9
 msgid "Password for all accounts"
-msgstr "Passwort für alle Accounts"
+msgstr "Passwort für alle Konten"
 
 #: kunsthandel/admin/forms.py:10
 msgid "Confirm password"
@@ -47,7 +47,7 @@ msgid "Number of items to create (0 for random)"
 msgstr "Anzahl der zu erstellenden Gegenstände (0 für Zufall)"
 
 #: kunsthandel/admin/forms.py:18
-msgid "Number of generic_type to create"
+msgid "Number of types to create"
 msgstr "Anzahl der zu erstellenden Typen"
 
 #: kunsthandel/admin/forms.py:20
@@ -99,9 +99,8 @@ msgid "Database"
 msgstr "Datenbank"
 
 #: kunsthandel/generic_type/routes.py:24
-#, fuzzy
 msgid "Overview:"
-msgstr "Speicherplatzverwaltung"
+msgstr "Übersicht:"
 
 #: kunsthandel/items/forms.py:13
 msgid "Name*"
@@ -163,7 +162,7 @@ msgstr "Registrierte Datensätze:"
 
 #: kunsthandel/templates/generic_type.html:6
 msgid "Create new entry"
-msgstr "Benutzerkonten erstellen"
+msgstr "Neuen Datensatz erstellen"
 
 #: kunsthandel/templates/generic_type.html:12
 #: kunsthandel/templates/items/items.html:10
@@ -255,7 +254,7 @@ msgid "Create User Accounts"
 msgstr "Benutzerkonten erstellen"
 
 #: kunsthandel/templates/admin/home.html:70
-msgid "Create Items"
+msgid "Create items"
 msgstr "Gegenstände erstellen"
 
 #: kunsthandel/templates/admin/home.html:141
@@ -292,7 +291,7 @@ msgstr "Gegenstände gesamt: "
 
 #: kunsthandel/templates/items/items.html:5
 msgid "Create item"
-msgstr "Gegenstände erstellen"
+msgstr "Gegenstand erstellen"
 
 #: kunsthandel/templates/items/items.html:15
 msgid "Images"
@@ -768,54 +767,4 @@ msgstr "Dieses Benutzerkonto wurde gelöscht!"
 
 #~ msgid "Overview: %(model)"
 #~ msgstr "Übersicht: %(model)"
-
-#~ msgid "Got unexpected extra argument ({args})"
-#~ msgid_plural "Got unexpected extra arguments ({args})"
-#~ msgstr[0] ""
-#~ msgstr[1] ""
-
-#~ msgid "Takes {nargs} values but 1 was given."
-#~ msgid_plural "Takes {nargs} values but {len} were given."
-#~ msgstr[0] ""
-#~ msgstr[1] ""
-
-#~ msgid "Did you mean {possibility}?"
-#~ msgid_plural "(Possible options: {possibilities})"
-#~ msgstr[0] ""
-#~ msgstr[1] ""
-
-#~ msgid "Option {name!r} requires an argument."
-#~ msgid_plural "Option {name!r} requires {nargs} arguments."
-#~ msgstr[0] ""
-#~ msgstr[1] ""
-
-#~ msgid "{value!r} is not {choice}."
-#~ msgid_plural "{value!r} is not one of {choices}."
-#~ msgstr[0] ""
-#~ msgstr[1] ""
-
-#~ msgid "{value!r} does not match the format {format}."
-#~ msgid_plural "{value!r} does not match the formats {formats}."
-#~ msgstr[0] ""
-#~ msgstr[1] ""
-
-#~ msgid "{len_type} values are required, but {len_value} was given."
-#~ msgid_plural "{len_type} values are required, but {len_value} were given."
-#~ msgstr[0] ""
-#~ msgstr[1] ""
-
-#~ msgid "Field must be at least %(min)d character long."
-#~ msgid_plural "Field must be at least %(min)d characters long."
-#~ msgstr[0] ""
-#~ msgstr[1] ""
-
-#~ msgid "Field cannot be longer than %(max)d character."
-#~ msgid_plural "Field cannot be longer than %(max)d characters."
-#~ msgstr[0] ""
-#~ msgstr[1] ""
-
-#~ msgid "Field must be exactly %(max)d character long."
-#~ msgid_plural "Field must be exactly %(max)d characters long."
-#~ msgstr[0] ""
-#~ msgstr[1] ""
 
