@@ -1,0 +1,821 @@
+# German translations for PROJECT.
+# Copyright (C) 2021 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2021-10-25 22:26+0200\n"
+"PO-Revision-Date: 2021-10-24 23:34+0200\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: de\n"
+"Language-Team: de <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.9.1\n"
+
+#: kunsthandel/__init__.py:52
+msgid "Preparing database"
+msgstr "Datenbank wird vorbereitet"
+
+#: kunsthandel/__init__.py:61
+msgid "Admin account created"
+msgstr "Admin-Account wurde erstellt"
+
+#: kunsthandel/admin/forms.py:8
+msgid "Number of accounts to create (0 for random)"
+msgstr "Anzahl der zu erstellenden Accounts (0 für Zufall)"
+
+#: kunsthandel/admin/forms.py:9
+msgid "Password for all accounts"
+msgstr "Passwort für alle Accounts"
+
+#: kunsthandel/admin/forms.py:10
+msgid "Confirm password"
+msgstr "Passwort bestätigen"
+
+#: kunsthandel/admin/forms.py:12
+msgid "Create user accounts"
+msgstr "Benutzerkonten erstellen"
+
+#: kunsthandel/admin/forms.py:16
+msgid "Number of items to create (0 for random)"
+msgstr "Anzahl der zu erstellenden Gegenstände (0 für Zufall)"
+
+#: kunsthandel/admin/forms.py:18
+msgid "Number of generic_type to create"
+msgstr "Anzahl der zu erstellenden Typen"
+
+#: kunsthandel/admin/forms.py:20
+msgid "Number of locations to create"
+msgstr "Anzahl der zu erstellenden Orte"
+
+#: kunsthandel/admin/forms.py:22
+msgid "Number of origins to create"
+msgstr "Anzahl der zu erstellenden Herkünfte"
+
+#: kunsthandel/admin/forms.py:24
+msgid "Create items and constraints"
+msgstr "Items und Verknüpfungen erstellen"
+
+#: kunsthandel/admin/forms.py:28
+msgid "QR Code Version"
+msgstr "Version des QR-Code"
+
+#: kunsthandel/admin/forms.py:29
+msgid "QR Code Size"
+msgstr "Größe des QR-Code"
+
+#: kunsthandel/admin/forms.py:30
+msgid "QR Code Border Size"
+msgstr "Randgröße des QR-Code"
+
+#: kunsthandel/admin/forms.py:32
+msgid "Create QR codes"
+msgstr "QR-Codes erstellen"
+
+#: kunsthandel/admin/routes.py:30
+msgid "Successfully created %(amount) User Accounts."
+msgstr "%s Benutzerkonten wurden erfolgreich erstellt."
+
+#: kunsthandel/admin/routes.py:42
+msgid "Successfully created %(amount) Datasets."
+msgstr "%s Datensätze wurden erfolgreich erstellt."
+
+#: kunsthandel/admin/routes.py:59
+msgid "Something went wrong. This is awkward..."
+msgstr "Da ist etwas schiefgelaufen..."
+
+#: kunsthandel/admin/routes.py:75
+msgid "Total"
+msgstr "Gesamt"
+
+#: kunsthandel/admin/storage_manager.py:12 kunsthandel/templates/layout.html:32
+msgid "Database"
+msgstr "Datenbank"
+
+#: kunsthandel/generic_type/routes.py:24
+#, fuzzy
+msgid "Overview:"
+msgstr "Speicherplatzverwaltung"
+
+#: kunsthandel/items/forms.py:13
+msgid "Name*"
+msgstr "Name*"
+
+#: kunsthandel/items/forms.py:14
+#: kunsthandel/templates/admin/storage_overview.html:7
+#: kunsthandel/templates/items/items.html:11
+msgid "Type"
+msgstr "Typ"
+
+#: kunsthandel/items/forms.py:15 kunsthandel/templates/items/items.html:12
+#: kunsthandel/templates/layout.html:37
+msgid "Location"
+msgstr "Ort"
+
+#: kunsthandel/items/forms.py:16 kunsthandel/templates/items/items.html:13
+#: kunsthandel/templates/layout.html:38
+msgid "Origin"
+msgstr "Herkunft"
+
+#: kunsthandel/items/forms.py:17
+msgid "Size"
+msgstr "Größe"
+
+#: kunsthandel/items/forms.py:18 kunsthandel/templates/items/items.html:16
+msgid "Comment"
+msgstr "Kommentar"
+
+#: kunsthandel/items/forms.py:20
+msgid "Upload thumbnail"
+msgstr "Vorschaubild hochladen"
+
+#: kunsthandel/items/forms.py:21
+msgid "Upload images"
+msgstr "Bilder hochladen"
+
+#: kunsthandel/items/forms.py:23 kunsthandel/users/forms.py:23
+msgid "Create"
+msgstr "Erstellen"
+
+#: kunsthandel/items/routes.py:58
+#, python-format
+msgid "Item with ID %s successfully created"
+msgstr "Gegenstand mit ID %s erfolgreich erstellt"
+
+#: kunsthandel/items/routes.py:80
+#, python-format
+msgid "Item with ID %s successfully updated"
+msgstr "Gegenstand mit ID %s erfolgreich aktualisiert"
+
+#: kunsthandel/items/routes.py:100
+msgid "This item has been deleted"
+msgstr "Dieser Gegenstand wurde gelöscht"
+
+#: kunsthandel/templates/generic_type.html:3
+msgid "Registered datasets:"
+msgstr "Registrierte Datensätze:"
+
+#: kunsthandel/templates/generic_type.html:6
+msgid "Create new entry"
+msgstr "Benutzerkonten erstellen"
+
+#: kunsthandel/templates/generic_type.html:12
+#: kunsthandel/templates/items/items.html:10
+#: kunsthandel/templates/users/users.html:28
+msgid "ID"
+msgstr "ID"
+
+#: kunsthandel/templates/generic_type.html:13
+#: kunsthandel/templates/items/items.html:14
+msgid "Name"
+msgstr "Name"
+
+#: kunsthandel/templates/generic_type.html:24
+#: kunsthandel/templates/items/item.html:12
+#: kunsthandel/templates/items/items.html:32
+msgid "Details"
+msgstr "Details"
+
+#: kunsthandel/templates/generic_type.html:28
+#: kunsthandel/templates/items/items.html:36
+#: kunsthandel/templates/users/users.html:43
+msgid "Edit"
+msgstr "Bearbeiten"
+
+#: kunsthandel/templates/home.html:3
+msgid "Welcome"
+msgstr "Willkommen"
+
+#: kunsthandel/templates/layout.html:14 kunsthandel/templates/layout.html:16
+#: kunsthandel/templates/layout.html:23
+msgid "Bernd Schulz GmbH"
+msgstr "Bernd Schulz GmbH"
+
+#: kunsthandel/templates/layout.html:29
+msgid "Home"
+msgstr "Startseite"
+
+#: kunsthandel/templates/layout.html:34
+msgid "Items"
+msgstr "Gegenstände"
+
+#: kunsthandel/templates/layout.html:36
+msgid "Types"
+msgstr "Typen"
+
+#: kunsthandel/templates/layout.html:44
+msgid "Administration"
+msgstr "Administration"
+
+#: kunsthandel/templates/layout.html:46
+msgid "Administration Homepage"
+msgstr "Startseite Administration"
+
+#: kunsthandel/templates/layout.html:48
+msgid "User Account Mangement"
+msgstr "Benutzerkontenverwaltung"
+
+#: kunsthandel/templates/admin/storage_overview.html:3
+#: kunsthandel/templates/layout.html:49
+msgid "Storage Overview"
+msgstr "Speicherplatzverwaltung"
+
+#: kunsthandel/templates/layout.html:58
+msgid "Account"
+msgstr "Konto"
+
+#: kunsthandel/templates/layout.html:59
+msgid "Logout"
+msgstr "Ausloggen"
+
+#: kunsthandel/templates/layout.html:61 kunsthandel/users/forms.py:14
+msgid "Login"
+msgstr "Einloggen"
+
+#: kunsthandel/templates/admin/home.html:6
+msgid "General Functions"
+msgstr "Allgemeine Funktionen"
+
+#: kunsthandel/templates/admin/home.html:7
+msgid "Open User Account Overview"
+msgstr "Benutzerkontenverwaltung öffnen"
+
+#: kunsthandel/templates/admin/home.html:8
+msgid "Open Storage Overview"
+msgstr "Speicherplatzverwaltung öffnen"
+
+#: kunsthandel/templates/admin/home.html:14
+msgid "Create User Accounts"
+msgstr "Benutzerkonten erstellen"
+
+#: kunsthandel/templates/admin/home.html:70
+msgid "Create Items"
+msgstr "Gegenstände erstellen"
+
+#: kunsthandel/templates/admin/home.html:141
+msgid "Create QR Codes"
+msgstr "QR-Codes erstellen"
+
+#: kunsthandel/templates/admin/storage_overview.html:8
+msgid "File/Directory"
+msgstr "Datei/Ordner"
+
+#: kunsthandel/templates/admin/storage_overview.html:9
+msgid "Usage"
+msgstr "Speicherplatz"
+
+#: kunsthandel/templates/items/create_item.html:9
+#: kunsthandel/templates/users/user.html:11
+#: kunsthandel/templates/users/user.html:96
+msgid "Delete"
+msgstr "Löschen"
+
+#: kunsthandel/templates/items/create_item.html:144
+msgid "Are you sure you want to delete the item?"
+msgstr "Möchten Sie den Gegenstand wirklich löschen?"
+
+#: kunsthandel/templates/items/create_item.html:153
+#: kunsthandel/templates/users/user.html:90
+#: kunsthandel/templates/users/user.html:98
+msgid "Close"
+msgstr "Schließen"
+
+#: kunsthandel/templates/items/items.html:3
+msgid "Total Items:"
+msgstr "Gegenstände gesamt: "
+
+#: kunsthandel/templates/items/items.html:5
+msgid "Create item"
+msgstr "Gegenstände erstellen"
+
+#: kunsthandel/templates/items/items.html:15
+msgid "Images"
+msgstr "Bilder"
+
+#: kunsthandel/templates/users/login.html:7
+msgid "Log In"
+msgstr "Einloggen"
+
+#: kunsthandel/templates/users/user.html:8
+#: kunsthandel/templates/users/user_own.html:7
+msgid "Edit profile"
+msgstr "Profil aktualisieren"
+
+#: kunsthandel/templates/users/user.html:14
+msgid "Create new user account"
+msgstr "Benutzerkonten erstellen"
+
+#: kunsthandel/templates/users/user.html:22
+#: kunsthandel/templates/users/user_own.html:15
+msgid "Account Info"
+msgstr "Konto"
+
+#: kunsthandel/templates/users/user.html:89
+msgid "Are you sure you want to delete the user account?"
+msgstr "Möchten Sie den Gegenstand wirklich löschen?"
+
+#: kunsthandel/templates/users/users.html:3
+msgid "Registered User Accounts"
+msgstr "Benutzerkonten erstellen"
+
+#: kunsthandel/templates/users/users.html:6
+msgid "Create user"
+msgstr "Benutzer erstellen"
+
+#: kunsthandel/templates/users/users.html:9
+msgid "Create multiple users"
+msgstr "Mehrere Benutzer erstellen"
+
+#: kunsthandel/templates/users/users.html:29 kunsthandel/users/forms.py:10
+#: kunsthandel/users/forms.py:40
+msgid "Username"
+msgstr "Benutzername"
+
+#: kunsthandel/templates/users/users.html:30 kunsthandel/users/forms.py:43
+msgid "Role"
+msgstr "Rolle"
+
+#: kunsthandel/users/forms.py:11 kunsthandel/users/forms.py:32
+#: kunsthandel/users/forms.py:41
+msgid "Password"
+msgstr "Passwort"
+
+#: kunsthandel/users/forms.py:12
+msgid "Remember Me"
+msgstr "Eingeloggt bleiben"
+
+#: kunsthandel/users/forms.py:18
+msgid "Username*"
+msgstr "Benutzername*"
+
+#: kunsthandel/users/forms.py:19
+msgid "Password*"
+msgstr "Passwort*"
+
+#: kunsthandel/users/forms.py:20
+msgid "Confirm Password*"
+msgstr "Passwort bestätigen*"
+
+#: kunsthandel/users/forms.py:21
+msgid "Role*"
+msgstr "Rolle*"
+
+#: kunsthandel/users/forms.py:28 kunsthandel/users/forms.py:50
+msgid "This username is already taken. Please choose different one"
+msgstr ""
+"Dieser Benutzername ist bereits vergeben. Bitte wählen Sie einen anderen "
+"aus"
+
+#: kunsthandel/users/forms.py:33 kunsthandel/users/forms.py:42
+msgid "Confirm Password"
+msgstr "Passwort bestätigen"
+
+#: kunsthandel/users/forms.py:35 kunsthandel/users/forms.py:45
+msgid "Update"
+msgstr "Aktualisieren"
+
+#: kunsthandel/users/routes.py:24
+msgid "Login successful"
+msgstr "Erfolgreich eingeloggt"
+
+#: kunsthandel/users/routes.py:27
+msgid "Login unsuccessful. Please check username and password"
+msgstr ""
+"Sie konnten nicht eingeloggt werden. Bitte Benutzernamen und Passwort "
+"überprüfen"
+
+#: kunsthandel/users/routes.py:34
+msgid "You have been logged out"
+msgstr "Sie wurden ausgeloggt"
+
+#: kunsthandel/users/routes.py:47
+msgid "Your account has been updated!"
+msgstr "Ihr Konto wurde aktualsiert!"
+
+#: kunsthandel/users/routes.py:64
+msgid "The account has been updated!"
+msgstr "Das Konto wurde aktualisiert"
+
+#: kunsthandel/users/routes.py:83
+#, python-format
+msgid "User account with id %s has been created!"
+msgstr "Benutzerkonto mit ID %s wurde erstellt!"
+
+#: kunsthandel/users/routes.py:98
+msgid "This user account has been deleted!"
+msgstr "Dieses Benutzerkonto wurde gelöscht!"
+
+#~ msgid "{editor}: Editing failed"
+#~ msgstr ""
+
+#~ msgid "{editor}: Editing failed: {e}"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Click will abort further execution "
+#~ "because Python was configured to use "
+#~ "ASCII as encoding for the environment."
+#~ " Consult https://click.palletsprojects.com/unicode-"
+#~ "support/ for mitigation steps."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Additional information: on this system "
+#~ "no suitable UTF-8 locales were "
+#~ "discovered. This most likely requires "
+#~ "resolving by reconfiguring the locale "
+#~ "system."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "This system supports the C.UTF-8 locale"
+#~ " which is recommended. You might be"
+#~ " able to resolve your issue by "
+#~ "exporting the following environment variables:"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "This system lists some UTF-8 supporting"
+#~ " locales that you can pick from. "
+#~ "The following suitable locales were "
+#~ "discovered: {locales}"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Click discovered that you exported a "
+#~ "UTF-8 locale but the locale system "
+#~ "could not pick up from it because"
+#~ " it does not exist. The exported "
+#~ "locale is {locale!r} but it is not"
+#~ " supported."
+#~ msgstr ""
+
+#~ msgid "Aborted!"
+#~ msgstr ""
+
+#~ msgid "Show this message and exit."
+#~ msgstr ""
+
+#~ msgid "(Deprecated) {text}"
+#~ msgstr ""
+
+#~ msgid "Options"
+#~ msgstr "Optionen"
+
+#~ msgid "Got unexpected extra argument ({args})"
+#~ msgid_plural "Got unexpected extra arguments ({args})"
+#~ msgstr[0] ""
+#~ msgstr[1] ""
+
+#~ msgid "DeprecationWarning: The command {name!r} is deprecated."
+#~ msgstr ""
+
+#~ msgid "Commands"
+#~ msgstr ""
+
+#~ msgid "Missing command."
+#~ msgstr ""
+
+#~ msgid "No such command {name!r}."
+#~ msgstr ""
+
+#~ msgid "Value must be an iterable."
+#~ msgstr ""
+
+#~ msgid "Takes {nargs} values but 1 was given."
+#~ msgid_plural "Takes {nargs} values but {len} were given."
+#~ msgstr[0] ""
+#~ msgstr[1] ""
+
+#~ msgid "env var: {var}"
+#~ msgstr ""
+
+#~ msgid "(dynamic)"
+#~ msgstr ""
+
+#~ msgid "default: {default}"
+#~ msgstr ""
+
+#~ msgid "required"
+#~ msgstr ""
+
+#~ msgid "%(prog)s, version %(version)s"
+#~ msgstr ""
+
+#~ msgid "Show the version and exit."
+#~ msgstr ""
+
+#~ msgid "Error: {message}"
+#~ msgstr ""
+
+#~ msgid "Try '{command} {option}' for help."
+#~ msgstr ""
+
+#~ msgid "Invalid value: {message}"
+#~ msgstr ""
+
+#~ msgid "Invalid value for {param_hint}: {message}"
+#~ msgstr ""
+
+#~ msgid "Missing argument"
+#~ msgstr ""
+
+#~ msgid "Missing option"
+#~ msgstr ""
+
+#~ msgid "Missing parameter"
+#~ msgstr ""
+
+#~ msgid "Missing {param_type}"
+#~ msgstr ""
+
+#~ msgid "Missing parameter: {param_name}"
+#~ msgstr ""
+
+#~ msgid "No such option: {name}"
+#~ msgstr ""
+
+#~ msgid "Did you mean {possibility}?"
+#~ msgid_plural "(Possible options: {possibilities})"
+#~ msgstr[0] ""
+#~ msgstr[1] ""
+
+#~ msgid "unknown error"
+#~ msgstr ""
+
+#~ msgid "Could not open file {filename!r}: {message}"
+#~ msgstr ""
+
+#~ msgid "Argument {name!r} takes {nargs} values."
+#~ msgstr ""
+
+#~ msgid "Option {name!r} does not take a value."
+#~ msgstr ""
+
+#~ msgid "Option {name!r} requires an argument."
+#~ msgid_plural "Option {name!r} requires {nargs} arguments."
+#~ msgstr[0] ""
+#~ msgstr[1] ""
+
+#~ msgid "Shell completion is not supported for Bash versions older than 4.4."
+#~ msgstr ""
+
+#~ msgid "Couldn't detect Bash version, shell completion is not supported."
+#~ msgstr ""
+
+#~ msgid "Repeat for confirmation"
+#~ msgstr ""
+
+#~ msgid "Error: The value you entered was invalid."
+#~ msgstr ""
+
+#~ msgid "Error: {e.message}"
+#~ msgstr ""
+
+#~ msgid "Error: The two entered values do not match."
+#~ msgstr ""
+
+#~ msgid "Error: invalid input"
+#~ msgstr ""
+
+#~ msgid "Press any key to continue..."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Choose from:\n"
+#~ "\t{choices}"
+#~ msgstr ""
+
+#~ msgid "{value!r} is not {choice}."
+#~ msgid_plural "{value!r} is not one of {choices}."
+#~ msgstr[0] ""
+#~ msgstr[1] ""
+
+#~ msgid "{value!r} does not match the format {format}."
+#~ msgid_plural "{value!r} does not match the formats {formats}."
+#~ msgstr[0] ""
+#~ msgstr[1] ""
+
+#~ msgid "{value!r} is not a valid {number_type}."
+#~ msgstr ""
+
+#~ msgid "{value} is not in the range {range}."
+#~ msgstr ""
+
+#~ msgid "{value!r} is not a valid boolean."
+#~ msgstr ""
+
+#~ msgid "{value!r} is not a valid UUID."
+#~ msgstr ""
+
+#~ msgid "file"
+#~ msgstr "Datei"
+
+#~ msgid "directory"
+#~ msgstr "Ordner"
+
+#~ msgid "path"
+#~ msgstr "Pfad"
+
+#~ msgid "{name} {filename!r} does not exist."
+#~ msgstr ""
+
+#~ msgid "{name} {filename!r} is a file."
+#~ msgstr ""
+
+#~ msgid "{name} {filename!r} is a directory."
+#~ msgstr ""
+
+#~ msgid "{name} {filename!r} is not writable."
+#~ msgstr ""
+
+#~ msgid "{name} {filename!r} is not readable."
+#~ msgstr ""
+
+#~ msgid "{len_type} values are required, but {len_value} was given."
+#~ msgid_plural "{len_type} values are required, but {len_value} were given."
+#~ msgstr[0] ""
+#~ msgstr[1] ""
+
+#~ msgid "This field is required."
+#~ msgstr ""
+
+#~ msgid "File does not have an approved extension: {extensions}"
+#~ msgstr ""
+
+#~ msgid "File does not have an approved extension."
+#~ msgstr ""
+
+#~ msgid "File must be between {min_size} and {max_size} bytes."
+#~ msgstr ""
+
+#~ msgid "Invalid field name '%s'."
+#~ msgstr ""
+
+#~ msgid "Field must be equal to %(other_name)s."
+#~ msgstr ""
+
+#~ msgid "Field must be at least %(min)d character long."
+#~ msgid_plural "Field must be at least %(min)d characters long."
+#~ msgstr[0] ""
+#~ msgstr[1] ""
+
+#~ msgid "Field cannot be longer than %(max)d character."
+#~ msgid_plural "Field cannot be longer than %(max)d characters."
+#~ msgstr[0] ""
+#~ msgstr[1] ""
+
+#~ msgid "Field must be exactly %(max)d character long."
+#~ msgid_plural "Field must be exactly %(max)d characters long."
+#~ msgstr[0] ""
+#~ msgstr[1] ""
+
+#~ msgid "Field must be between %(min)d and %(max)d characters long."
+#~ msgstr ""
+
+#~ msgid "Number must be at least %(min)s."
+#~ msgstr ""
+
+#~ msgid "Number must be at most %(max)s."
+#~ msgstr ""
+
+#~ msgid "Number must be between %(min)s and %(max)s."
+#~ msgstr ""
+
+#~ msgid "Invalid input."
+#~ msgstr ""
+
+#~ msgid "Invalid email address."
+#~ msgstr ""
+
+#~ msgid "Invalid IP address."
+#~ msgstr ""
+
+#~ msgid "Invalid Mac address."
+#~ msgstr ""
+
+#~ msgid "Invalid URL."
+#~ msgstr ""
+
+#~ msgid "Invalid UUID."
+#~ msgstr ""
+
+#~ msgid "Invalid value, must be one of: %(values)s."
+#~ msgstr ""
+
+#~ msgid "Invalid value, can't be any of: %(values)s."
+#~ msgstr ""
+
+#~ msgid "Invalid CSRF Token"
+#~ msgstr ""
+
+#~ msgid "CSRF token missing"
+#~ msgstr ""
+
+#~ msgid "CSRF failed"
+#~ msgstr ""
+
+#~ msgid "CSRF token expired"
+#~ msgstr ""
+
+#~ msgid "Not a valid choice"
+#~ msgstr ""
+
+#~ msgid "Not a valid list"
+#~ msgstr ""
+
+#~ msgid "Not a valid integer list"
+#~ msgstr ""
+
+#~ msgid "Please input a date/time value"
+#~ msgstr ""
+
+#~ msgid "Invalid date/time input"
+#~ msgstr ""
+
+#~ msgid "Invalid Choice: could not coerce"
+#~ msgstr ""
+
+#~ msgid "Invalid choice(s): one or more data inputs could not be coerced"
+#~ msgstr ""
+
+#~ msgid "'%(value)s' is not a valid choice for this field"
+#~ msgstr ""
+
+#~ msgid "Not a valid integer value"
+#~ msgstr ""
+
+#~ msgid "Not a valid decimal value"
+#~ msgstr ""
+
+#~ msgid "Not a valid float value"
+#~ msgstr ""
+
+#~ msgid "Not a valid datetime value"
+#~ msgstr ""
+
+#~ msgid "Not a valid date value"
+#~ msgstr ""
+
+#~ msgid "Not a valid time value"
+#~ msgstr ""
+
+#~ msgid "Overview: %(model)"
+#~ msgstr "Übersicht: %(model)"
+
+#~ msgid "Got unexpected extra argument ({args})"
+#~ msgid_plural "Got unexpected extra arguments ({args})"
+#~ msgstr[0] ""
+#~ msgstr[1] ""
+
+#~ msgid "Takes {nargs} values but 1 was given."
+#~ msgid_plural "Takes {nargs} values but {len} were given."
+#~ msgstr[0] ""
+#~ msgstr[1] ""
+
+#~ msgid "Did you mean {possibility}?"
+#~ msgid_plural "(Possible options: {possibilities})"
+#~ msgstr[0] ""
+#~ msgstr[1] ""
+
+#~ msgid "Option {name!r} requires an argument."
+#~ msgid_plural "Option {name!r} requires {nargs} arguments."
+#~ msgstr[0] ""
+#~ msgstr[1] ""
+
+#~ msgid "{value!r} is not {choice}."
+#~ msgid_plural "{value!r} is not one of {choices}."
+#~ msgstr[0] ""
+#~ msgstr[1] ""
+
+#~ msgid "{value!r} does not match the format {format}."
+#~ msgid_plural "{value!r} does not match the formats {formats}."
+#~ msgstr[0] ""
+#~ msgstr[1] ""
+
+#~ msgid "{len_type} values are required, but {len_value} was given."
+#~ msgid_plural "{len_type} values are required, but {len_value} were given."
+#~ msgstr[0] ""
+#~ msgstr[1] ""
+
+#~ msgid "Field must be at least %(min)d character long."
+#~ msgid_plural "Field must be at least %(min)d characters long."
+#~ msgstr[0] ""
+#~ msgstr[1] ""
+
+#~ msgid "Field cannot be longer than %(max)d character."
+#~ msgid_plural "Field cannot be longer than %(max)d characters."
+#~ msgstr[0] ""
+#~ msgstr[1] ""
+
+#~ msgid "Field must be exactly %(max)d character long."
+#~ msgid_plural "Field must be exactly %(max)d characters long."
+#~ msgstr[0] ""
+#~ msgstr[1] ""
+

@@ -36,10 +36,12 @@ def create_app(config_class=DebugConfig):
     from kunsthandel.users.routes import users
     from kunsthandel.admin.routes import admin
     from kunsthandel.items.routes import items
+    from kunsthandel.generic_type.routes import generic_type
     app.register_blueprint(main)
     app.register_blueprint(users)
     app.register_blueprint(admin)
     app.register_blueprint(items)
+    app.register_blueprint(generic_type)
 
     with app.app_context():
         prepare_database(app, db)

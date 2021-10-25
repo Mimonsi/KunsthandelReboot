@@ -28,11 +28,20 @@
             <div class="navbar-nav mr-auto">
               <a class="nav-item nav-link" href="{{ url_for('main.home') }}">{{ _('Home') }}</a>
               {% if current_user.is_authenticated and current_user.has_permission(2) %}
-                <a class="nav-item nav-link" href="{{ url_for('items.overview') }}">{{ _('Items') }}</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="{{ url_for('items.overview') }}" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ _('Database') }}</a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <a class="dropdown-item" href="{{ url_for('items.overview') }}">{{ _('Items') }}</a>
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" href="{{ url_for('generic_type.overview', model_name="types") }}">{{ _('Types') }}</a>
+                      <a class="dropdown-item" href="{{ url_for('generic_type.overview', model_name="locations") }}">{{ _('Location') }}</a>
+                      <a class="dropdown-item" href="{{ url_for('generic_type.overview', model_name="origins") }}">{{ _('Origin') }}</a>
+                    </div>
+                </li>
               {% endif %}
               {% if current_user.is_authenticated and current_user.has_permission(4) %}
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="{{ url_for('admin.home') }}" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Administration</a>
+                    <a class="nav-link dropdown-toggle" href="{{ url_for('admin.home') }}" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ _('Administration') }}</a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                       <a class="dropdown-item" href="{{ url_for('admin.home') }}">{{ _('Administration Homepage') }}</a>
                       <div class="dropdown-divider"></div>

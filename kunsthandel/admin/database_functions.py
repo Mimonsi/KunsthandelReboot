@@ -11,7 +11,7 @@ def create_test_items(item_amount, type_amount, location_amount, origin_amount):
     location_values = []
     origin_values = []
     created = 0
-    with open('kunsthandel/static/texts/types.txt', mode="r", encoding="utf-8") as t:
+    with open('kunsthandel/static/texts/generic_type.txt', mode="r", encoding="utf-8") as t:
         type_values = t.read().splitlines()
     for i in range(0, type_amount):
         type = Type(name=type_values[random.randint(0, len(type_values)-1)])
