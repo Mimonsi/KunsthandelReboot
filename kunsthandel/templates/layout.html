@@ -11,33 +11,33 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main_dark.css') }}">
 
     {% if title %}
-        <title>Bernd Schulz GmbH - {{ title }}</title>
+        <title>{{ _('Bernd Schulz GmbH') }} - {{ title }}</title>
     {% else %}
-        <title>Bernd Schulz GmbH</title>
+        <title>{{ _('Bernd Schulz GmbH') }}</title>
     {% endif %}
 </head>
 <body>
     <header class="site-header">
       <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
         <div class="container">
-          <a class="navbar-brand mr-4" href="/">Bernd Schulz GmbH</a>
+          <a class="navbar-brand mr-4" href="/">{{ _('Bernd Schulz GmbH') }}</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarToggle">
             <div class="navbar-nav mr-auto">
-              <a class="nav-item nav-link" href="{{ url_for('main.home') }}">Home</a>
+              <a class="nav-item nav-link" href="{{ url_for('main.home') }}">{{ _('Home') }}</a>
               {% if current_user.is_authenticated and current_user.has_permission(2) %}
-                <a class="nav-item nav-link" href="{{ url_for('items.overview') }}">Items</a>
+                <a class="nav-item nav-link" href="{{ url_for('items.overview') }}">{{ _('Items') }}</a>
               {% endif %}
               {% if current_user.is_authenticated and current_user.has_permission(4) %}
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="{{ url_for('admin.home') }}" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Administration</a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                      <a class="dropdown-item" href="{{ url_for('admin.home') }}">Administration Homepage</a>
+                      <a class="dropdown-item" href="{{ url_for('admin.home') }}">{{ _('Administration Homepage') }}</a>
                       <div class="dropdown-divider"></div>
-                      <a class="dropdown-item" href="{{ url_for('users.overview') }}">User Account Mangement</a>
-                      <a class="dropdown-item" href="{{ url_for('admin.storage_overview') }}">Storage Overview</a>
+                      <a class="dropdown-item" href="{{ url_for('users.overview') }}">{{ _('User Account Mangement') }}</a>
+                      <a class="dropdown-item" href="{{ url_for('admin.storage_overview') }}">{{ _('Storage Overview') }}</a>
                     </div>
                 </li>
               {% endif %}
@@ -46,10 +46,10 @@
             <!-- Navbar Right Side -->
             <div class="navbar-nav">
               {% if current_user.is_authenticated %}
-                <a class="nav-item nav-link" href="{{ url_for('users.edit_own_user') }}">Account</a>
-                <a class="nav-item nav-link" href="{{ url_for('users.logout') }}">Logout</a>
+                <a class="nav-item nav-link" href="{{ url_for('users.edit_own_user') }}">{{ _('Account') }}</a>
+                <a class="nav-item nav-link" href="{{ url_for('users.logout') }}">{{ _('Logout') }}</a>
               {% else %}
-                <a class="nav-item nav-link" href="{{ url_for('users.login') }}">Login</a>
+                <a class="nav-item nav-link" href="{{ url_for('users.login') }}">{{ _('Login') }}</a>
               {% endif %}
             </div>
           </div>

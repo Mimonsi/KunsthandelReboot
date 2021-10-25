@@ -1,22 +1,33 @@
-from flask import Flask
+import os
+
+from flask import Flask, request
+from flask_babel import Babel, gettext
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
+import babel
 
 from kunsthandel.config import DebugConfig, ProductionConfig
 
 db = SQLAlchemy(use_native_unicode="utf8")
+babel = Babel()
 bcrypt = Bcrypt()
 login_manager = LoginManager()
 login_manager.login_view = 'users.login'
 login_manager.login_message_category = 'info'
 
-
 def create_app(config_class=DebugConfig):
+    base_dir = os.path.abspath(os.path.dirname(__file__))
+
+
     app = Flask(__name__)
     app.config.from_object(config_class)
 
+    app.config["BABEL_TRANSLATION_DIRECTORIES"] = "../translations"
+    babel.init_app(app)
+
     db.init_app(app)
+
 
     bcrypt.init_app(app)
     login_manager.init_app(app)
@@ -36,7 +47,7 @@ def create_app(config_class=DebugConfig):
 
 
 def prepare_database(app, db):
-    print("Preparing database")
+    print(gettext("Preparing database"))
     db.create_all()
     from kunsthandel.models import create_account
     from kunsthandel.models import Role
@@ -45,5 +56,12 @@ def prepare_database(app, db):
         root_admin = create_account(username="admin", password="admin", role=Role.Administrator)
         db.session.add(root_admin)
         db.session.commit()
-        print("Admin account created")
+        print(gettext("Admin account created"))
+
+
+@babel.localeselector
+def get_locale():
+    #return request.accept_languages.best_match(['en', 'de'])
+    return "de"
+
 

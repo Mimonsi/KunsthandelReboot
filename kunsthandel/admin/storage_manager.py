@@ -1,6 +1,7 @@
 import os
 
 from flask import current_app
+from flask_babel import gettext
 
 from kunsthandel.main import utils
 
@@ -8,7 +9,7 @@ from kunsthandel.main import utils
 def get_database_usage():
     database_path = current_app.config.get("STORAGE_DATABASE_FILE")
     database_size = os.path.getsize(os.path.join(current_app.root_path, database_path))
-    return "Database", str(database_path), utils.format_filesize(database_size), database_size
+    return gettext("Database"), str(database_path), utils.format_filesize(database_size), database_size
 
 
 def get_directory_usage(local_path, name="Directory"):

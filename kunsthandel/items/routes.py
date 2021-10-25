@@ -1,6 +1,7 @@
 import bdb
 
 from flask import Blueprint, request, abort, render_template, url_for, flash, redirect
+from flask_babel import gettext
 from flask_login import login_required, current_user
 
 from kunsthandel import db
@@ -54,7 +55,7 @@ def create_item():
             save_thumbnail(form.thumbnail.data, item)
         if form.images.data:
             save_images(form.images.data, item)
-        flash("Item with ID " + str(item.id) + " successfully created", "success")
+        flash(gettext("Item with ID %s successfully created") % str(item.id), "success")
         return redirect(url_for("items.overview"))
     return render_template("items/create_item.html", title="Create new Item", form=form)
 
@@ -76,7 +77,7 @@ def edit_item(id):
         item.origin = form.origin.data
         item.size = form.size.data
         item.comment = form.comment.data
-        flash("Item with ID " + str(item.id) + " successfully updated", "success")
+        flash(gettext("Item with ID %s successfully updated") % str(item.id), "success")
         return redirect(url_for("items.overview"))
     if request.method == 'GET':
         item = Item.query.get_or_404(id)
@@ -96,5 +97,5 @@ def delete_item(id):
     item = Item.query.get_or_404(id)
     db.session.delete(item)
     db.session.commit()
-    flash("This item has been deleted!", "success")
+    flash(gettext("This item has been deleted"), "success")
     return redirect(url_for("items.overview"))

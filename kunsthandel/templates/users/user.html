@@ -5,13 +5,13 @@
     <div class="media">
         <div class="media-body">
             {% if user %}
-                <h2 class="account-heading">Edit profile - {{ user.username }}</h2>
+                <h2 class="account-heading">{{ _('Edit profile') }} - {{ user.username }}</h2>
                 <p class="text-secondary">{{ user.role() }}</p>
                     {% if current_user.has_permission(4) %}
-                        <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">Delete</button>
+                        <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">{{ _('Delete') }}</button>
                     {% endif %}
             {% else %}
-                <h2 class="account-heading">Create new user account</h2>
+                <h2 class="account-heading">{{ _('Create new user account') }}</h2>
             {% endif %}
         </div>
     </div>
@@ -19,7 +19,7 @@
     <form method="POST" action="" enctype="multipart/form-data">
         {{ form.hidden_tag() }}
         <fieldset class="form-group">
-            <legend class="border-bottom mb-4">Account Info</legend>
+            <legend class="border-bottom mb-4">{{ _('Account Info') }}</legend>
             <div class="form-group">
                 {{ form.username.label(class="form-control-label") }}
 
@@ -86,16 +86,16 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="deleteModalLabel">Are you sure you want to delete the user account?</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <h5 class="modal-title" id="deleteModalLabel">{{ _('Are you sure you want to delete the user account?') }}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="{{ _('Close') }}">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-footer">
         <form action="{{ url_for('users.delete_user', id=user.id) }}" method="POST">
-            <input class="btn btn-danger" type="submit" value="Delete">
+            <input class="btn btn-danger" type="submit" value="{{ _('Delete') }}">
         </form>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ _('Close') }}</button>
       </div>
     </div>
   </div>
