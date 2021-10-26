@@ -1,7 +1,7 @@
 import os
 
 from flask import Flask, request
-from flask_babel import Babel, gettext
+from flask_babel import Babel, gettext, lazy_gettext
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager, current_user
@@ -14,20 +14,20 @@ babel = Babel()
 bcrypt = Bcrypt()
 login_manager = LoginManager()
 login_manager.login_view = 'users.login'
-login_manager.login_message_category = 'info'
+login_manager.login_message_category = 'warning'
+login_manager.login_message = lazy_gettext('Please log in to access this page')
+
 
 def create_app(config_class=DebugConfig):
     base_dir = os.path.abspath(os.path.dirname(__file__))
 
-
     app = Flask(__name__)
     app.config.from_object(config_class)
 
-    app.config["BABEL_TRANSLATION_DIRECTORIES"] = "../translations"
+    app.config["BABEL_TRANSLATION_DIRECTORIES"] = "./translations"
     babel.init_app(app)
 
     db.init_app(app)
-
 
     bcrypt.init_app(app)
     login_manager.init_app(app)
@@ -54,7 +54,7 @@ def prepare_database(app, db):
     from kunsthandel.models import create_account
     from kunsthandel.models import Role
     from kunsthandel.models import User
-    if len(User.query.all()) < 1: # Create first admin account - this is supposed to be a temporary account until replaced by an actualy administrator account
+    if len(User.query.all()) < 1:  # Create first admin account - this is supposed to be a temporary account until replaced by an actualy administrator account
         root_admin = create_account(username="admin", password="admin", role=Role.Administrator)
         db.session.add(root_admin)
         db.session.commit()
@@ -68,5 +68,3 @@ def get_locale():
     if request:
         return request.accept_languages.best_match(['de', 'en'])
     return "en"
-
-

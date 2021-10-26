@@ -25,7 +25,7 @@ def login():
             return redirect(next_page) if next_page else redirect(url_for('main.home'))
         else:
             flash(gettext('Login unsuccessful. Please check username and password'), 'danger')
-    return render_template('users/login.html', title='Login', form=form)
+    return render_template('users/login.html', title=gettext('Login'), form=form)
 
 
 @users.route('/logout')
@@ -45,11 +45,11 @@ def edit_own_user():
         user.password = hashed_password
         user.locale = form.locale.data
         db.session.commit()
-        flash(gettext("Your account has been updated!"), "success")
+        flash(gettext("Your account has been updated"), "success")
         return redirect(url_for('users.edit_own_user'))
     elif request.method == 'GET':
         form.locale.data = user.locale
-    return render_template("users/user_own.html", title="Edit User Account", user=user, form=form)
+    return render_template("users/user_own.html", title=gettext("Edit user account"), user=user, form=form)
 
 
 @users.route('/users/<int:id>', methods=['GET', 'POST'])
@@ -65,7 +65,7 @@ def edit_user(id):
         user.role_id = form.role.data
         user.locale = form.locale.data
         db.session.commit()
-        flash(gettext("The account has been updated!"), "success")
+        flash(gettext("The account has been updated"), "success")
         return redirect(url_for('users.overview'))
     elif request.method == 'GET':
         form.old_username.data = user.username
@@ -73,7 +73,7 @@ def edit_user(id):
         form.password.data = user.password
         form.role.data = str(user.role_id)
         form.locale.data = user.locale
-    return render_template("users/user.html", title="Edit User " + user.username, user=user, form=form)
+    return render_template("users/user.html", title=gettext("Edit user account %s") % user.username, user=user, form=form)
 
 
 @users.route('/users/create', methods=['GET', 'POST'])
@@ -85,13 +85,13 @@ def create_user():
         user = User(username=form.username.data, password=hashed_password, role_id=int(form.role.data), locale=form.locale.data)
         db.session.add(user)
         db.session.commit()
-        flash(gettext("User account with id %s has been created!") % str(user.id), "success")
+        flash(gettext("User account with id %s has been created") % str(user.id), "success")
         if request.args.get("multiple", False):
             return redirect(url_for('users.create_user', multiple=True))
         return redirect(url_for('users.overview'))
     elif request.method == 'GET':
         form.role.data = "1" # Default role
-    return render_template("users/user.html", title="Create new user", user=None, form=form)
+    return render_template("users/user.html", title=gettext("Create user account"), user=None, form=form)
 
 
 @users.route('/users/<int:id>/delete', methods=['POST'])
@@ -100,7 +100,7 @@ def delete_user(id):
     user = User.query.get_or_404(id)
     db.session.delete(user)
     db.session.commit()
-    flash(gettext("This user account has been deleted!"), "success")
+    flash(gettext("The user account has been deleted successfully"), "success")
     return redirect(url_for("users.overview"))
 
 
@@ -110,4 +110,4 @@ def overview():
     page = request.args.get('page', type=int)
     #per_page = int(request.args.get("display", 50))
     users = User.query.paginate(page=page, per_page=50)
-    return render_template("users/users.html", title='Manage User Accounts', users=users)
+    return render_template("users/users.html", title=gettext('Manage user accounts'), users=users)

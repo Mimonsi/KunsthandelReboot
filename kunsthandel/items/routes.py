@@ -16,13 +16,7 @@ items = Blueprint('items', __name__)
 def token(hash):
     item = Item.query.filter_by(qr_hash=hash).first_or_404()
 
-    thumbnail = url_for('static', filename='images/default.jpg')  # TODO: Replace with correct logic
-    images = Image.query.filter_by(item_id=item.id).all()
-    if len(images) > 0:
-        first_picture = Image.query.filter_by(item_id=item.id, is_thumbnail=True).first()
-        thumbnail = url_for('static', filename='images/' + first_picture.path)
-    return render_template("items/item_details.html", title=gettext("Item details %s") % str(id), item=item, thumbnail=thumbnail,
-                           images=images)
+    return render_template("items/item_details.html", title=gettext("Item details %s") % str(id), item=item)
 
 
 @items.route('/items')
@@ -97,5 +91,5 @@ def delete_item(id):
     item = Item.query.get_or_404(id)
     db.session.delete(item)
     db.session.commit()
-    flash(gettext("This item has been deleted"), "success")
+    flash(gettext("The item has been deleted successfully"), "success")
     return redirect(url_for("items.overview"))

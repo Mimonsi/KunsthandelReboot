@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: info@webgadgets.de\n"
-"POT-Creation-Date: 2021-10-26 14:12+0200\n"
+"POT-Creation-Date: 2021-10-26 16:27+0200\n"
 "PO-Revision-Date: 2021-10-24 23:34+0200\n"
 "Last-Translator: Konstantin Schwarze <info@webgadgets.de>\n"
 "Language: de\n"
@@ -17,6 +17,10 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.9.1\n"
+
+#: kunsthandel/__init__.py:18
+msgid "Please log in to access this page"
+msgstr "Bitte loggen Sie sich ein, um Zugriff zu erhalten"
 
 #: kunsthandel/__init__.py:52
 msgid "Preparing database"
@@ -78,13 +82,18 @@ msgstr "Randgröße des QR-Code"
 msgid "Create QR codes"
 msgstr "QR-Codes erstellen"
 
+#: kunsthandel/admin/routes.py:21 kunsthandel/templates/layout.html:44
+msgid "Administration"
+msgstr "Administration"
+
 #: kunsthandel/admin/routes.py:30
-msgid "Successfully created %(amount) User Accounts."
+#, python-format
+msgid "Successfully created %s user accounts."
 msgstr "%s Benutzerkonten wurden erfolgreich erstellt."
 
 #: kunsthandel/admin/routes.py:42
 #, python-format
-msgid "Successfully created %(amount) datasets."
+msgid "Successfully created %s datasets."
 msgstr "%s Datensätze wurden erfolgreich erstellt."
 
 #: kunsthandel/admin/routes.py:59
@@ -94,6 +103,10 @@ msgstr "Da ist etwas schiefgelaufen..."
 #: kunsthandel/admin/routes.py:75
 msgid "Total"
 msgstr "Gesamt"
+
+#: kunsthandel/admin/routes.py:76
+msgid "Storage management"
+msgstr "Speicherplatzverwaltung"
 
 #: kunsthandel/admin/storage_manager.py:12 kunsthandel/templates/layout.html:32
 msgid "Database"
@@ -109,8 +122,8 @@ msgid "Create"
 msgstr "Erstellen"
 
 #: kunsthandel/generic_type/routes.py:26
-msgid "User account overview:"
-msgstr "Benutzerkontenverwaltung öffnen"
+msgid "User account overview"
+msgstr "Benutzerkontenverwaltung"
 
 #: kunsthandel/generic_type/routes.py:42
 #, python-format
@@ -121,7 +134,7 @@ msgstr "%s mit ID %s erfolgreich erstellt"
 msgid "Create new dataset"
 msgstr "Neuen Datensatz erstellen"
 
-#: kunsthandel/generic_type/routes.py:59 kunsthandel/items/routes.py:68
+#: kunsthandel/generic_type/routes.py:59 kunsthandel/items/routes.py:62
 #: kunsthandel/users/forms.py:38 kunsthandel/users/forms.py:50
 msgid "Update"
 msgstr "Aktualisieren"
@@ -135,6 +148,16 @@ msgstr "%s mit ID %s erfolgreich aktualisiert"
 #, python-format
 msgid "Details for %s with ID %s"
 msgstr "Details für %s mit ID %s"
+
+#: kunsthandel/generic_type/routes.py:67
+#, python-format
+msgid "Edit %s"
+msgstr "%s bearbeiten"
+
+#: kunsthandel/generic_type/routes.py:83
+#, python-format
+msgid "%s Details"
+msgstr "%s-Details"
 
 #: kunsthandel/items/forms.py:13
 #: kunsthandel/templates/admin/storage_overview.html:7
@@ -168,37 +191,37 @@ msgstr "Vorschaubild hochladen"
 msgid "Upload images"
 msgstr "Bilder hochladen"
 
-#: kunsthandel/items/routes.py:24 kunsthandel/items/routes.py:42
+#: kunsthandel/items/routes.py:19 kunsthandel/items/routes.py:36
 #, python-format
 msgid "Item details %s"
 msgstr "Gegenstand-Details %s"
 
-#: kunsthandel/items/routes.py:34
+#: kunsthandel/items/routes.py:28
 msgid "Item overview"
 msgstr "Gegenstandsübersicht"
 
-#: kunsthandel/items/routes.py:58
+#: kunsthandel/items/routes.py:52
 #, python-format
 msgid "Item with ID %s successfully created"
 msgstr "Gegenstand mit ID %s erfolgreich erstellt"
 
-#: kunsthandel/items/routes.py:60 kunsthandel/items/routes.py:91
+#: kunsthandel/items/routes.py:54 kunsthandel/items/routes.py:85
 msgid "Create new item"
 msgstr "Gegenstand erstellen"
 
-#: kunsthandel/items/routes.py:80
+#: kunsthandel/items/routes.py:74
 #, python-format
 msgid "Item with ID %s successfully updated"
 msgstr "Gegenstand mit ID %s erfolgreich aktualisiert"
 
-#: kunsthandel/items/routes.py:90
+#: kunsthandel/items/routes.py:84
 #, python-format
 msgid "Edit item %s"
 msgstr "Gegenstand %s bearbeiten"
 
-#: kunsthandel/items/routes.py:100
-msgid "This item has been deleted"
-msgstr "Dieser Gegenstand wurde gelöscht"
+#: kunsthandel/items/routes.py:94
+msgid "The item has been deleted successfully"
+msgstr "Dieser Gegenstand wurde erfolgreich gelöscht"
 
 #: kunsthandel/templates/generic_type_details.html:6
 #: kunsthandel/templates/generic_type_edit.html:7
@@ -241,8 +264,8 @@ msgid "Edit"
 msgstr "Bearbeiten"
 
 #: kunsthandel/templates/home.html:3
-msgid "Welcome"
-msgstr "Willkommen"
+msgid "Welcome to the homepage"
+msgstr "Willkommen auf der Startseite"
 
 #: kunsthandel/templates/layout.html:14 kunsthandel/templates/layout.html:16
 #: kunsthandel/templates/layout.html:23
@@ -260,10 +283,6 @@ msgstr "Gegenstände"
 #: kunsthandel/templates/layout.html:36
 msgid "Types"
 msgstr "Typen"
-
-#: kunsthandel/templates/layout.html:44
-msgid "Administration"
-msgstr "Administration"
 
 #: kunsthandel/templates/layout.html:46
 msgid "Administration Homepage"
@@ -287,6 +306,7 @@ msgid "Logout"
 msgstr "Ausloggen"
 
 #: kunsthandel/templates/layout.html:61 kunsthandel/users/forms.py:14
+#: kunsthandel/users/routes.py:28
 msgid "Login"
 msgstr "Einloggen"
 
@@ -456,398 +476,36 @@ msgid "You have been logged out"
 msgstr "Sie wurden ausgeloggt"
 
 #: kunsthandel/users/routes.py:48
-msgid "Your account has been updated!"
-msgstr "Ihr Konto wurde aktualsiert!"
+msgid "Your account has been updated"
+msgstr "Ihr Konto wurde aktualsiert"
+
+#: kunsthandel/users/routes.py:52
+msgid "Edit user account"
+msgstr "Benutzerkonto bearbeiten"
 
 #: kunsthandel/users/routes.py:68
-msgid "The account has been updated!"
+msgid "The account has been updated"
 msgstr "Das Konto wurde aktualisiert"
+
+#: kunsthandel/users/routes.py:76
+#, python-format
+msgid "Edit user account %s"
+msgstr "Benutzerkonto %s bearbeiten"
 
 #: kunsthandel/users/routes.py:88
 #, python-format
-msgid "User account with id %s has been created!"
-msgstr "Benutzerkonto mit ID %s wurde erstellt!"
+msgid "User account with id %s has been created"
+msgstr "Benutzerkonto mit ID %s wurde erstellt"
+
+#: kunsthandel/users/routes.py:94
+msgid "Create user account"
+msgstr "Benutzerkonto erstellen"
 
 #: kunsthandel/users/routes.py:103
-msgid "This user account has been deleted!"
-msgstr "Dieses Benutzerkonto wurde gelöscht!"
-
-#~ msgid "{editor}: Editing failed"
-#~ msgstr ""
-
-#~ msgid "{editor}: Editing failed: {e}"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "Click will abort further execution "
-#~ "because Python was configured to use "
-#~ "ASCII as encoding for the environment."
-#~ " Consult https://click.palletsprojects.com/unicode-"
-#~ "support/ for mitigation steps."
-#~ msgstr ""
-
-#~ msgid ""
-#~ "Additional information: on this system "
-#~ "no suitable UTF-8 locales were "
-#~ "discovered. This most likely requires "
-#~ "resolving by reconfiguring the locale "
-#~ "system."
-#~ msgstr ""
-
-#~ msgid ""
-#~ "This system supports the C.UTF-8 locale"
-#~ " which is recommended. You might be"
-#~ " able to resolve your issue by "
-#~ "exporting the following environment variables:"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "This system lists some UTF-8 supporting"
-#~ " locales that you can pick from. "
-#~ "The following suitable locales were "
-#~ "discovered: {locales}"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "Click discovered that you exported a "
-#~ "UTF-8 locale but the locale system "
-#~ "could not pick up from it because"
-#~ " it does not exist. The exported "
-#~ "locale is {locale!r} but it is not"
-#~ " supported."
-#~ msgstr ""
-
-#~ msgid "Aborted!"
-#~ msgstr ""
-
-#~ msgid "Show this message and exit."
-#~ msgstr ""
-
-#~ msgid "(Deprecated) {text}"
-#~ msgstr ""
-
-#~ msgid "Options"
-#~ msgstr "Optionen"
-
-#~ msgid "Got unexpected extra argument ({args})"
-#~ msgid_plural "Got unexpected extra arguments ({args})"
-#~ msgstr[0] ""
-#~ msgstr[1] ""
-
-#~ msgid "DeprecationWarning: The command {name!r} is deprecated."
-#~ msgstr ""
-
-#~ msgid "Commands"
-#~ msgstr ""
-
-#~ msgid "Missing command."
-#~ msgstr ""
-
-#~ msgid "No such command {name!r}."
-#~ msgstr ""
-
-#~ msgid "Value must be an iterable."
-#~ msgstr ""
-
-#~ msgid "Takes {nargs} values but 1 was given."
-#~ msgid_plural "Takes {nargs} values but {len} were given."
-#~ msgstr[0] ""
-#~ msgstr[1] ""
-
-#~ msgid "env var: {var}"
-#~ msgstr ""
-
-#~ msgid "(dynamic)"
-#~ msgstr ""
-
-#~ msgid "default: {default}"
-#~ msgstr ""
-
-#~ msgid "required"
-#~ msgstr ""
-
-#~ msgid "%(prog)s, version %(version)s"
-#~ msgstr ""
-
-#~ msgid "Show the version and exit."
-#~ msgstr ""
-
-#~ msgid "Error: {message}"
-#~ msgstr ""
-
-#~ msgid "Try '{command} {option}' for help."
-#~ msgstr ""
-
-#~ msgid "Invalid value: {message}"
-#~ msgstr ""
-
-#~ msgid "Invalid value for {param_hint}: {message}"
-#~ msgstr ""
-
-#~ msgid "Missing argument"
-#~ msgstr ""
-
-#~ msgid "Missing option"
-#~ msgstr ""
-
-#~ msgid "Missing parameter"
-#~ msgstr ""
-
-#~ msgid "Missing {param_type}"
-#~ msgstr ""
-
-#~ msgid "Missing parameter: {param_name}"
-#~ msgstr ""
-
-#~ msgid "No such option: {name}"
-#~ msgstr ""
-
-#~ msgid "Did you mean {possibility}?"
-#~ msgid_plural "(Possible options: {possibilities})"
-#~ msgstr[0] ""
-#~ msgstr[1] ""
-
-#~ msgid "unknown error"
-#~ msgstr ""
-
-#~ msgid "Could not open file {filename!r}: {message}"
-#~ msgstr ""
-
-#~ msgid "Argument {name!r} takes {nargs} values."
-#~ msgstr ""
-
-#~ msgid "Option {name!r} does not take a value."
-#~ msgstr ""
-
-#~ msgid "Option {name!r} requires an argument."
-#~ msgid_plural "Option {name!r} requires {nargs} arguments."
-#~ msgstr[0] ""
-#~ msgstr[1] ""
-
-#~ msgid "Shell completion is not supported for Bash versions older than 4.4."
-#~ msgstr ""
-
-#~ msgid "Couldn't detect Bash version, shell completion is not supported."
-#~ msgstr ""
-
-#~ msgid "Repeat for confirmation"
-#~ msgstr ""
-
-#~ msgid "Error: The value you entered was invalid."
-#~ msgstr ""
-
-#~ msgid "Error: {e.message}"
-#~ msgstr ""
-
-#~ msgid "Error: The two entered values do not match."
-#~ msgstr ""
-
-#~ msgid "Error: invalid input"
-#~ msgstr ""
-
-#~ msgid "Press any key to continue..."
-#~ msgstr ""
-
-#~ msgid ""
-#~ "Choose from:\n"
-#~ "\t{choices}"
-#~ msgstr ""
-
-#~ msgid "{value!r} is not {choice}."
-#~ msgid_plural "{value!r} is not one of {choices}."
-#~ msgstr[0] ""
-#~ msgstr[1] ""
-
-#~ msgid "{value!r} does not match the format {format}."
-#~ msgid_plural "{value!r} does not match the formats {formats}."
-#~ msgstr[0] ""
-#~ msgstr[1] ""
-
-#~ msgid "{value!r} is not a valid {number_type}."
-#~ msgstr ""
-
-#~ msgid "{value} is not in the range {range}."
-#~ msgstr ""
-
-#~ msgid "{value!r} is not a valid boolean."
-#~ msgstr ""
-
-#~ msgid "{value!r} is not a valid UUID."
-#~ msgstr ""
-
-#~ msgid "file"
-#~ msgstr "Datei"
-
-#~ msgid "directory"
-#~ msgstr "Ordner"
-
-#~ msgid "path"
-#~ msgstr "Pfad"
-
-#~ msgid "{name} {filename!r} does not exist."
-#~ msgstr ""
-
-#~ msgid "{name} {filename!r} is a file."
-#~ msgstr ""
-
-#~ msgid "{name} {filename!r} is a directory."
-#~ msgstr ""
-
-#~ msgid "{name} {filename!r} is not writable."
-#~ msgstr ""
-
-#~ msgid "{name} {filename!r} is not readable."
-#~ msgstr ""
-
-#~ msgid "{len_type} values are required, but {len_value} was given."
-#~ msgid_plural "{len_type} values are required, but {len_value} were given."
-#~ msgstr[0] ""
-#~ msgstr[1] ""
-
-#~ msgid "This field is required."
-#~ msgstr ""
-
-#~ msgid "File does not have an approved extension: {extensions}"
-#~ msgstr ""
-
-#~ msgid "File does not have an approved extension."
-#~ msgstr ""
-
-#~ msgid "File must be between {min_size} and {max_size} bytes."
-#~ msgstr ""
-
-#~ msgid "Invalid field name '%s'."
-#~ msgstr ""
-
-#~ msgid "Field must be equal to %(other_name)s."
-#~ msgstr ""
-
-#~ msgid "Field must be at least %(min)d character long."
-#~ msgid_plural "Field must be at least %(min)d characters long."
-#~ msgstr[0] ""
-#~ msgstr[1] ""
-
-#~ msgid "Field cannot be longer than %(max)d character."
-#~ msgid_plural "Field cannot be longer than %(max)d characters."
-#~ msgstr[0] ""
-#~ msgstr[1] ""
-
-#~ msgid "Field must be exactly %(max)d character long."
-#~ msgid_plural "Field must be exactly %(max)d characters long."
-#~ msgstr[0] ""
-#~ msgstr[1] ""
-
-#~ msgid "Field must be between %(min)d and %(max)d characters long."
-#~ msgstr ""
-
-#~ msgid "Number must be at least %(min)s."
-#~ msgstr ""
-
-#~ msgid "Number must be at most %(max)s."
-#~ msgstr ""
-
-#~ msgid "Number must be between %(min)s and %(max)s."
-#~ msgstr ""
-
-#~ msgid "Invalid input."
-#~ msgstr ""
-
-#~ msgid "Invalid email address."
-#~ msgstr ""
-
-#~ msgid "Invalid IP address."
-#~ msgstr ""
-
-#~ msgid "Invalid Mac address."
-#~ msgstr ""
-
-#~ msgid "Invalid URL."
-#~ msgstr ""
-
-#~ msgid "Invalid UUID."
-#~ msgstr ""
-
-#~ msgid "Invalid value, must be one of: %(values)s."
-#~ msgstr ""
-
-#~ msgid "Invalid value, can't be any of: %(values)s."
-#~ msgstr ""
-
-#~ msgid "Invalid CSRF Token"
-#~ msgstr ""
-
-#~ msgid "CSRF token missing"
-#~ msgstr ""
-
-#~ msgid "CSRF failed"
-#~ msgstr ""
-
-#~ msgid "CSRF token expired"
-#~ msgstr ""
-
-#~ msgid "Not a valid choice"
-#~ msgstr ""
-
-#~ msgid "Not a valid list"
-#~ msgstr ""
-
-#~ msgid "Not a valid integer list"
-#~ msgstr ""
-
-#~ msgid "Please input a date/time value"
-#~ msgstr ""
-
-#~ msgid "Invalid date/time input"
-#~ msgstr ""
-
-#~ msgid "Invalid Choice: could not coerce"
-#~ msgstr ""
-
-#~ msgid "Invalid choice(s): one or more data inputs could not be coerced"
-#~ msgstr ""
-
-#~ msgid "'%(value)s' is not a valid choice for this field"
-#~ msgstr ""
-
-#~ msgid "Not a valid integer value"
-#~ msgstr ""
-
-#~ msgid "Not a valid decimal value"
-#~ msgstr ""
-
-#~ msgid "Not a valid float value"
-#~ msgstr ""
-
-#~ msgid "Not a valid datetime value"
-#~ msgstr ""
-
-#~ msgid "Not a valid date value"
-#~ msgstr ""
-
-#~ msgid "Not a valid time value"
-#~ msgstr ""
-
-#~ msgid "Overview: %(model)"
-#~ msgstr "Übersicht: %(model)"
-
-#~ msgid "ID: %(model_id)"
-#~ msgstr "ID: %(model_id)"
-
-#~ msgid "Name: %(model_name)"
-#~ msgstr "Name: %(model_name)"
-
-#~ msgid "Details for"
-#~ msgstr "Details"
-
-#~ msgid "Details for %(test)"
-#~ msgstr "Details für %(test)"
-
-#~ msgid "Successfully created %(text) User Accounts."
-#~ msgstr "%(text) Benutzerkonten wurden erfolgreich erstellt."
-
-#~ msgid "Details for %(id)"
-#~ msgstr "Details für %s"
-
-#~ msgid "Overview:"
-#~ msgstr "Übersicht:"
+msgid "The user account has been deleted successfully"
+msgstr "Dieses Benutzerkonto wurde erfolgreich gelöscht"
+
+#: kunsthandel/users/routes.py:113
+msgid "Manage user accounts"
+msgstr "Benutzerkonten verwalten"
 

@@ -1,1 +1,1 @@
-recursive-include kunsthandel *.html *.css *.mo
+recursive-include kunsthandel *.html *.css *.mo *.txt

@@ -42,24 +42,10 @@ def create_test_items(item_amount, type_amount, location_amount, origin_amount):
         db.session.add(thumbnail)
         created += 1
     db.session.commit()
-    """for i in range(0, random.randint(50, 250)):
-        item = Item(type_id=random.randint(1, 3), location_id=random.randint(1, 4), origin_id=random.randint(1, 4), name="Testname", comment="Comment for longer texts", size="10cm")
-        item.qr_hash = utils.get_qr_hash()
-        db.session.add(item)
-        db.session.commit()
-        thumbnail = Image(path="dummy/" + str(random.randint(0, 63)) + ".png", is_thumbnail=True, item_id=item.id)
-        db.session.add(thumbnail)
-    db.session.commit()
-    return i*2"""
     return created
 
 
 def create_test_users(amount, password):
-    #create_account("External", "External", Role.External)
-    #create_account("Visitor", "Visitor", Role.Visitor)
-    #create_account("User", "User", Role.User)
-    #create_account("Editor", "Editor", Role.Editor)
-    #create_account("Administrator", "Administrator", Role.Administrator)
     if amount == 0:
         amount = random.randint(15, 100)
     for i in range(0, amount):

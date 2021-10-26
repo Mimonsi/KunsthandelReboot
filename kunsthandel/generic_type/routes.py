@@ -23,7 +23,7 @@ def overview(model_name):
         model = Origin.query.paginate(page=page, per_page=50)
     else:
         abort(404)
-    return render_template("generic_type_overview.html", title=gettext("User account overview:"), model=model, model_name=model_name)
+    return render_template("generic_type_overview.html", title=gettext("User account overview"), model=model, model_name=model_name)
 
 
 @generic_type.route('/<string:model_name>/create', methods=['GET', 'POST'])
@@ -64,7 +64,7 @@ def edit(model_name, id):
     elif request.method == 'GET':
         form.name.data = model.name
     legend_text = gettext("Details for %s with ID %s") % (model.model_name(), str(id))
-    return render_template("generic_type_edit.html", title=legend_text, legend_text=legend_text, model=model, form=form)
+    return render_template("generic_type_edit.html", title=gettext("Edit %s") % model.model_name(), legend_text=legend_text, model=model, form=form)
 
 
 
@@ -80,4 +80,4 @@ def details(model_name, id):
     else:
         abort(404)
     legend_text = gettext("Details for %s with ID %s") % (model.model_name(), str(id))
-    return render_template("generic_type_details.html", model_name=model_name, model=model, title=legend_text, legend_text=legend_text)
+    return render_template("generic_type_details.html", model_name=model_name, model=model, title=gettext("%s Details") % model.model_name(), legend_text=legend_text)

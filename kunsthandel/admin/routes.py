@@ -18,7 +18,7 @@ def home():
     create_user_form = CreateUsersForm()
     create_items_form = CreateItemsForm()
     create_qr_codes_form = CreateQRCodesForm()
-    return render_template("admin/home.html", create_user_form=create_user_form, create_items_form=create_items_form, create_qr_codes_form=create_qr_codes_form)
+    return render_template("admin/home.html", title=gettext("Administration"), create_user_form=create_user_form, create_items_form=create_items_form, create_qr_codes_form=create_qr_codes_form)
 
 
 @admin.route('/admin/create_users', methods=['POST'])
@@ -27,7 +27,7 @@ def create_users():
     form = CreateUsersForm()
     if form.validate_on_submit():
         amount = create_test_users(form.account_amount.data, form.password.data)
-        flash(gettext("Successfully created %(amount) User Accounts.", amount=str(amount)), "success")
+        flash(gettext("Successfully created %s user accounts.") % str(amount), "success")
     return redirect(url_for('admin.home'))
 
 
@@ -39,7 +39,7 @@ def create_items():
         amount = create_test_items(item_amount=form.item_amount.data, type_amount=form.type_amount.data,
                                              location_amount=form.location_amount.data,
                                              origin_amount=form.origin_amount.data)
-        flash(gettext("Successfully created %(amount) datasets.", amount=str(amount)), "success")
+        flash(gettext("Successfully created %s datasets.") % str(amount), "success")
     return redirect(url_for('admin.home'))
 
 
@@ -73,5 +73,5 @@ def storage_overview():
     for single in all:
         total += single[3]
     all.append((gettext("Total"), "", utils.format_filesize(total), total))
-    return render_template('admin/storage_overview.html', all=all)
+    return render_template('admin/storage_overview.html', title=gettext("Storage management"), all=all)
 

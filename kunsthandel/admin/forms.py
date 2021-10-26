@@ -30,7 +30,3 @@ class CreateQRCodesForm(FlaskForm):
     code_border_size = IntegerField(lazy_gettext('QR Code Border Size'), default=5)
 
     submit = SubmitField(lazy_gettext('Create QR codes'))
-
-# class AdminForm(FlaskForm): # Combining the forms together to one
-#    createUsers = FormField(CreateUsersForm)
-#    createItems = FormField(CreateItemsForm)
