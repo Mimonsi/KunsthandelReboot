@@ -47,6 +47,8 @@ def edit_own_user():
         db.session.commit()
         flash(gettext("Your account has been updated!"), "success")
         return redirect(url_for('users.edit_own_user'))
+    elif request.method == 'GET':
+        form.locale.data = user.locale
     return render_template("users/user_own.html", title="Edit User Account", user=user, form=form)
 
 

@@ -63,7 +63,7 @@ def prepare_database(app, db):
 
 @babel.localeselector
 def get_locale():
-    if current_user:
+    if current_user and current_user.is_authenticated:
         return current_user.locale
     return "en"
 
