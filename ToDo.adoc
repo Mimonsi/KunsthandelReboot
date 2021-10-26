@@ -2,7 +2,6 @@
 
 === Up next
 
-* Editing and creating generic types
 * Add missing translatiosn
 * Add plurals using ngettext
 * Make upload template for images and thumbnail

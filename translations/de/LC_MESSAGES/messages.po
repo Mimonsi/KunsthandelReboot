@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: info@webgadgets.de\n"
-"POT-Creation-Date: 2021-10-26 13:24+0200\n"
+"POT-Creation-Date: 2021-10-26 14:12+0200\n"
 "PO-Revision-Date: 2021-10-24 23:34+0200\n"
 "Last-Translator: Konstantin Schwarze <info@webgadgets.de>\n"
 "Language: de\n"
@@ -83,7 +83,8 @@ msgid "Successfully created %(amount) User Accounts."
 msgstr "%s Benutzerkonten wurden erfolgreich erstellt."
 
 #: kunsthandel/admin/routes.py:42
-msgid "Successfully created %(amount) Datasets."
+#, python-format
+msgid "Successfully created %(amount) datasets."
 msgstr "%s Datensätze wurden erfolgreich erstellt."
 
 #: kunsthandel/admin/routes.py:59
@@ -98,75 +99,113 @@ msgstr "Gesamt"
 msgid "Database"
 msgstr "Datenbank"
 
-#: kunsthandel/generic_type/routes.py:24
-msgid "Overview:"
-msgstr "Übersicht:"
+#: kunsthandel/generic_type/forms.py:8 kunsthandel/items/forms.py:12
+msgid "Name*"
+msgstr "Name*"
 
-#: kunsthandel/generic_type/routes.py:48
+#: kunsthandel/generic_type/forms.py:10 kunsthandel/items/forms.py:22
+#: kunsthandel/users/forms.py:25
+msgid "Create"
+msgstr "Erstellen"
+
+#: kunsthandel/generic_type/routes.py:26
+msgid "User account overview:"
+msgstr "Benutzerkontenverwaltung öffnen"
+
+#: kunsthandel/generic_type/routes.py:42
+#, python-format
+msgid "%s with ID %s has been successfully created"
+msgstr "%s mit ID %s erfolgreich erstellt"
+
+#: kunsthandel/generic_type/routes.py:45
+msgid "Create new dataset"
+msgstr "Neuen Datensatz erstellen"
+
+#: kunsthandel/generic_type/routes.py:59 kunsthandel/items/routes.py:68
+#: kunsthandel/users/forms.py:38 kunsthandel/users/forms.py:50
+msgid "Update"
+msgstr "Aktualisieren"
+
+#: kunsthandel/generic_type/routes.py:63
+#, python-format
+msgid "%s with ID %s has been successfully updated"
+msgstr "%s mit ID %s erfolgreich aktualisiert"
+
+#: kunsthandel/generic_type/routes.py:66 kunsthandel/generic_type/routes.py:82
+#, python-format
 msgid "Details for %s with ID %s"
 msgstr "Details für %s mit ID %s"
 
 #: kunsthandel/items/forms.py:13
-msgid "Name*"
-msgstr "Name*"
-
-#: kunsthandel/items/forms.py:14
 #: kunsthandel/templates/admin/storage_overview.html:7
 #: kunsthandel/templates/items/items.html:11
 msgid "Type"
 msgstr "Typ"
 
-#: kunsthandel/items/forms.py:15 kunsthandel/templates/items/items.html:12
+#: kunsthandel/items/forms.py:14 kunsthandel/templates/items/items.html:12
 #: kunsthandel/templates/layout.html:37
 msgid "Location"
 msgstr "Ort"
 
-#: kunsthandel/items/forms.py:16 kunsthandel/templates/items/items.html:13
+#: kunsthandel/items/forms.py:15 kunsthandel/templates/items/items.html:13
 #: kunsthandel/templates/layout.html:38
 msgid "Origin"
 msgstr "Herkunft"
 
-#: kunsthandel/items/forms.py:17
+#: kunsthandel/items/forms.py:16
 msgid "Size"
 msgstr "Größe"
 
-#: kunsthandel/items/forms.py:18 kunsthandel/templates/items/items.html:16
+#: kunsthandel/items/forms.py:17 kunsthandel/templates/items/items.html:16
 msgid "Comment"
 msgstr "Kommentar"
 
-#: kunsthandel/items/forms.py:20
+#: kunsthandel/items/forms.py:19
 msgid "Upload thumbnail"
 msgstr "Vorschaubild hochladen"
 
-#: kunsthandel/items/forms.py:21
+#: kunsthandel/items/forms.py:20
 msgid "Upload images"
 msgstr "Bilder hochladen"
 
-#: kunsthandel/items/forms.py:23 kunsthandel/users/forms.py:25
-msgid "Create"
-msgstr "Erstellen"
+#: kunsthandel/items/routes.py:24 kunsthandel/items/routes.py:42
+#, python-format
+msgid "Item details %s"
+msgstr "Gegenstand-Details %s"
+
+#: kunsthandel/items/routes.py:34
+msgid "Item overview"
+msgstr "Gegenstandsübersicht"
 
 #: kunsthandel/items/routes.py:58
 #, python-format
 msgid "Item with ID %s successfully created"
 msgstr "Gegenstand mit ID %s erfolgreich erstellt"
 
+#: kunsthandel/items/routes.py:60 kunsthandel/items/routes.py:91
+msgid "Create new item"
+msgstr "Gegenstand erstellen"
+
 #: kunsthandel/items/routes.py:80
 #, python-format
 msgid "Item with ID %s successfully updated"
 msgstr "Gegenstand mit ID %s erfolgreich aktualisiert"
+
+#: kunsthandel/items/routes.py:90
+#, python-format
+msgid "Edit item %s"
+msgstr "Gegenstand %s bearbeiten"
 
 #: kunsthandel/items/routes.py:100
 msgid "This item has been deleted"
 msgstr "Dieser Gegenstand wurde gelöscht"
 
 #: kunsthandel/templates/generic_type_details.html:6
-#: kunsthandel/templates/generic_type_edit.html:6
+#: kunsthandel/templates/generic_type_edit.html:7
 msgid "ID: "
 msgstr "ID: "
 
 #: kunsthandel/templates/generic_type_details.html:7
-#: kunsthandel/templates/generic_type_edit.html:7
 msgid "Name:"
 msgstr "Name:"
 
@@ -190,7 +229,7 @@ msgid "Name"
 msgstr "Name"
 
 #: kunsthandel/templates/generic_type_overview.html:24
-#: kunsthandel/templates/items/item.html:12
+#: kunsthandel/templates/items/item_details.html:12
 #: kunsthandel/templates/items/items.html:32
 msgid "Details"
 msgstr "Details"
@@ -283,17 +322,21 @@ msgstr "Datei/Ordner"
 msgid "Usage"
 msgstr "Speicherplatz"
 
-#: kunsthandel/templates/items/create_item.html:10
+#: kunsthandel/templates/items/item_edit.html:10
 #: kunsthandel/templates/users/user.html:11
 #: kunsthandel/templates/users/user.html:110
 msgid "Delete"
 msgstr "Löschen"
 
-#: kunsthandel/templates/items/create_item.html:146
+#: kunsthandel/templates/items/item_edit.html:18
+msgid "Item Details"
+msgstr "Gegenstand-Details"
+
+#: kunsthandel/templates/items/item_edit.html:146
 msgid "Are you sure you want to delete the item?"
 msgstr "Möchten Sie den Gegenstand wirklich löschen?"
 
-#: kunsthandel/templates/items/create_item.html:155
+#: kunsthandel/templates/items/item_edit.html:155
 #: kunsthandel/templates/users/user.html:104
 #: kunsthandel/templates/users/user.html:112
 msgid "Close"
@@ -397,10 +440,6 @@ msgstr ""
 #: kunsthandel/users/forms.py:35 kunsthandel/users/forms.py:45
 msgid "Confirm Password"
 msgstr "Passwort bestätigen"
-
-#: kunsthandel/users/forms.py:38 kunsthandel/users/forms.py:50
-msgid "Update"
-msgstr "Aktualisieren"
 
 #: kunsthandel/users/routes.py:24
 msgid "Login successful"
@@ -808,4 +847,7 @@ msgstr "Dieses Benutzerkonto wurde gelöscht!"
 
 #~ msgid "Details for %(id)"
 #~ msgstr "Details für %s"
+
+#~ msgid "Overview:"
+#~ msgstr "Übersicht:"
 

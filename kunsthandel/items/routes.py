@@ -5,7 +5,7 @@ from flask_babel import gettext
 from flask_login import login_required, current_user
 
 from kunsthandel import db
-from kunsthandel.items.forms import CreateItemForm
+from kunsthandel.items.forms import EditItemForm
 from kunsthandel.main.utils import role_required, save_images, get_qr_hash, save_thumbnail
 from kunsthandel.models import create_account, Role, Item, Image
 
@@ -21,7 +21,7 @@ def token(hash):
     if len(images) > 0:
         first_picture = Image.query.filter_by(item_id=item.id, is_thumbnail=True).first()
         thumbnail = url_for('static', filename='images/' + first_picture.path)
-    return render_template("items/item.html", title="Item Details - " + str(id), item=item, thumbnail=thumbnail,
+    return render_template("items/item_details.html", title=gettext("Item details %s") % str(id), item=item, thumbnail=thumbnail,
                            images=images)
 
 
@@ -31,7 +31,7 @@ def token(hash):
 def overview():
     page = request.args.get('page', type=int)
     items = Item.query.paginate(page=page, per_page=50)
-    return render_template("items/items.html", title='Item Overview', items=items)
+    return render_template("items/items.html", title=gettext('Item overview'), items=items)
 
 
 @items.route('/items/<int:id>')
@@ -39,13 +39,13 @@ def overview():
 def item_details(id):
     item = Item.query.get_or_404(id)
 
-    return render_template("items/item.html", title="Item Details - " + str(id), item=item)
+    return render_template("items/item_details.html", title=gettext("Item details %s") % str(id), item=item)
 
 
 @items.route('/items/create', methods=['GET', 'POST'])
 @role_required(Role.Editor)
 def create_item():
-    form = CreateItemForm()
+    form = EditItemForm()
     if form.validate_on_submit():
         item = Item(name=form.name.data, type=form.type.data, location=form.location.data, origin=form.origin.data,
                     size=form.size.data, comment=form.comment.data, qr_hash=get_qr_hash(), edited=current_user)
@@ -57,14 +57,14 @@ def create_item():
             save_images(form.images.data, item)
         flash(gettext("Item with ID %s successfully created") % str(item.id), "success")
         return redirect(url_for("items.overview"))
-    return render_template("items/create_item.html", title="Create new Item", form=form)
+    return render_template("items/item_edit.html", title=gettext("Create new item"), form=form)
 
 
 @items.route('/items/<int:id>/edit', methods=['GET', 'POST'])
 @role_required(Role.Editor)
 def edit_item(id):
     item = Item.query.get_or_404(id)
-    form = CreateItemForm()
+    form = EditItemForm()
     form.submit.label.text = gettext("Update")
     if form.validate_on_submit():
         if form.thumbnail.data:
@@ -87,8 +87,8 @@ def edit_item(id):
         form.origin.data = item.origin
         form.size.data = item.size
         form.comment.data = item.comment
-        return render_template("items/create_item.html", title="Edit Item " + str(id), form=form, item=item)
-    return render_template("items/create_item.html", title="Create new Item", form=form)
+        return render_template("items/item_edit.html", title=gettext("Edit item %s") % str(id), form=form, item=item)
+    return render_template("items/item_edit.html", title=gettext("Create new item"), form=form)
 
 
 @items.route('/items/<int:id>/delete', methods=['POST'])

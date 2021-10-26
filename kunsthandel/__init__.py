@@ -65,6 +65,8 @@ def prepare_database(app, db):
 def get_locale():
     if current_user and current_user.is_authenticated:
         return current_user.locale
+    if request:
+        return request.accept_languages.best_match(['de', 'en'])
     return "en"
 
 

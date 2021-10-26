@@ -23,7 +23,7 @@ def overview(model_name):
         model = Origin.query.paginate(page=page, per_page=50)
     else:
         abort(404)
-    return render_template("generic_type_overview.html", title=gettext("Overview:"), model=model, model_name=model_name)
+    return render_template("generic_type_overview.html", title=gettext("User account overview:"), model=model, model_name=model_name)
 
 
 @generic_type.route('/<string:model_name>/create', methods=['GET', 'POST'])

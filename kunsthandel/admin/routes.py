@@ -39,7 +39,7 @@ def create_items():
         amount = create_test_items(item_amount=form.item_amount.data, type_amount=form.type_amount.data,
                                              location_amount=form.location_amount.data,
                                              origin_amount=form.origin_amount.data)
-        flash(gettext("Successfully created %(amount) Datasets.", amount=str(amount)), "success")
+        flash(gettext("Successfully created %(amount) datasets.", amount=str(amount)), "success")
     return redirect(url_for('admin.home'))
 
 

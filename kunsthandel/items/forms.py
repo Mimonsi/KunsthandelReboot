@@ -1,28 +1,22 @@
-from flask_babel import gettext
+from flask_babel import lazy_gettext
 from flask_wtf import FlaskForm
-from flask_wtf.file import FileField, FileAllowed
-from wtforms import StringField, SubmitField, PasswordField, SelectField, BooleanField, IntegerField, HiddenField, \
-    MultipleFileField
+from flask_wtf.file import FileField
+from wtforms import StringField, SubmitField, MultipleFileField
 from wtforms.ext.sqlalchemy.fields import QuerySelectField
-from wtforms.validators import DataRequired, EqualTo, Length, ValidationError, Optional
+from wtforms.validators import DataRequired, Length
 
-from kunsthandel.models import User, Role, Type, Location, Origin
+from kunsthandel.models import Type, Location, Origin
 
 
-class CreateItemForm(FlaskForm):
-    name = StringField(gettext('Name*'), validators=[DataRequired(), Length(min=2, max=50)])
-    type = QuerySelectField(gettext('Type'), query_factory=lambda: Type.query.all(), get_label="name", allow_blank=True)
-    location = QuerySelectField(gettext('Location'), query_factory=lambda: Location.query.all(), get_label="name", allow_blank=True)
-    origin = QuerySelectField(gettext('Origin'), query_factory=lambda: Origin.query.all(), get_label="name", allow_blank=True)
-    size = StringField(gettext('Size'), validators=[Length(max=50)])
-    comment = StringField(gettext('Comment'))
+class EditItemForm(FlaskForm):
+    name = StringField(lazy_gettext('Name*'), validators=[DataRequired(), Length(min=2, max=50)])
+    type = QuerySelectField(lazy_gettext('Type'), query_factory=lambda: Type.query.all(), get_label="name", allow_blank=True)
+    location = QuerySelectField(lazy_gettext('Location'), query_factory=lambda: Location.query.all(), get_label="name", allow_blank=True)
+    origin = QuerySelectField(lazy_gettext('Origin'), query_factory=lambda: Origin.query.all(), get_label="name", allow_blank=True)
+    size = StringField(lazy_gettext('Size'), validators=[Length(max=50)])
+    comment = StringField(lazy_gettext('Comment'))
 
-    thumbnail = FileField(gettext('Upload thumbnail'))
-    images = MultipleFileField(gettext('Upload images')) # validators=[FileAllowed(['jpg', 'png'])]
+    thumbnail = FileField(lazy_gettext('Upload thumbnail'))
+    images = MultipleFileField(lazy_gettext('Upload images')) # validators=[FileAllowed(['jpg', 'png'])]
 
-    submit = SubmitField(gettext('Create'))
-
-    #def validate_username(self, username):
-    #    existing_user = User.query.filter_by(username=username.data).first()
-    #    if existing_user:
-    #        raise ValidationError('This username is already taken. Please choose different one')
+    submit = SubmitField(lazy_gettext('Create'))
