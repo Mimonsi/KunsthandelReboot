@@ -2,7 +2,7 @@
 
 === Up next
 
-* Add missing translatiosn
+* Add Edit buttons to detail pages
 * Add plurals using ngettext
 * Make upload template for images and thumbnail
 ** Decide if thumbnail is shown as image too or only as thumbnail -> Maybe options?

@@ -5,7 +5,7 @@
     <div class="media">
         <div class="media-body">
             <h2 class="account-heading">{{ title }}</h2>
-            <p class="text-secondary">Minitext</p>
+            <p class="text-secondary">{{ minitext }}</p>
             {% if item %}
                 <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">{{ _('Delete') }}</button>
             {% endif %}
@@ -110,7 +110,7 @@
                 {% endif %}
             </div>
 
-            {% if item %}
+            {% if item and item.thumbnail() %}
                 <img class="rounded-circle account-img" src="{{ item.thumbnail().url() }}">
             {% endif %}
 

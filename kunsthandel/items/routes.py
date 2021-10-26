@@ -71,6 +71,8 @@ def edit_item(id):
         item.origin = form.origin.data
         item.size = form.size.data
         item.comment = form.comment.data
+        item.edited = current_user
+        db.session.commit()
         flash(gettext("Item with ID %s successfully updated") % str(item.id), "success")
         return redirect(url_for("items.overview"))
     if request.method == 'GET':

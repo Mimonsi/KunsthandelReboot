@@ -23,10 +23,12 @@ def overview(model_name):
         model = Origin.query.paginate(page=page, per_page=50)
     else:
         abort(404)
-    return render_template("generic_type_overview.html", title=gettext("User account overview"), model=model, model_name=model_name)
+    return render_template("generic_type_overview.html", title=gettext("User account overview"), model=model,
+                           model_name=model_name)
 
 
 @generic_type.route('/<string:model_name>/create', methods=['GET', 'POST'])
+@role_required(Role.Editor)
 def create(model_name):
     global model
     form = EditGenericTypeForm()
@@ -39,14 +41,15 @@ def create(model_name):
             model = Origin(name=form.name.data)
         db.session.add(model)
         db.session.commit()
-        flash(gettext("%s with ID %s has been successfully created") % (model.model_name(), str(model.id)), "success")
+        flash(gettext("%s with ID %s has been successfully created") % (gettext(model.model_name()), str(model.id)), "success")
     elif request.method == 'GET':
         pass
-    legend_text = gettext("Create new dataset")
+    legend_text = gettext("Create new %s") % gettext(model_name)
     return render_template("generic_type_edit.html", title=legend_text, legend_text=legend_text, form=form)
 
 
 @generic_type.route('/<string:model_name>/<int:id>/edit', methods=['GET', 'POST'])
+@role_required(Role.Editor)
 def edit(model_name, id):
     global model
     if model_name == "types":
@@ -60,15 +63,16 @@ def edit(model_name, id):
     if form.validate_on_submit():
         model.name = form.name.data
         db.session.commit()
-        flash(gettext("%s with ID %s has been successfully updated") % (model.model_name(), str(model.id)), "success")
+        flash(gettext("%s with ID %s has been successfully updated") % (gettext(model.model_name()), str(model.id)), "success")
     elif request.method == 'GET':
         form.name.data = model.name
-    legend_text = gettext("Details for %s with ID %s") % (model.model_name(), str(id))
-    return render_template("generic_type_edit.html", title=gettext("Edit %s") % model.model_name(), legend_text=legend_text, model=model, form=form)
-
+    legend_text = gettext("Details for %s with ID %s") % (gettext(model.model_name()), str(id))
+    return render_template("generic_type_edit.html", title=gettext("Edit %s") % gettext(model.model_name()),
+                           legend_text=legend_text, model=model, form=form)
 
 
 @generic_type.route('/<string:model_name>/<int:id>')
+@role_required(Role.Editor)
 def details(model_name, id):
     global model
     if model_name == "types":
@@ -79,5 +83,6 @@ def details(model_name, id):
         model = Origin.query.get_or_404(id)
     else:
         abort(404)
-    legend_text = gettext("Details for %s with ID %s") % (model.model_name(), str(id))
-    return render_template("generic_type_details.html", model_name=model_name, model=model, title=gettext("%s Details") % model.model_name(), legend_text=legend_text)
+    legend_text = gettext("Details for %s with ID %s") % (gettext(model.model_name()), str(id))
+    return render_template("generic_type_details.html", model_name=model_name, model=model,
+                           title=gettext("%s Details") % gettext(model.model_name()), legend_text=legend_text)

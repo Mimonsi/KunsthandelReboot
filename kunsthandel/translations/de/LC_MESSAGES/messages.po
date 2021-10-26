@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: info@webgadgets.de\n"
-"POT-Creation-Date: 2021-10-26 22:13+0200\n"
+"POT-Creation-Date: 2021-10-26 22:48+0200\n"
 "PO-Revision-Date: 2021-10-24 23:34+0200\n"
 "Last-Translator: Konstantin Schwarze <info@webgadgets.de>\n"
 "Language: de\n"
@@ -125,36 +125,37 @@ msgstr "Erstellen"
 msgid "User account overview"
 msgstr "Benutzerkontenverwaltung"
 
-#: kunsthandel/generic_type/routes.py:42
+#: kunsthandel/generic_type/routes.py:44
 #, python-format
 msgid "%s with ID %s has been successfully created"
 msgstr "%s mit ID %s erfolgreich erstellt"
 
-#: kunsthandel/generic_type/routes.py:45
-msgid "Create new dataset"
-msgstr "Neuen Datensatz erstellen"
+#: kunsthandel/generic_type/routes.py:47
+#, python-format
+msgid "Create new %s"
+msgstr "Neuen Datensatz der Klasse %s erstellen"
 
-#: kunsthandel/generic_type/routes.py:59 kunsthandel/items/routes.py:62
+#: kunsthandel/generic_type/routes.py:62 kunsthandel/items/routes.py:62
 #: kunsthandel/users/forms.py:38 kunsthandel/users/forms.py:50
 msgid "Update"
 msgstr "Aktualisieren"
 
-#: kunsthandel/generic_type/routes.py:63
+#: kunsthandel/generic_type/routes.py:66
 #, python-format
 msgid "%s with ID %s has been successfully updated"
 msgstr "%s mit ID %s erfolgreich aktualisiert"
 
-#: kunsthandel/generic_type/routes.py:66 kunsthandel/generic_type/routes.py:82
+#: kunsthandel/generic_type/routes.py:69 kunsthandel/generic_type/routes.py:86
 #, python-format
 msgid "Details for %s with ID %s"
 msgstr "Details für %s mit ID %s"
 
-#: kunsthandel/generic_type/routes.py:67
+#: kunsthandel/generic_type/routes.py:70
 #, python-format
 msgid "Edit %s"
 msgstr "%s bearbeiten"
 
-#: kunsthandel/generic_type/routes.py:83
+#: kunsthandel/generic_type/routes.py:88
 #, python-format
 msgid "%s Details"
 msgstr "%s-Details"
@@ -166,26 +167,26 @@ msgid "Type"
 msgstr "Typ"
 
 #: kunsthandel/items/forms.py:14
-#: kunsthandel/templates/items/item_details.html:15
+#: kunsthandel/templates/items/item_details.html:17
 #: kunsthandel/templates/items/items.html:12
 #: kunsthandel/templates/layout.html:37
 msgid "Location"
 msgstr "Ort"
 
 #: kunsthandel/items/forms.py:15
-#: kunsthandel/templates/items/item_details.html:16
+#: kunsthandel/templates/items/item_details.html:18
 #: kunsthandel/templates/items/items.html:13
 #: kunsthandel/templates/layout.html:38
 msgid "Origin"
 msgstr "Herkunft"
 
 #: kunsthandel/items/forms.py:16
-#: kunsthandel/templates/items/item_details.html:17
+#: kunsthandel/templates/items/item_details.html:19
 msgid "Size"
 msgstr "Größe"
 
 #: kunsthandel/items/forms.py:17
-#: kunsthandel/templates/items/item_details.html:19
+#: kunsthandel/templates/items/item_details.html:21
 #: kunsthandel/templates/items/items.html:16
 msgid "Comment"
 msgstr "Kommentar"
@@ -212,27 +213,27 @@ msgstr "Gegenstandsübersicht"
 msgid "Item with ID %s successfully created"
 msgstr "Gegenstand mit ID %s erfolgreich erstellt"
 
-#: kunsthandel/items/routes.py:54 kunsthandel/items/routes.py:85
+#: kunsthandel/items/routes.py:54 kunsthandel/items/routes.py:87
 msgid "Create new item"
 msgstr "Gegenstand erstellen"
 
-#: kunsthandel/items/routes.py:74
+#: kunsthandel/items/routes.py:76
 #, python-format
 msgid "Item with ID %s successfully updated"
 msgstr "Gegenstand mit ID %s erfolgreich aktualisiert"
 
-#: kunsthandel/items/routes.py:84
+#: kunsthandel/items/routes.py:86
 #, python-format
 msgid "Edit item %s"
 msgstr "Gegenstand %s bearbeiten"
 
-#: kunsthandel/items/routes.py:94
+#: kunsthandel/items/routes.py:96
 msgid "The item has been deleted successfully"
 msgstr "Dieser Gegenstand wurde erfolgreich gelöscht"
 
 #: kunsthandel/templates/generic_type_details.html:6
 #: kunsthandel/templates/generic_type_overview.html:12
-#: kunsthandel/templates/items/item_details.html:13
+#: kunsthandel/templates/items/item_details.html:15
 #: kunsthandel/templates/items/items.html:10
 #: kunsthandel/templates/users/users.html:28
 msgid "ID"
@@ -240,7 +241,7 @@ msgstr "ID"
 
 #: kunsthandel/templates/generic_type_details.html:7
 #: kunsthandel/templates/generic_type_overview.html:13
-#: kunsthandel/templates/items/item_details.html:14
+#: kunsthandel/templates/items/item_details.html:16
 #: kunsthandel/templates/items/items.html:14
 msgid "Name"
 msgstr "Name"
@@ -258,7 +259,7 @@ msgid "Create new entry"
 msgstr "Neuen Datensatz erstellen"
 
 #: kunsthandel/templates/generic_type_overview.html:24
-#: kunsthandel/templates/items/item_details.html:12
+#: kunsthandel/templates/items/item_details.html:14
 #: kunsthandel/templates/items/items.html:32
 msgid "Details"
 msgstr "Details"
@@ -348,7 +349,7 @@ msgstr "Datei/Ordner"
 msgid "Usage"
 msgstr "Speicherplatz"
 
-#: kunsthandel/templates/items/item_details.html:18
+#: kunsthandel/templates/items/item_details.html:20
 msgid "Last edited by"
 msgstr "Zuletzt bearbeitet von:"
 
@@ -518,4 +519,7 @@ msgstr "Dieses Benutzerkonto wurde erfolgreich gelöscht"
 #: kunsthandel/users/routes.py:113
 msgid "Manage user accounts"
 msgstr "Benutzerkonten verwalten"
+
+#~ msgid "Create new dataset"
+#~ msgstr "Neuen Datensatz erstellen"
 

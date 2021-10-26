@@ -3,7 +3,9 @@
 {% block content %}
     <div class="content-section">
         <div class="media">
-            <img class="rounded-circle account-img" src="{{ item.thumbnail().url() }}">
+            {% if item.thumbnail() %}
+                <img class="rounded-circle account-img" src="{{ item.thumbnail().url() }}">
+            {% endif %}
             <div class="media-body">
                 <h2 class="account-heading">{{ item.id }} - {{ item.name }}</h2>
                 <p class="text-secondary">{{ item.type.name }}</p>
