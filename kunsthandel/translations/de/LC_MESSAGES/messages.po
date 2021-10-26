@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: info@webgadgets.de\n"
-"POT-Creation-Date: 2021-10-26 16:27+0200\n"
+"POT-Creation-Date: 2021-10-26 22:13+0200\n"
 "PO-Revision-Date: 2021-10-24 23:34+0200\n"
 "Last-Translator: Konstantin Schwarze <info@webgadgets.de>\n"
 "Language: de\n"
@@ -165,21 +165,28 @@ msgstr "%s-Details"
 msgid "Type"
 msgstr "Typ"
 
-#: kunsthandel/items/forms.py:14 kunsthandel/templates/items/items.html:12
+#: kunsthandel/items/forms.py:14
+#: kunsthandel/templates/items/item_details.html:15
+#: kunsthandel/templates/items/items.html:12
 #: kunsthandel/templates/layout.html:37
 msgid "Location"
 msgstr "Ort"
 
-#: kunsthandel/items/forms.py:15 kunsthandel/templates/items/items.html:13
+#: kunsthandel/items/forms.py:15
+#: kunsthandel/templates/items/item_details.html:16
+#: kunsthandel/templates/items/items.html:13
 #: kunsthandel/templates/layout.html:38
 msgid "Origin"
 msgstr "Herkunft"
 
 #: kunsthandel/items/forms.py:16
+#: kunsthandel/templates/items/item_details.html:17
 msgid "Size"
 msgstr "Größe"
 
-#: kunsthandel/items/forms.py:17 kunsthandel/templates/items/items.html:16
+#: kunsthandel/items/forms.py:17
+#: kunsthandel/templates/items/item_details.html:19
+#: kunsthandel/templates/items/items.html:16
 msgid "Comment"
 msgstr "Kommentar"
 
@@ -224,13 +231,23 @@ msgid "The item has been deleted successfully"
 msgstr "Dieser Gegenstand wurde erfolgreich gelöscht"
 
 #: kunsthandel/templates/generic_type_details.html:6
+#: kunsthandel/templates/generic_type_overview.html:12
+#: kunsthandel/templates/items/item_details.html:13
+#: kunsthandel/templates/items/items.html:10
+#: kunsthandel/templates/users/users.html:28
+msgid "ID"
+msgstr "ID"
+
+#: kunsthandel/templates/generic_type_details.html:7
+#: kunsthandel/templates/generic_type_overview.html:13
+#: kunsthandel/templates/items/item_details.html:14
+#: kunsthandel/templates/items/items.html:14
+msgid "Name"
+msgstr "Name"
+
 #: kunsthandel/templates/generic_type_edit.html:7
 msgid "ID: "
 msgstr "ID: "
-
-#: kunsthandel/templates/generic_type_details.html:7
-msgid "Name:"
-msgstr "Name:"
 
 #: kunsthandel/templates/generic_type_overview.html:3
 msgid "Registered datasets:"
@@ -239,17 +256,6 @@ msgstr "Registrierte Datensätze:"
 #: kunsthandel/templates/generic_type_overview.html:6
 msgid "Create new entry"
 msgstr "Neuen Datensatz erstellen"
-
-#: kunsthandel/templates/generic_type_overview.html:12
-#: kunsthandel/templates/items/items.html:10
-#: kunsthandel/templates/users/users.html:28
-msgid "ID"
-msgstr "ID"
-
-#: kunsthandel/templates/generic_type_overview.html:13
-#: kunsthandel/templates/items/items.html:14
-msgid "Name"
-msgstr "Name"
 
 #: kunsthandel/templates/generic_type_overview.html:24
 #: kunsthandel/templates/items/item_details.html:12
@@ -341,6 +347,10 @@ msgstr "Datei/Ordner"
 #: kunsthandel/templates/admin/storage_overview.html:9
 msgid "Usage"
 msgstr "Speicherplatz"
+
+#: kunsthandel/templates/items/item_details.html:18
+msgid "Last edited by"
+msgstr "Zuletzt bearbeitet von:"
 
 #: kunsthandel/templates/items/item_edit.html:10
 #: kunsthandel/templates/users/user.html:11

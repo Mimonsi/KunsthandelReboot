@@ -10,14 +10,13 @@
             </div>
         </div>
         <legend class="border-bottom mb-4">{{ _('Details') }}</legend>
-        <p>ID: {{ item.id }}</p>
-        <p>Name: {{ item.name }}</p>
-        <p>Location: {{ item.location.name }}</p>
-        <p>Origin: {{ item.origin.name }}</p>
-        <p>Size: {{ item.size }}</p>
-        <p>Last edited by: {{ item.edited.username }}</p>
-        <p>{{ item.comment }}</p>
-        <p>Gallery placeholder</p>
+        <p>{{ _('ID') }}: {{ item.id }}</p>
+        <p>{{ _('Name') }}: {{ item.name }}</p>
+        <p>{{ _('Location') }}: {{ item.location.name }}</p>
+        <p>{{ _('Origin') }}: {{ item.origin.name }}</p>
+        <p>{{ _('Size') }}: {{ item.size }}</p>
+        <p>{{ _('Last edited by') }}: {{ item.edited.username }}</p>
+        <p>{{ _('Comment') }}: {{ item.comment }}</p>
         {% for image in item.images %}
             <img src="{{ image.url() }}" class="img-fluid" style="padding-top:20px">
         {% endfor %}
