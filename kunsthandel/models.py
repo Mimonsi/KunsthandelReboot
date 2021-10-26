@@ -46,12 +46,18 @@ class Location(db.Model):
     def __repr__(self):
         return f'<Location> (id={self.id}, name={self.name})'
 
+    def model_name(self):
+        return "Location"
+
 
 class Origin(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255), nullable=False)
     def __repr__(self):
         return f'<Origin> (id={self.id}, name={self.name})'
+
+    def model_name(self):
+        return "Origin"
 
 
 class Image(db.Model):
@@ -75,6 +81,9 @@ class Type(db.Model):
 
     def __repr__(self):
         return f'<Type> (id={self.id}, name={self.name})'
+
+    def model_name(self):
+        return "Type"
 
 
 class Item(db.Model):

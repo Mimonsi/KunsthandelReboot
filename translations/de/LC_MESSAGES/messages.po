@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: info@webgadgets.de\n"
-"POT-Creation-Date: 2021-10-25 23:17+0200\n"
+"POT-Creation-Date: 2021-10-26 13:24+0200\n"
 "PO-Revision-Date: 2021-10-24 23:34+0200\n"
 "Last-Translator: Konstantin Schwarze <info@webgadgets.de>\n"
 "Language: de\n"
@@ -102,6 +102,10 @@ msgstr "Datenbank"
 msgid "Overview:"
 msgstr "Übersicht:"
 
+#: kunsthandel/generic_type/routes.py:48
+msgid "Details for %s with ID %s"
+msgstr "Details für %s mit ID %s"
+
 #: kunsthandel/items/forms.py:13
 msgid "Name*"
 msgstr "Name*"
@@ -156,32 +160,42 @@ msgstr "Gegenstand mit ID %s erfolgreich aktualisiert"
 msgid "This item has been deleted"
 msgstr "Dieser Gegenstand wurde gelöscht"
 
-#: kunsthandel/templates/generic_type.html:3
+#: kunsthandel/templates/generic_type_details.html:6
+#: kunsthandel/templates/generic_type_edit.html:6
+msgid "ID: "
+msgstr "ID: "
+
+#: kunsthandel/templates/generic_type_details.html:7
+#: kunsthandel/templates/generic_type_edit.html:7
+msgid "Name:"
+msgstr "Name:"
+
+#: kunsthandel/templates/generic_type_overview.html:3
 msgid "Registered datasets:"
 msgstr "Registrierte Datensätze:"
 
-#: kunsthandel/templates/generic_type.html:6
+#: kunsthandel/templates/generic_type_overview.html:6
 msgid "Create new entry"
 msgstr "Neuen Datensatz erstellen"
 
-#: kunsthandel/templates/generic_type.html:12
+#: kunsthandel/templates/generic_type_overview.html:12
 #: kunsthandel/templates/items/items.html:10
 #: kunsthandel/templates/users/users.html:28
 msgid "ID"
 msgstr "ID"
 
-#: kunsthandel/templates/generic_type.html:13
+#: kunsthandel/templates/generic_type_overview.html:13
 #: kunsthandel/templates/items/items.html:14
 msgid "Name"
 msgstr "Name"
 
-#: kunsthandel/templates/generic_type.html:24
+#: kunsthandel/templates/generic_type_overview.html:24
 #: kunsthandel/templates/items/item.html:12
 #: kunsthandel/templates/items/items.html:32
 msgid "Details"
 msgstr "Details"
 
-#: kunsthandel/templates/generic_type.html:28
+#: kunsthandel/templates/generic_type_overview.html:28
 #: kunsthandel/templates/items/items.html:36
 #: kunsthandel/templates/users/users.html:45
 msgid "Edit"
@@ -269,17 +283,17 @@ msgstr "Datei/Ordner"
 msgid "Usage"
 msgstr "Speicherplatz"
 
-#: kunsthandel/templates/items/create_item.html:9
+#: kunsthandel/templates/items/create_item.html:10
 #: kunsthandel/templates/users/user.html:11
 #: kunsthandel/templates/users/user.html:110
 msgid "Delete"
 msgstr "Löschen"
 
-#: kunsthandel/templates/items/create_item.html:144
+#: kunsthandel/templates/items/create_item.html:146
 msgid "Are you sure you want to delete the item?"
 msgstr "Möchten Sie den Gegenstand wirklich löschen?"
 
-#: kunsthandel/templates/items/create_item.html:153
+#: kunsthandel/templates/items/create_item.html:155
 #: kunsthandel/templates/users/user.html:104
 #: kunsthandel/templates/users/user.html:112
 msgid "Close"
@@ -402,20 +416,20 @@ msgstr ""
 msgid "You have been logged out"
 msgstr "Sie wurden ausgeloggt"
 
-#: kunsthandel/users/routes.py:47
+#: kunsthandel/users/routes.py:48
 msgid "Your account has been updated!"
 msgstr "Ihr Konto wurde aktualsiert!"
 
-#: kunsthandel/users/routes.py:65
+#: kunsthandel/users/routes.py:68
 msgid "The account has been updated!"
 msgstr "Das Konto wurde aktualisiert"
 
-#: kunsthandel/users/routes.py:85
+#: kunsthandel/users/routes.py:88
 #, python-format
 msgid "User account with id %s has been created!"
 msgstr "Benutzerkonto mit ID %s wurde erstellt!"
 
-#: kunsthandel/users/routes.py:100
+#: kunsthandel/users/routes.py:103
 msgid "This user account has been deleted!"
 msgstr "Dieses Benutzerkonto wurde gelöscht!"
 
@@ -776,4 +790,22 @@ msgstr "Dieses Benutzerkonto wurde gelöscht!"
 
 #~ msgid "Overview: %(model)"
 #~ msgstr "Übersicht: %(model)"
+
+#~ msgid "ID: %(model_id)"
+#~ msgstr "ID: %(model_id)"
+
+#~ msgid "Name: %(model_name)"
+#~ msgstr "Name: %(model_name)"
+
+#~ msgid "Details for"
+#~ msgstr "Details"
+
+#~ msgid "Details for %(test)"
+#~ msgstr "Details für %(test)"
+
+#~ msgid "Successfully created %(text) User Accounts."
+#~ msgstr "%(text) Benutzerkonten wurden erfolgreich erstellt."
+
+#~ msgid "Details for %(id)"
+#~ msgstr "Details für %s"
 

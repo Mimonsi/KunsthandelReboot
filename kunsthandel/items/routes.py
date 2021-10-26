@@ -65,7 +65,7 @@ def create_item():
 def edit_item(id):
     item = Item.query.get_or_404(id)
     form = CreateItemForm()
-    form.submit.label.text = "Confirm Changes"
+    form.submit.label.text = gettext("Update")
     if form.validate_on_submit():
         if form.thumbnail.data:
             save_thumbnail(form.thumbnail.data, item)

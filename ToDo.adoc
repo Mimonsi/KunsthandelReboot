@@ -2,5 +2,8 @@
 
 === Up next
 
+* Editing and creating generic types
+* Add missing translatiosn
+* Add plurals using ngettext
 * Make upload template for images and thumbnail
 ** Decide if thumbnail is shown as image too or only as thumbnail -> Maybe options?
