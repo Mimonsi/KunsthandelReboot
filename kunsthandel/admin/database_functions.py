@@ -1,5 +1,7 @@
 import random
 
+from flask import url_for, current_app
+
 from kunsthandel import db
 from kunsthandel.main import utils
 from kunsthandel.models import User, create_account, Role, Location, Origin, Type, Item, Image
@@ -11,19 +13,19 @@ def create_test_items(item_amount, type_amount, location_amount, origin_amount):
     location_values = []
     origin_values = []
     created = 0
-    with open('kunsthandel/static/texts/types.txt', mode="r", encoding="utf-8") as t:
+    with current_app.open_resource('static/texts/types.txt', mode="r") as t:
         type_values = t.read().splitlines()
     for i in range(0, type_amount):
         type = Type(name=type_values[random.randint(0, len(type_values)-1)])
         db.session.add(type)
         created += 1
-    with open('kunsthandel/static/texts/locations.txt', mode="r", encoding="utf-8") as l:
+    with current_app.open_resource('static/texts/locations.txt', mode="r") as l:
         location_values = l.read().splitlines()
     for i in range(0, location_amount):
         location = Location(name=location_values[random.randint(0, len(location_values)-1)])
         db.session.add(location)
         created += 1
-    with open('kunsthandel/static/texts/origins.txt', mode="r", encoding="utf-8") as o:
+    with current_app.open_resource('static/texts/origins.txt', mode="r") as o:
         origin_values = o.read().splitlines()
     for i in range(0, origin_amount):
         origin = Origin(name=origin_values[random.randint(0, len(origin_values)-1)])

@@ -40,6 +40,9 @@ def get_qr_hash():
 
 
 def create_qr_code(id, url, version, box_size, border):
+    dir_path = os.path.join(current_app.root_path, 'static/qr/')
+    if not os.path.exists(dir_path):
+        os.mkdir(dir_path)
     filename = os.path.join(current_app.root_path, 'static/qr/' + str(id) + ".png")
     #qr = qrcode.make(url)
     #qr.save(filename)
