@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: info@webgadgets.de\n"
-"POT-Creation-Date: 2021-10-26 22:48+0200\n"
+"POT-Creation-Date: 2021-11-09 22:21+0100\n"
 "PO-Revision-Date: 2021-10-24 23:34+0200\n"
 "Last-Translator: Konstantin Schwarze <info@webgadgets.de>\n"
 "Language: de\n"
@@ -22,11 +22,11 @@ msgstr ""
 msgid "Please log in to access this page"
 msgstr "Bitte loggen Sie sich ein, um Zugriff zu erhalten"
 
-#: kunsthandel/__init__.py:52
+#: kunsthandel/__init__.py:55
 msgid "Preparing database"
 msgstr "Datenbank wird vorbereitet"
 
-#: kunsthandel/__init__.py:61
+#: kunsthandel/__init__.py:64
 msgid "Admin account created"
 msgstr "Admin-Account wurde erstellt"
 
@@ -121,7 +121,7 @@ msgstr "Name*"
 msgid "Create"
 msgstr "Erstellen"
 
-#: kunsthandel/generic_type/routes.py:26
+#: kunsthandel/generic_type/routes.py:28
 msgid "User account overview"
 msgstr "Benutzerkontenverwaltung"
 
@@ -130,22 +130,22 @@ msgstr "Benutzerkontenverwaltung"
 msgid "%s with ID %s has been successfully created"
 msgstr "%s mit ID %s erfolgreich erstellt"
 
-#: kunsthandel/generic_type/routes.py:47
+#: kunsthandel/generic_type/routes.py:48
 #, python-format
 msgid "Create new %s"
 msgstr "Neuen Datensatz der Klasse %s erstellen"
 
-#: kunsthandel/generic_type/routes.py:62 kunsthandel/items/routes.py:62
+#: kunsthandel/generic_type/routes.py:61 kunsthandel/items/routes.py:62
 #: kunsthandel/users/forms.py:38 kunsthandel/users/forms.py:50
 msgid "Update"
 msgstr "Aktualisieren"
 
-#: kunsthandel/generic_type/routes.py:66
+#: kunsthandel/generic_type/routes.py:65
 #, python-format
 msgid "%s with ID %s has been successfully updated"
 msgstr "%s mit ID %s erfolgreich aktualisiert"
 
-#: kunsthandel/generic_type/routes.py:69 kunsthandel/generic_type/routes.py:86
+#: kunsthandel/generic_type/routes.py:69 kunsthandel/generic_type/routes.py:82
 #, python-format
 msgid "Details for %s with ID %s"
 msgstr "Details für %s mit ID %s"
@@ -155,7 +155,7 @@ msgstr "Details für %s mit ID %s"
 msgid "Edit %s"
 msgstr "%s bearbeiten"
 
-#: kunsthandel/generic_type/routes.py:88
+#: kunsthandel/generic_type/routes.py:84
 #, python-format
 msgid "%s Details"
 msgstr "%s-Details"
@@ -230,6 +230,10 @@ msgstr "Gegenstand %s bearbeiten"
 #: kunsthandel/items/routes.py:96
 msgid "The item has been deleted successfully"
 msgstr "Dieser Gegenstand wurde erfolgreich gelöscht"
+
+#: kunsthandel/items/routes.py:106
+msgid "The image has been deleted successfully"
+msgstr "Dieses Bild wurde erfolgreich gelöscht"
 
 #: kunsthandel/templates/generic_type_details.html:6
 #: kunsthandel/templates/generic_type_overview.html:12
@@ -354,6 +358,8 @@ msgid "Last edited by"
 msgstr "Zuletzt bearbeitet von:"
 
 #: kunsthandel/templates/items/item_edit.html:10
+#: kunsthandel/templates/items/item_edit.html:154
+#: kunsthandel/templates/items/item_edit.html:174
 #: kunsthandel/templates/users/user.html:11
 #: kunsthandel/templates/users/user.html:110
 msgid "Delete"
@@ -363,15 +369,20 @@ msgstr "Löschen"
 msgid "Item Details"
 msgstr "Gegenstand-Details"
 
-#: kunsthandel/templates/items/item_edit.html:146
+#: kunsthandel/templates/items/item_edit.html:147
 msgid "Are you sure you want to delete the item?"
 msgstr "Möchten Sie den Gegenstand wirklich löschen?"
 
-#: kunsthandel/templates/items/item_edit.html:155
+#: kunsthandel/templates/items/item_edit.html:156
+#: kunsthandel/templates/items/item_edit.html:176
 #: kunsthandel/templates/users/user.html:104
 #: kunsthandel/templates/users/user.html:112
 msgid "Close"
 msgstr "Schließen"
+
+#: kunsthandel/templates/items/item_edit.html:167
+msgid "Are you sure you want to delete the image?"
+msgstr "Möchten Sie dieses Bild?"
 
 #: kunsthandel/templates/items/items.html:3
 msgid "Total Items:"
