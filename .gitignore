@@ -131,3 +131,4 @@ dmypy.json
 /.idea/inspectionProfiles/Project_Default.xml
 /.idea/dataSources.xml
 *.db
+/kunsthandel/static/qr/
