@@ -2,6 +2,7 @@ import os
 
 from flask import Flask, request
 from flask_babel import Babel, gettext, lazy_gettext
+from flask_debugtoolbar import DebugToolbarExtension
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager, current_user
@@ -13,6 +14,7 @@ db = SQLAlchemy(use_native_unicode="utf8")
 babel = Babel()
 bcrypt = Bcrypt()
 login_manager = LoginManager()
+toolbar = DebugToolbarExtension()
 login_manager.login_view = 'users.login'
 login_manager.login_message_category = 'warning'
 login_manager.login_message = lazy_gettext('Please log in to access this page')
@@ -33,6 +35,7 @@ def create_app(config_class=DebugConfig):
 
     bcrypt.init_app(app)
     login_manager.init_app(app)
+    toolbar.init_app(app)
 
     from kunsthandel.main.routes import main
     from kunsthandel.users.routes import users

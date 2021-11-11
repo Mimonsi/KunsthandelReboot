@@ -6,6 +6,8 @@ class DebugConfig:
     SQLALCHEMY_DATABASE_URI = 'sqlite:///development.db?charset=utf8mb4'  # "///" -> relative path from this file
     BASE_URL = 'http://192.168.0.155:5000'
     STORAGE_DATABASE_FILE = 'development.db'
+    DEBUG_TB_PROFILER_ENABLED = True
+    DEBUG_TB_TEMPLATE_EDITOR_ENABLED = True
 
 
 class ProductionConfig:
