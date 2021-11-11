@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% block content %}
-    <h1>Welcome, {{ current_user.username }}</h1>
+    <h1>{{ _("Welcome, ") }}{{ current_user.username }}</h1>
     <article class="media content-section">
       <div class="media-body">
           <h2>{{ _('General Functions') }}</h2>
@@ -192,4 +192,13 @@
       </div>
     </article>
 
+
+    <article class="media content-section">
+      <div class="media-body">
+        <h2 class="border-bottom mb-4">{{ _('Error Page Testing') }}</h2>
+        <a href="{{ url_for("admin.error_403") }}" class="btn btn-outline-warning">{{ _("Unauthorized (403)") }}</a>
+        <a href="{{ url_for("admin.error_404") }}" class="btn btn-outline-warning">{{ _("Page not found (404)") }}</a>
+        <a href="{{ url_for("admin.error_500") }}" class="btn btn-outline-warning">{{ _('Something went wrong (500)') }}</a>
+      </div>
+    </article>
 {% endblock content %}

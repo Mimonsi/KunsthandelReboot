@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: info@webgadgets.de\n"
-"POT-Creation-Date: 2021-11-09 22:21+0100\n"
+"POT-Creation-Date: 2021-11-11 20:24+0100\n"
 "PO-Revision-Date: 2021-10-24 23:34+0200\n"
 "Last-Translator: Konstantin Schwarze <info@webgadgets.de>\n"
 "Language: de\n"
@@ -18,15 +18,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.9.1\n"
 
-#: kunsthandel/__init__.py:18
+#: kunsthandel/__init__.py:20
 msgid "Please log in to access this page"
 msgstr "Bitte loggen Sie sich ein, um Zugriff zu erhalten"
 
-#: kunsthandel/__init__.py:55
+#: kunsthandel/__init__.py:60
 msgid "Preparing database"
 msgstr "Datenbank wird vorbereitet"
 
-#: kunsthandel/__init__.py:64
+#: kunsthandel/__init__.py:69
 msgid "Admin account created"
 msgstr "Admin-Account wurde erstellt"
 
@@ -231,7 +231,7 @@ msgstr "Gegenstand %s bearbeiten"
 msgid "The item has been deleted successfully"
 msgstr "Dieser Gegenstand wurde erfolgreich gelöscht"
 
-#: kunsthandel/items/routes.py:106
+#: kunsthandel/items/routes.py:107
 msgid "The image has been deleted successfully"
 msgstr "Dieses Bild wurde erfolgreich gelöscht"
 
@@ -321,6 +321,10 @@ msgstr "Ausloggen"
 msgid "Login"
 msgstr "Einloggen"
 
+#: kunsthandel/templates/admin/home.html:3
+msgid "Welcome, "
+msgstr "Willkommen, "
+
 #: kunsthandel/templates/admin/home.html:6
 msgid "General Functions"
 msgstr "Allgemeine Funktionen"
@@ -345,6 +349,25 @@ msgstr "Gegenstände erstellen"
 msgid "Create QR Codes"
 msgstr "QR-Codes erstellen"
 
+#: kunsthandel/templates/admin/home.html:198
+msgid "Error Page Testing"
+msgstr "Test der Fehlerseiten"
+
+#: kunsthandel/templates/admin/home.html:199
+#: kunsthandel/templates/errors/403.html:4
+msgid "Unauthorized (403)"
+msgstr "Kein Zugriff (403)"
+
+#: kunsthandel/templates/admin/home.html:200
+#: kunsthandel/templates/errors/404.html:4
+msgid "Page not found (404)"
+msgstr "Seite nicht gefunden (404)"
+
+#: kunsthandel/templates/admin/home.html:201
+#: kunsthandel/templates/errors/500.html:4
+msgid "Something went wrong (500)"
+msgstr "Da ist etwas schiefgelaufen (500)"
+
 #: kunsthandel/templates/admin/storage_overview.html:8
 msgid "File/Directory"
 msgstr "Datei/Ordner"
@@ -352,6 +375,22 @@ msgstr "Datei/Ordner"
 #: kunsthandel/templates/admin/storage_overview.html:9
 msgid "Usage"
 msgstr "Speicherplatz"
+
+#: kunsthandel/templates/errors/403.html:5
+msgid "You don't have permission to access this content."
+msgstr "Sie haben keine Berechtigung, auf diesen Inhalt zuzugreifen."
+
+#: kunsthandel/templates/errors/404.html:5
+msgid "This page does not exist."
+msgstr "Diese Seite existiert nicht."
+
+#: kunsthandel/templates/errors/500.html:5
+msgid ""
+"We're experiencing some trouble on our end. Please try again later or "
+"contact an administrator."
+msgstr ""
+"Es scheint ein Problem auf unserer Seite zu geben. Bitte versuchen Sie es"
+" später erneut oder kontaktieren Sie einen Administrator."
 
 #: kunsthandel/templates/items/item_details.html:20
 msgid "Last edited by"

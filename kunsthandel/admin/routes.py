@@ -75,3 +75,21 @@ def storage_overview():
     all.append((gettext("Total"), "", utils.format_filesize(total), total))
     return render_template('admin/storage_overview.html', title=gettext("Storage management"), all=all)
 
+
+@admin.route('/admin/403')
+@role_required(Role.Administrator)
+def error_403():
+    abort(403)
+
+
+@admin.route('/admin/404')
+@role_required(Role.Administrator)
+def error_404():
+    abort(404)
+
+
+@admin.route('/admin/500')
+@role_required(Role.Administrator)
+def error_500():
+    abort(500)
+
