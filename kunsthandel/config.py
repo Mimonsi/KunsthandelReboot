@@ -8,6 +8,7 @@ class DebugConfig:
     STORAGE_DATABASE_FILE = 'development.db'
     DEBUG_TB_PROFILER_ENABLED = True
     DEBUG_TB_TEMPLATE_EDITOR_ENABLED = True
+    DEBUG_TB_INTERCEPT_REDIRECTS = False
 
 
 class ProductionConfig:

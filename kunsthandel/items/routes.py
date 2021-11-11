@@ -100,6 +100,7 @@ def delete_item(id):
 @items.route('/items/<int:id>/images/<int:image_id>/delete', methods=['POST'])
 @role_required(Role.Editor)
 def delete_image(id, image_id):
+
     image = Image.query.get_or_404(image_id)
     db.session.delete(image)
     db.session.commit()

@@ -5,4 +5,6 @@
 * Add Edit buttons to detail pages
 * Add plurals using ngettext
 * Make upload template for images and thumbnail
-** Decide if thumbnail is shown as image too or only as thumbnail -> Maybe options?
+** Implement deletion of image file, not only database entry
+* Add custom error pages
+* Fix encoding for dummy data
