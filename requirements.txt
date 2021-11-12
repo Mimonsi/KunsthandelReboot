@@ -21,7 +21,7 @@ Pillow==8.4.0
 protobuf==3.19.1
 pycparser==2.21
 PyMySQL==1.0.2
-pyparsing==3.0.5
+Update repyparsing==2.4.7
 pytz==2021.3
 qrcode==7.3.1
 six==1.16.0
