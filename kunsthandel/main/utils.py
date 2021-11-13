@@ -66,6 +66,7 @@ def format_filesize(bytes):
 
 
 def save_thumbnail(thumbnail, item):
+    #TODO Create image root folder for all situations where image folder might not exist
     dir_path = os.path.join(current_app.root_path, 'static/images/' + str(item.id) + "/")
     if not os.path.exists(dir_path):
         os.mkdir(dir_path)
