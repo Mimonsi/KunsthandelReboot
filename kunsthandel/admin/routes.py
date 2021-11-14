@@ -64,10 +64,9 @@ def qr_printsheet():
 @role_required(Role.Administrator)
 def storage_overview():
     database_usage = get_database_usage()
-    all = [database_usage]
-    all.append(get_directory_usage(local_path="static/texts", name="Texts"))
-    all.append(get_directory_usage(local_path="static/qr", name="QR Codes"))
-    all.append(get_directory_usage(local_path="static/images", name="Images"))
+    all = [database_usage, get_directory_usage(local_path="static/texts", name="Texts"),
+           get_directory_usage(local_path="static/qr", name="QR Codes"),
+           get_directory_usage(local_path="static/images", name="Images")]
 
     total = 0
     for single in all:

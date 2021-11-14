@@ -16,89 +16,12 @@
         {{ form.hidden_tag() }}
         <fieldset class="form-group">
             <legend class="border-bottom mb-4">{{ _('Item Details') }}</legend>
-            <div class="form-group">
-                {{ form.name.label(class="form-control-label") }}
-                {% if form.name.errors %}
-                    {{ form.name(class="form-control form-control-lg is-invalid") }}
-                    <div class="invalid-feedback">
-                        {% for error in form.name.errors %}
-                            <span>{{ error }}</span>
-                        {% endfor %}
-                    </div>
-                {% else %}
-                    {{ form.name(class="form-control form-control-lg") }}
-                {% endif %}
-            </div>
-
-            <div class="form-group">
-                {{ form.type.label(class="form-control-label") }}
-                {% if form.type.errors %}
-                    {{ form.type(class="form-control form-control-lg is-invalid") }}
-                    <div class="invalid-feedback">
-                        {% for error in form.type.errors %}
-                            <span>{{ error }}</span>
-                        {% endfor %}
-                    </div>
-                {% else %}
-                    {{ form.type(class="form-control form-control-lg") }}
-                {% endif %}
-            </div>
-
-            <div class="form-group">
-                {{ form.location.label(class="form-control-label") }}
-                {% if form.location.errors %}
-                    {{ form.location(class="form-control form-control-lg is-invalid") }}
-                    <div class="invalid-feedback">
-                        {% for error in form.location.errors %}
-                            <span>{{ error }}</span>
-                        {% endfor %}
-                    </div>
-                {% else %}
-                    {{ form.location(class="form-control form-control-lg") }}
-                {% endif %}
-            </div>
-
-            <div class="form-group">
-                {{ form.origin.label(class="form-control-label") }}
-                {% if form.origin.errors %}
-                    {{ form.origin(class="form-control form-control-lg is-invalid") }}
-                    <div class="invalid-feedback">
-                        {% for error in form.origin.errors %}
-                            <span>{{ error }}</span>
-                        {% endfor %}
-                    </div>
-                {% else %}
-                    {{ form.origin(class="form-control form-control-lg") }}
-                {% endif %}
-            </div>
-
-            <div class="form-group">
-                {{ form.size.label(class="form-control-label") }}
-                {% if form.size.errors %}
-                    {{ form.size(class="form-control form-control-lg is-invalid") }}
-                    <div class="invalid-feedback">
-                        {% for error in form.size.errors %}
-                            <span>{{ error }}</span>
-                        {% endfor %}
-                    </div>
-                {% else %}
-                    {{ form.size(class="form-control form-control-lg") }}
-                {% endif %}
-            </div>
-
-            <div class="form-group">
-                {{ form.comment.label(class="form-control-label") }}
-                {% if form.comment.errors %}
-                    {{ form.comment(class="form-control form-control-lg is-invalid") }}
-                    <div class="invalid-feedback">
-                        {% for error in form.comment.errors %}
-                            <span>{{ error }}</span>
-                        {% endfor %}
-                    </div>
-                {% else %}
-                    {{ form.comment(class="form-control form-control-lg") }}
-                {% endif %}
-            </div>
+            {{ render_field(form.name) }}
+            {{ render_field(form.type) }}
+            {{ render_field(form.location) }}
+            {{ render_field(form.origin) }}
+            {{ render_field(form.size) }}
+            {{ render_field(form.comment) }}
 
             <div class="form-group">
                 {{ form.thumbnail.label() }}
@@ -111,7 +34,7 @@
             </div>
 
             {% if item and item.thumbnail() %}
-                <img class="rounded-circle account-img" src="{{ item.thumbnail().url() }}">
+                <img class="rounded-circle account-img" src="{{ item.thumbnail().url() }}" alt="Thumbnail for item {{ item.id }}">
             {% endif %}
 
             <div class="form-group">
@@ -126,7 +49,7 @@
 
             {% if item %}
                 {% for image in item.images %}
-                    <img src="{{ image.url() }}" class="img-fluid" style="padding-top:20px">
+                    <img src="{{ image.url() }}" class="img-fluid" style="padding-top:20px" alt="Image {{ image.id }} of item {{ item.id }}">
                     <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteImageModal{{ image.id }}">x</button>
                 {% endfor %}
             {% endif %}

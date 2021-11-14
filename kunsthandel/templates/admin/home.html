@@ -15,47 +15,9 @@
         <form method="POST" action="{{ url_for('admin.create_users') }}" enctype="multipart/form-data">
         {{ create_user_form.hidden_tag() }}
           <fieldset class="form-group">
-            <div class="form-group">
-              {{ create_user_form.account_amount.label(class="form-control-label") }}
-              {% if create_user_form.account_amount.errors %}
-                {{ create_user_form.account_amount(class="form-control form-control-lg is-invalid") }}
-                <div class="invalid-feedback">
-              {% for error in create_user_form.account_amount.errors %}
-                <span>{{ error }}</span>
-              {% endfor %}
-            </div>
-              {% else %}
-                {{ create_user_form.account_amount(class="form-control form-control-lg") }}
-              {% endif %}
-            </div>
-
-            <div class="form-group">
-              {{ create_user_form.password.label(class="form-control-label") }}
-              {% if create_user_form.password.errors %}
-                {{ create_user_form.password(class="form-control form-control-lg is-invalid") }}
-                <div class="invalid-feedback">
-                  {% for error in create_user_form.password.errors %}
-                    <span>{{ error }}</span>
-                  {% endfor %}
-                </div>
-              {% else %}
-                {{ create_user_form.password(class="form-control form-control-lg") }}
-              {% endif %}
-            </div>
-
-            <div class="form-group">
-              {{ create_user_form.confirm_password.label(class="form-control-label") }}
-              {% if create_user_form.confirm_password.errors %}
-                {{ create_user_form.confirm_password(class="form-control form-control-lg is-invalid") }}
-                <div class="invalid-feedback">
-                  {% for error in create_user_form.confirm_password.errors %}
-                    <span>{{ error }}</span>
-                  {% endfor %}
-                </div>
-              {% else %}
-                {{ create_user_form.confirm_password(class="form-control form-control-lg") }}
-              {% endif %}
-            </div>
+            {{ render_field(create_user_form.account_amount) }}
+            {{ render_field(create_user_form.password) }}
+            {{ render_field(create_user_form.confirm_password) }}
           </fieldset>
           <div class="form-group">
             {{ create_user_form.submit(class="btn btn-outline-info") }}
@@ -71,62 +33,10 @@
         <form method="POST" action="{{ url_for('admin.create_items') }}" enctype="multipart/form-data">
         {{ create_items_form.hidden_tag() }}
           <fieldset class="form-group">
-            <div class="form-group">
-              {{ create_items_form.item_amount.label(class="form-control-label") }}
-              {% if create_items_form.item_amount.errors %}
-                {{ create_items_form.item_amount(class="form-control form-control-lg is-invalid") }}
-                <div class="invalid-feedback">
-              {% for error in create_user_form.account_amount.errors %}
-                <span>{{ error }}</span>
-              {% endfor %}
-            </div>
-              {% else %}
-                {{ create_items_form.item_amount(class="form-control form-control-lg") }}
-              {% endif %}
-            </div>
-
-            <div class="form-group">
-              {{ create_items_form.type_amount.label(class="form-control-label") }}
-              {% if create_items_form.type_amount.errors %}
-                {{ create_items_form.type_amount(class="form-control form-control-lg is-invalid") }}
-                <div class="invalid-feedback">
-              {% for error in create_user_form.account_amount.errors %}
-                <span>{{ error }}</span>
-              {% endfor %}
-            </div>
-              {% else %}
-                {{ create_items_form.type_amount(class="form-control form-control-lg") }}
-              {% endif %}
-            </div>
-
-            <div class="form-group">
-              {{ create_items_form.location_amount.label(class="form-control-label") }}
-              {% if create_items_form.location_amount.errors %}
-                {{ create_items_form.location_amount(class="form-control form-control-lg is-invalid") }}
-                <div class="invalid-feedback">
-              {% for error in create_user_form.account_amount.errors %}
-                <span>{{ error }}</span>
-              {% endfor %}
-            </div>
-              {% else %}
-                {{ create_items_form.location_amount(class="form-control form-control-lg") }}
-              {% endif %}
-            </div>
-
-            <div class="form-group">
-              {{ create_items_form.origin_amount.label(class="form-control-label") }}
-              {% if create_items_form.origin_amount.errors %}
-                {{ create_items_form.origin_amount(class="form-control form-control-lg is-invalid") }}
-                <div class="invalid-feedback">
-              {% for error in create_user_form.account_amount.errors %}
-                <span>{{ error }}</span>
-              {% endfor %}
-            </div>
-              {% else %}
-                {{ create_items_form.origin_amount(class="form-control form-control-lg") }}
-              {% endif %}
-            </div>
-
+            {{ render_field(create_items_form.item_amount) }}
+            {{ render_field(create_items_form.type_amount) }}
+            {{ render_field(create_items_form.location_amount) }}
+            {{ render_field(create_items_form.origin_amount) }}
           </fieldset>
           <div class="form-group">
             {{ create_items_form.submit(class="btn btn-outline-info") }}
@@ -142,48 +52,9 @@
         <form method="POST" action="{{ url_for('admin.qr_printsheet') }}" enctype="multipart/form-data">
         {{ create_qr_codes_form.hidden_tag() }}
           <fieldset class="form-group">
-            <div class="form-group">
-              {{ create_qr_codes_form.code_version.label(class="form-control-label") }}
-              {% if create_qr_codes_form.code_version.errors %}
-                {{ create_qr_codes_form.code_version(class="form-control form-control-lg is-invalid") }}
-                <div class="invalid-feedback">
-              {% for error in create_qr_codes_form.code_version.errors %}
-                <span>{{ error }}</span>
-              {% endfor %}
-            </div>
-              {% else %}
-                {{ create_qr_codes_form.code_version(class="form-control form-control-lg") }}
-              {% endif %}
-            </div>
-
-            <div class="form-group">
-              {{ create_qr_codes_form.code_size.label(class="form-control-label") }}
-              {% if create_qr_codes_form.code_size.errors %}
-                {{ create_qr_codes_form.code_size(class="form-control form-control-lg is-invalid") }}
-                <div class="invalid-feedback">
-              {% for error in create_qr_codes_form.code_size.errors %}
-                <span>{{ error }}</span>
-              {% endfor %}
-            </div>
-              {% else %}
-                {{ create_qr_codes_form.code_size(class="form-control form-control-lg") }}
-              {% endif %}
-            </div>
-
-            <div class="form-group">
-              {{ create_qr_codes_form.code_border_size.label(class="form-control-label") }}
-              {% if create_qr_codes_form.code_border_size.errors %}
-                {{ create_qr_codes_form.code_border_size(class="form-control form-control-lg is-invalid") }}
-                <div class="invalid-feedback">
-              {% for error in create_qr_codes_form.code_border_size.errors %}
-                <span>{{ error }}</span>
-              {% endfor %}
-            </div>
-              {% else %}
-                {{ create_qr_codes_form.code_border_size(class="form-control form-control-lg") }}
-              {% endif %}
-            </div>
-
+            {{ render_field(create_qr_codes_form.code_version) }}
+            {{ render_field(create_qr_codes_form.code_size) }}
+            {{ render_field(create_qr_codes_form.code_border_size) }}
           </fieldset>
           <div class="form-group">
             {{ create_qr_codes_form.submit(class="btn btn-outline-info") }}
