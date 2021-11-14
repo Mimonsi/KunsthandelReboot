@@ -41,8 +41,7 @@ def get_qr_hash():
 
 def create_qr_code(id, url, version, box_size, border):
     dir_path = os.path.join(current_app.root_path, 'static/qr/')
-    if not os.path.exists(dir_path):
-        os.mkdir(dir_path)
+    os.makedirs(dir_path, exist_ok=True)
     filename = os.path.join(current_app.root_path, 'static/qr/' + str(id) + ".png")
     #qr = qrcode.make(url)
     #qr.save(filename)
@@ -66,10 +65,8 @@ def format_filesize(bytes):
 
 
 def save_thumbnail(thumbnail, item):
-    #TODO Create image root folder for all situations where image folder might not exist
     dir_path = os.path.join(current_app.root_path, 'static/images/' + str(item.id) + "/")
-    if not os.path.exists(dir_path):
-        os.mkdir(dir_path)
+    os.makedirs(dir_path, exist_ok=True)
 
     _, f_ext = os.path.splitext(thumbnail.filename)  # _ -> Throws away value, not needed
     picture_fn = "thumbnail" + f_ext
@@ -88,8 +85,7 @@ def save_images(form_images, item):
     image_objects = []
     index = 1
     dir_path = os.path.join(current_app.root_path, 'static/images/' + str(item.id) + "/")
-    if not os.path.exists(dir_path):
-        os.mkdir(dir_path)
+    os.makedirs(dir_path, exist_ok=True)
     for form_image in form_images:
         if form_image.filename == '': # This covers the case of no files being attached
             continue
