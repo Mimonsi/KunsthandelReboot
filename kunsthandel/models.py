@@ -27,7 +27,7 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(20), unique=True, nullable=False)
     password = db.Column(db.String(60), nullable=False)
     locale = db.Column(db.String(2), nullable=False, default="en")
-    role_id = db.Column(db.Integer, nullable=False, default=0) # 0 = No role, unauthorized
+    role_id = db.Column(db.Integer, nullable=False, default=0)  # 0 = No role, unauthorized
 
     # role could also be used as external table with foreign key, but roles are hard-coded 0 < 1 < 2 < 3 < 4
     def __repr__(self):
@@ -43,6 +43,7 @@ class User(db.Model, UserMixin):
 class Location(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255), nullable=False)
+
     def __repr__(self):
         return f'<Location> (id={self.id}, name={self.name})'
 
@@ -53,6 +54,7 @@ class Location(db.Model):
 class Origin(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255), nullable=False)
+
     def __repr__(self):
         return f'<Origin> (id={self.id}, name={self.name})'
 
@@ -66,7 +68,8 @@ class Image(db.Model):
     is_thumbnail = db.Column(db.Boolean, nullable=False, default=False)
     item_id = db.Column(db.Integer, db.ForeignKey('item.id'), nullable=True)
     item = db.relationship('Item', backref='images', lazy=True)
-    #item = db.relationship('Item', lazy=True)
+
+    # item = db.relationship('Item', lazy=True)
 
     def __repr__(self):
         return f'<Image> (id={self.id}, path={self.path}, item_id={self.item_id}, is_thumbnail={self.is_thumbnail})'
