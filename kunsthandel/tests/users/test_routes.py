@@ -4,7 +4,7 @@ from kunsthandel import create_app, config, db
 from kunsthandel.models import Role, User, create_account
 
 
-class TestURLs(unittest.TestCase):
+class TestRoutes(unittest.TestCase):
 
     def setUp(self):
         app = create_app(config_class=config.TestConfig)
