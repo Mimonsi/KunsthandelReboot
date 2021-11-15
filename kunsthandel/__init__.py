@@ -57,7 +57,6 @@ def create_app(config_class=DebugConfig):
 
 
 def prepare_database(app, db):
-    print(gettext("Preparing database"))
     db.create_all()
     from kunsthandel.models import create_account
     from kunsthandel.models import Role
@@ -66,7 +65,6 @@ def prepare_database(app, db):
         root_admin = create_account(username="admin", password="admin", role=Role.Administrator)
         db.session.add(root_admin)
         db.session.commit()
-        print(gettext("Admin account created"))
 
 
 @babel.localeselector
