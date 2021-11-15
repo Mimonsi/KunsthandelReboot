@@ -85,18 +85,21 @@ def edit_user(id):
 @role_required(Role.Administrator)
 def create_user():
     form = CreateAccountForm()
-    if form.validate_on_submit():
-        hashed_password = flask_bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-        user = User(username=form.username.data, password=hashed_password, role_id=int(form.role.data), locale=form.locale.data)
-        db.session.add(user)
-        db.session.commit()
-        flash(gettext("User account with id %s has been created") % str(user.id), "success")
-        if request.args.get("multiple", False):
-            return redirect(url_for('users.create_user', multiple=True))
-        return redirect(url_for('users.overview'))
-    elif request.method == 'GET':
-        form.role.data = "1" # Default role
-    return render_template("users/user.html", title=gettext("Create user account"), user=None, form=form)
+    if request.method == "POST":
+        if form.validate_on_submit():
+            hashed_password = flask_bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+            user = User(username=form.username.data, password=hashed_password, role_id=int(form.role.data), locale=form.locale.data)
+            db.session.add(user)
+            db.session.commit()
+            flash(gettext("User account with id %s has been created") % str(user.id), "success")
+            if request.args.get("multiple", False):
+                return redirect(url_for('users.create_user', multiple=True))
+            return redirect(url_for('users.overview'))
+        else:
+            return render_template("users/user.html", title=gettext("Create user account"), user=None, form=form), 400
+    else:
+        form.role.data = "1"  # Default role
+        return render_template("users/user.html", title=gettext("Create user account"), user=None, form=form)
 
 
 @users.route('/users/<int:id>/delete', methods=['POST'])
