@@ -24,8 +24,8 @@ def create_app(config_class=DebugConfig):
     base_dir = os.path.abspath(os.path.dirname(__file__))
 
     app = Flask(__name__)
-    if app.env == "production":
-        config_class=ProductionConfig
+    #if app.env == "production": # ???
+    #    config_class=ProductionConfig
     app.config.from_object(config_class)
 
     app.config["BABEL_TRANSLATION_DIRECTORIES"] = "./translations"
