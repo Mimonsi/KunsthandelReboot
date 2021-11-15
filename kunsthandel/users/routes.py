@@ -1,5 +1,5 @@
 import flask_bcrypt
-from flask import Blueprint, redirect, url_for, render_template, request, flash
+from flask import Blueprint, redirect, url_for, render_template, request, flash, abort
 from flask_babel import gettext
 from flask_login import current_user, login_user, logout_user
 
@@ -16,23 +16,28 @@ def login():
     if current_user.is_authenticated:
         return redirect(url_for('main.home'))
     form = LoginForm()
-    if form.validate_on_submit():
-        user = User.query.filter_by(username=form.username.data).first()
-        if user and bcrypt.check_password_hash(user.password, form.password.data):
-            login_user(user, remember=form.remember.data)
-            next_page = request.args.get('next')
-            flash(gettext('Login successful'), 'success')
-            return redirect(next_page) if next_page else redirect(url_for('main.home'))
+    if request.method == "POST":
+        if form.validate_on_submit():
+            user = User.query.filter_by(username=form.username.data).first()
+            if user and bcrypt.check_password_hash(user.password, form.password.data):
+                login_user(user, remember=form.remember.data)
+                next_page = request.args.get('next')
+                flash(gettext('Login successful'), 'success')
+                return redirect(next_page) if next_page else redirect(url_for('main.home'))
+            else:
+                flash(gettext('Login unsuccessful. Please check username and password'), 'danger')
+                return render_template('users/login.html', title=gettext('Login'), form=form), 401
         else:
-            flash(gettext('Login unsuccessful. Please check username and password'), 'danger')
-    return render_template('users/login.html', title=gettext('Login'), form=form)
+            return render_template('users/login.html', title=gettext('Login'), form=form), 400
+    else:
+        return render_template('users/login.html', title=gettext('Login'), form=form)
 
 
 @users.route('/logout')
 def logout():
     logout_user()
     flash(gettext('You have been logged out'), 'success')
-    return redirect(url_for('main.home'))
+    return redirect(url_for('users.login'))
 
 
 @users.route('/users/me', methods=['GET', 'POST'])

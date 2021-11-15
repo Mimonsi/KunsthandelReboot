@@ -7,4 +7,6 @@
 * Make upload template for images and thumbnail
 ** Implement deletion of image file, not only database entry
 * Add custom error pages
+** 400
+** 401
 * Fix encoding for dummy data
