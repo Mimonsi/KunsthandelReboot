@@ -27,9 +27,9 @@ def login():
             else:
                 flash(gettext('Login unsuccessful. Please check username and password'), 'danger')
                 return render_template('users/login.html', title=gettext('Login'), form=form), 401
-        else:
+        else:  # Form not validating
             return render_template('users/login.html', title=gettext('Login'), form=form), 400
-    else:
+    else:  # GET
         return render_template('users/login.html', title=gettext('Login'), form=form)
 
 
@@ -62,23 +62,28 @@ def edit_own_user():
 def edit_user(id):
     form = UpdateAccountForm()
     user = User.query.get(id)
-    if form.validate_on_submit():
-        user.username = form.username.data
-        if form.password.data:
-            hashed_password = flask_bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-            user.password = hashed_password
-        user.role_id = form.role.data
-        user.locale = form.locale.data
-        db.session.commit()
-        flash(gettext("The account has been updated"), "success")
-        return redirect(url_for('users.overview'))
-    elif request.method == 'GET':
+    if request.method == "POST":
+        if form.validate_on_submit():
+            user.username = form.username.data
+            if form.password.data:
+                hashed_password = flask_bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+                user.password = hashed_password
+            user.role_id = form.role.data
+            user.locale = form.locale.data
+            db.session.commit()
+            flash(gettext("The account has been updated"), "success")
+            return redirect(url_for('users.overview'))
+        else:  # Form not validating
+            return render_template("users/user.html", title=gettext("Edit user account %s") % user.username, user=user,
+                                   form=form), 400
+    else:  # GET
         form.old_username.data = user.username
         form.username.data = user.username
         form.password.data = user.password
         form.role.data = str(user.role_id)
         form.locale.data = user.locale
-    return render_template("users/user.html", title=gettext("Edit user account %s") % user.username, user=user, form=form)
+        return render_template("users/user.html", title=gettext("Edit user account %s") % user.username, user=user,
+                               form=form)
 
 
 @users.route('/users/create', methods=['GET', 'POST'])
@@ -88,7 +93,8 @@ def create_user():
     if request.method == "POST":
         if form.validate_on_submit():
             hashed_password = flask_bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-            user = User(username=form.username.data, password=hashed_password, role_id=int(form.role.data), locale=form.locale.data)
+            user = User(username=form.username.data, password=hashed_password, role_id=int(form.role.data),
+                        locale=form.locale.data)
             db.session.add(user)
             db.session.commit()
             flash(gettext("User account with id %s has been created") % str(user.id), "success")
@@ -116,6 +122,6 @@ def delete_user(id):
 @role_required(Role.Administrator)
 def overview():
     page = request.args.get('page', type=int)
-    #per_page = int(request.args.get("display", 50))
+    # per_page = int(request.args.get("display", 50))
     users = User.query.paginate(page=page, per_page=50)
     return render_template("users/users.html", title=gettext('Manage user accounts'), users=users)
