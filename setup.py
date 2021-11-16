@@ -4,7 +4,7 @@ with open("requirements.txt") as file:
     requirements = file.readlines()
 setup(
     name='Kunsthandel Reboot',
-    version='1.0b6', # a = alpha, b = beta, rc = release candidate
+    version='1.0rc1', # a = alpha, b = beta, rc = release candidate
     packages=find_packages(),
     url='http://webgadgets.de',
     license='',

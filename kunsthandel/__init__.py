@@ -1,14 +1,13 @@
 import os
 
 from flask import Flask, request
-from flask_babel import Babel, gettext, lazy_gettext
+from flask_babel import Babel, lazy_gettext
 from flask_debugtoolbar import DebugToolbarExtension
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager, current_user
-import babel
 
-from kunsthandel.config import DebugConfig, ProductionConfig
+from kunsthandel.config import DevelopmentConfig, ProductionConfig
 
 db = SQLAlchemy(use_native_unicode="utf8")
 babel = Babel()
@@ -20,15 +19,17 @@ login_manager.login_message_category = 'warning'
 login_manager.login_message = lazy_gettext('Please log in to access this page')
 
 
-def create_app(config_class=DebugConfig):
+def create_app(config_class=None):
     base_dir = os.path.abspath(os.path.dirname(__file__))
 
     app = Flask(__name__)
-    #if app.env == "production": # ???
-    #    config_class=ProductionConfig
+    if config_class is None:
+        if app.env == "development":
+            config_class = DevelopmentConfig
+        elif app.env == "production":
+            config_class = ProductionConfig
     app.config.from_object(config_class)
 
-    app.config["BABEL_TRANSLATION_DIRECTORIES"] = "./translations"
     babel.init_app(app)
 
     db.init_app(app)
@@ -61,7 +62,8 @@ def prepare_database(app, db):
     from kunsthandel.models import create_account
     from kunsthandel.models import Role
     from kunsthandel.models import User
-    if len(User.query.all()) < 1:  # Create first admin account - this is supposed to be a temporary account until replaced by an actual administrator account
+    if len(User.query.all()) < 1:  # Create first admin account - this is supposed to be a temporary account until
+        # replaced by an actual administrator account
         root_admin = create_account(username="admin", password="admin", role=Role.Administrator)
         db.session.add(root_admin)
         db.session.commit()
