@@ -36,6 +36,18 @@ class TestLoginLogout(unittest.TestCase):
         ), follow_redirects=True)
         return result
 
+    def test_login_page(self):
+        """ Show Login Page """
+        result = self.client.get("/login")
+        self.assertEqual(result.status_code, 200)
+
+    def test_login_page_logged_in(self):
+        """ Test redirect to home page as logged in user """
+        self._login_user(Role.User)
+        result = self.client.get("/login")
+        self.assertEqual(result.status_code, 302)
+        self.assertIn("/home", result.headers["Location"])
+
     def test_successful_login(self):
         """ Login with correct data """
         self._insert_user("test", "password", Role.Administrator)
@@ -167,6 +179,50 @@ class TestUserPermissions(unittest.TestCase):
         self.assertEqual(result.status_code, 200)
         created_user = User.query.filter_by(username="test").first()
         self.assertIsNotNone(created_user, "User now exists in database")
+
+    def test_create_user_successful_multiple(self):
+        """ Create new user account by an Administrator with redirect to same form """
+        admin = self._login_user(Role.Administrator, username="Administrator")
+        result = self.client.post("/users/create?multiple=True", data=dict(
+            username="test",
+            password="password",
+            confirm_password="password",
+            role=2,
+            locale="en"
+        ), follow_redirects=True)
+        self.assertIn("/users/create", result.request.url)
+        self.assertEqual(result.status_code, 200)
+        created_user = User.query.filter_by(username="test").first()
+        self.assertIsNotNone(created_user, "User now exists in database")
+
+    def test_create_user_unsuccessful(self):
+        """ Fail trying to create new user account by an Administrator """
+        admin = self._login_user(Role.Administrator, username="Administrator")
+        result = self.client.post("/users/create", data=dict(
+            username="test",
+            password="password",
+            confirm_password="password",
+            role=2,
+        ), follow_redirects=True)
+
+        self.assertIn("/users", result.request.url)
+        self.assertEqual(result.status_code, 400)
+        created_user = User.query.filter_by(username="test").first()
+        self.assertIsNone(created_user, "User does not exists in database, as creation failed")
+
+    def test_create_user_username_already_taken(self):
+        """ Fail trying to create new user account because of an existing username by an Administrator """
+        admin = self._login_user(Role.Administrator, username="Administrator")
+        result = self.client.post("/users/create", data=dict(
+            username="Administrator",  # Same name as above
+            password="password",
+            confirm_password="password",
+            role=2,
+            locale="en"
+        ), follow_redirects=True)
+
+        self.assertIn("/users", result.request.url)
+        self.assertEqual(result.status_code, 400)
 
 
 if __name__ == '__main__':
