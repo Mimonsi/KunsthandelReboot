@@ -18,7 +18,8 @@ def home():
     create_user_form = CreateUsersForm()
     create_items_form = CreateItemsForm()
     create_qr_codes_form = CreateQRCodesForm()
-    return render_template("admin/home.html", title=gettext("Administration"), create_user_form=create_user_form, create_items_form=create_items_form, create_qr_codes_form=create_qr_codes_form)
+    return render_template("admin/home.html", title=gettext("Administration"), create_user_form=create_user_form,
+                           create_items_form=create_items_form, create_qr_codes_form=create_qr_codes_form)
 
 
 @admin.route('/admin/create_users', methods=['POST'])
@@ -37,8 +38,8 @@ def create_items():
     form = CreateItemsForm()
     if form.validate_on_submit():
         amount = create_test_items(item_amount=form.item_amount.data, type_amount=form.type_amount.data,
-                                             location_amount=form.location_amount.data,
-                                             origin_amount=form.origin_amount.data)
+                                   location_amount=form.location_amount.data,
+                                   origin_amount=form.origin_amount.data)
         flash(gettext("Successfully created %s datasets.") % str(amount), "success")
     return redirect(url_for('admin.home'))
 
@@ -91,4 +92,3 @@ def error_404():
 @role_required(Role.Administrator)
 def error_500():
     abort(500)
-

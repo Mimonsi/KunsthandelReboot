@@ -77,8 +77,7 @@ def edit_user(id):
             flash(gettext("The account has been updated"), "success")
             return redirect(url_for('users.overview'))
         else:  # Form not validating
-            return render_template("users/user.html", title=gettext("Edit user account %s") % user.username, user=user,
-                                   form=form), 400
+            return render_template("users/user.html", title=gettext("Edit user account %s") % user.username, user=user, form=form), 400
     else:  # GET
         form.old_username.data = user.username
         form.username.data = user.username
@@ -96,8 +95,7 @@ def create_user():
     if request.method == "POST":
         if form.validate_on_submit():
             hashed_password = flask_bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-            user = User(username=form.username.data, password=hashed_password, role_id=int(form.role.data),
-                        locale=form.locale.data)
+            user = User(username=form.username.data, password=hashed_password, role_id=int(form.role.data), locale=form.locale.data)
             db.session.add(user)
             db.session.commit()
             flash(gettext("User account with id %s has been created") % str(user.id), "success")
