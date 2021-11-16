@@ -203,7 +203,7 @@ class TestCreateUser(unittest.TestCase):
         created_user = User.query.filter_by(username="test").first()
         self.assertIsNotNone(created_user, "User now exists in database")
 
-    def test_create_user_unsuccessful(self):
+    def test_create_user_missing_parameter(self):
         """ Missing locale parameter """
         result = self.client.post("/users/create", data=dict(
             username="test",
@@ -228,6 +228,76 @@ class TestCreateUser(unittest.TestCase):
         ), follow_redirects=True)
         self.assertIn("/users", result.request.url)
         self.assertEqual(result.status_code, 400)
+
+    def test_create_user_passwords_unequal(self):
+        """ Passwords don't match """
+        result = self.client.post("/users/create", data=dict(
+            username="test",
+            password="password",
+            confirm_password="other_password",
+            role=2,
+            locale="en"
+        ), follow_redirects=True)
+
+        self.assertIn("/users", result.request.url)
+        self.assertEqual(result.status_code, 400)
+        created_user = User.query.filter_by(username="test").first()
+        self.assertIsNone(created_user, "User does not exists in database, as creation failed")
+
+
+class TestEditOwnUser(unittest.TestCase):
+
+    def setUp(self):
+        app = create_app(config_class=config.TestConfig)
+        self.client = app.test_client()
+        db.app = app
+        db.drop_all()
+        db.create_all()
+
+    def tearDown(self):
+        db.session.remove()
+        db.drop_all()
+
+    def test_edit_own_user_successful(self):
+        """ Edit own locale by user """
+        _login_user(self, role=Role.User, username="user")
+        result = self.client.post("/users/me", data=dict(
+            password="new_password",
+            confirm_password="new_password",
+            locale="de"
+        ), follow_redirects=True)
+
+        self.assertIn("/users/me", result.request.url)
+        self.assertEqual(result.status_code, 200)
+        user = User.query.filter_by(username="user").first()
+        self.assertEqual(user.locale, "de", "User locale has been updated")
+
+    def test_edit_own_user_missing_parameter(self):
+        """ Missing parameter on own editing """
+        _login_user(self, role=Role.User, username="user")
+        result = self.client.post("/users/me", data=dict(
+            password="new_password",
+            confirm_password="new_password"
+        ), follow_redirects=True)
+
+        self.assertIn("/users/me", result.request.url)
+        self.assertEqual(result.status_code, 400)
+        user = User.query.filter_by(username="user").first()
+        self.assertEqual(user.locale, "en", "User locale has not been updated")
+
+    def test_edit_own_user_passwords_unequal(self):
+        """ not matching passwords on editing own user """
+        _login_user(self, role=Role.User, username="user")
+        result = self.client.post("/users/me", data=dict(
+            password="new_password",
+            confirm_password="other_password",
+            locale="de"
+        ), follow_redirects=True)
+
+        self.assertIn("/users/me", result.request.url)
+        self.assertEqual(result.status_code, 400)
+        user = User.query.filter_by(username="user").first()
+        self.assertEqual(user.locale, "en", "User locale has not been updated")
 
 
 class TestEditUser(unittest.TestCase):
@@ -263,7 +333,7 @@ class TestEditUser(unittest.TestCase):
         self.assertIsNone(old_user, "User with previous name doesn't exists in database")
         self.assertIsNotNone(updated_user, "User with changed name exists in database")
 
-    def test_edit_user_unsuccessful(self):
+    def test_edit_user_missing_parameter(self):
         """ Missing locale parameter """
         user = User.query.filter_by(username="pre_change").first()
         result = self.client.post("/users/" + str(user.id), data=dict(
@@ -297,6 +367,22 @@ class TestEditUser(unittest.TestCase):
         existing_user = User.query.filter_by(username="existing_user").first()
         self.assertIsNotNone(old_user, "User with previous name still exists")
         self.assertEqual(existing_user.id, user1.id, "Existing user is unchanged")
+
+    def test_edit_user_passwords_unequal(self):
+        """ Passwords don't match when editing user """
+        user = User.query.filter_by(username="pre_change").first()
+        result = self.client.post("/users/" + str(user.id), data=dict(
+            username="post_change",
+            password="password",
+            confirm_password="other_password",
+            role=2,
+            locale="en",
+        ), follow_redirects=True)
+
+        self.assertIn("/users/" + str(user.id), result.request.url)
+        self.assertEqual(result.status_code, 400)
+        old_user = User.query.filter_by(username="pre_change").first()
+        self.assertIsNotNone(old_user, "User with previous name still exists")
 
 
 if __name__ == '__main__':

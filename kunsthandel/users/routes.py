@@ -45,16 +45,19 @@ def logout():
 def edit_own_user():
     form = UpdateOwnAccountForm()
     user = User.query.get(current_user.id)
-    if form.validate_on_submit():
-        hashed_password = flask_bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-        user.password = hashed_password
-        user.locale = form.locale.data
-        db.session.commit()
-        flash(gettext("Your account has been updated"), "success")
-        return redirect(url_for('users.edit_own_user'))
-    elif request.method == 'GET':
+    if request.method == "POST":
+        if form.validate_on_submit():
+            hashed_password = flask_bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+            user.password = hashed_password
+            user.locale = form.locale.data
+            db.session.commit()
+            flash(gettext("Your account has been updated"), "success")
+            return redirect(url_for('users.edit_own_user'))
+        else:  # Form not validating
+            return render_template("users/user_own.html", title=gettext("Edit user account"), user=user, form=form), 400
+    else:  # GET
         form.locale.data = user.locale
-    return render_template("users/user_own.html", title=gettext("Edit user account"), user=user, form=form)
+        return render_template("users/user_own.html", title=gettext("Edit user account"), user=user, form=form)
 
 
 @users.route('/users/<int:id>', methods=['GET', 'POST'])
