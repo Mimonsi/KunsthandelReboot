@@ -10,3 +10,5 @@
 ** 400
 ** 401
 * Fix encoding for dummy data
+* HTTPS
+* Store database outside of package
