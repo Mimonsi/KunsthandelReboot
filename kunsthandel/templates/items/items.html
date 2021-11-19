@@ -7,6 +7,7 @@
     <table id="users_table" class="table table-striped table-bordered" style="width:100%">
         <thead>
             <tr>
+                <th></th>
                 <th>{{ _('ID') }}</th>
                 <th>{{ _('Type') }}</th>
                 <th>{{ _('Location') }}</th>
@@ -20,6 +21,7 @@
         <tbody>
         {% for item in items.items %}
             <tr>
+                <td><img height="50" src="{{ item.thumbnail().url() }}" alt="Thumbnail for item {{ item.id }}"></td>
                 <td>{{ item.id }}</td>
                 <td>{{ item.type.name }}</td>
                 <td>{{ item.location.name }}</td>
