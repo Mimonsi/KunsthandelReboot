@@ -80,5 +80,5 @@ def details(model_name, id):
         abort(404, "Model not found")
         return
     legend_text = gettext("Details for %s with ID %s") % (gettext(model.model_name()), str(id))
-    return render_template("generic_type_details.html", model_name=model_name, model=model,
+    return render_template("generic_type.html", model_name=model_name, model=model,
                            title=gettext("%s Details") % gettext(model.model_name()), legend_text=legend_text)
