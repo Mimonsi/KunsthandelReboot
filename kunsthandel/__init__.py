@@ -23,7 +23,7 @@ def create_app(config_class=None):
     base_dir = os.path.abspath(os.path.dirname(__file__))
 
     app = Flask(__name__)
-    if config_class is None:
+    if config_class is None:  # pragma: no cover
         if app.env == "development":
             config_class = DevelopmentConfig
         elif app.env == "production":
@@ -75,4 +75,4 @@ def get_locale():
         return current_user.locale
     if request:
         return request.accept_languages.best_match(['de', 'en'])
-    return "en"
+    return "en"  # pragma: no cover

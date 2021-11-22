@@ -1,10 +1,8 @@
 from enum import Enum
 
 import flask_bcrypt
+from flask import url_for
 from flask_login import UserMixin
-from flask import current_app, url_for
-from flask_login import UserMixin
-from sqlalchemy.orm import relationship
 
 from kunsthandel import db, login_manager
 
@@ -75,7 +73,7 @@ class Image(db.Model):
         return f'<Image> (id={self.id}, path={self.path}, item_id={self.item_id}, is_thumbnail={self.is_thumbnail})'
 
     def url(self):
-        return url_for('static', filename='images/' + self.path)
+        return url_for('static', filename='images/' + self.path)  # pragma: no cover
 
 
 class Type(db.Model):
@@ -113,8 +111,8 @@ class Item(db.Model):
     def __repr__(self):
         return f'<Item> (id={self.id}, name={self.name}, type={self.type}, location={self.location}, origin={self.origin})'
 
-    def images(self):
-        return Image.query.filter_by(item_id=self.id).all()
+    #def images(self):
+    #    return Image.query.filter_by(item_id=self.id).all()
 
     def thumbnail(self):
         thumbnail = Image.query.filter_by(item_id=self.id, is_thumbnail=True).first()
