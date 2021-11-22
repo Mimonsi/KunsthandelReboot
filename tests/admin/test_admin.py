@@ -39,8 +39,23 @@ class TestStorageOverview(DatabaseTestCase):
         self.assertIn(gettext('Storage Overview'), str(result.data))
 
 
-class TestAdmin(DatabaseTestCase):
-    pass
+class TestRoutes(DatabaseTestCase):
+    def test_permission_home(self):
+        """ Check permissions to access admin home """
+        pairs = {Role.External: 403, Role.Visitor: 403, Role.User: 403, Role.Editor: 403, Role.Administrator: 200}
+        for role, status in pairs.items():
+            with self.subTest(role=role.name):
+                self._login_user(role=role, username="test_" + str(role.name))
+                result = self.client.get("/admin/")
+                self.assertEqual(result.status_code, status)
+                self.assertIn("Welcome, test_Administrator", str(result.data))
+                self._logout()
+
+    def test_home_post(self):
+        """ Post request to home should not be allowed """
+        self._login_user(role=Role.Administrator, username="Administrator")
+        result = self.client.post("/admin/")
+        self.assertEqual(result.status_code, 405)
 
 
 class TestErrorHandlers(DatabaseTestCase):

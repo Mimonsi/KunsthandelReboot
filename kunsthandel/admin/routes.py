@@ -11,8 +11,8 @@ from kunsthandel.models import Role, Item
 admin = Blueprint('admin', __name__)
 
 
-@admin.route('/admin/home', methods=['GET', 'POST'])
-@admin.route('/admin/', methods=['GET', 'POST'])
+@admin.route('/admin/home', methods=['GET'])
+@admin.route('/admin/', methods=['GET'])
 @role_required(Role.Administrator)
 def home():
     create_user_form = CreateUsersForm()
@@ -61,7 +61,7 @@ def qr_printsheet():
     return redirect(url_for('admin.home'))
 
 
-@admin.route('/admin/storage_overview')
+@admin.route('/admin/storage_overview', methods=['GET'])
 @role_required(Role.Administrator)
 def storage_overview():
     database_usage = get_database_usage()
