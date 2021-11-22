@@ -62,7 +62,7 @@ def edit_own_user():
 
 @users.route('/users/<int:id>', methods=['GET', 'POST'])
 @role_required(Role.Administrator)
-def edit_user(id):
+def edit(id):
     form = UpdateAccountForm()
     user = User.query.get(id)
     if request.method == "POST":
@@ -90,7 +90,7 @@ def edit_user(id):
 
 @users.route('/users/create', methods=['GET', 'POST'])
 @role_required(Role.Administrator)
-def create_user():
+def create():
     form = CreateAccountForm()
     if request.method == "POST":
         if form.validate_on_submit():
@@ -100,7 +100,7 @@ def create_user():
             db.session.commit()
             flash(gettext("User account with id %s has been created") % str(user.id), "success")
             if request.args.get("multiple", False):
-                return redirect(url_for('users.create_user', multiple=True))
+                return redirect(url_for('users.create', multiple=True))
             return redirect(url_for('users.overview'))
         else:
             return render_template("users/user.html", title=gettext("Create user account"), user=None, form=form), 400
@@ -111,11 +111,11 @@ def create_user():
 
 @users.route('/users/<int:id>/delete', methods=['POST'])
 @role_required(Role.Administrator)
-def delete_user(id):
+def delete(id):
     user = User.query.get_or_404(id)
     db.session.delete(user)
     db.session.commit()
-    flash(gettext("The user account has been deleted successfully"), "success")
+    flash(gettext("Thae user account has been deleted successfully"), "success")
     return redirect(url_for("users.overview"))
 
 

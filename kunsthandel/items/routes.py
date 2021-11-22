@@ -16,7 +16,7 @@ items = Blueprint('items', __name__)
 def token(hash):
     item = Item.query.filter_by(qr_hash=hash).first_or_404()
 
-    return render_template("items/item_details.html", title=gettext("Item details %s") % str(id), item=item)
+    return render_template("items/item.html", title=gettext("Item details %s") % str(id), item=item)
 
 
 @items.route('/items')
@@ -30,15 +30,15 @@ def overview():
 
 @items.route('/items/<int:id>')
 @role_required(Role.User)
-def item_details(id):
+def details(id):
     item = Item.query.get_or_404(id)
 
-    return render_template("items/item_details.html", title=gettext("Item details %s") % str(id), item=item)
+    return render_template("items/item.html", title=gettext("Item details %s") % str(id), item=item)
 
 
 @items.route('/items/create', methods=['GET', 'POST'])
 @role_required(Role.Editor)
-def create_item():
+def create():
     form = EditItemForm()
     if form.validate_on_submit():
         item = Item(name=form.name.data, type=form.type.data, location=form.location.data, origin=form.origin.data,
@@ -56,7 +56,7 @@ def create_item():
 
 @items.route('/items/<int:id>/edit', methods=['GET', 'POST'])
 @role_required(Role.Editor)
-def edit_item(id):
+def edit(id):
     item = Item.query.get_or_404(id)
     form = EditItemForm()
     form.submit.label.text = gettext("Update")
@@ -89,7 +89,7 @@ def edit_item(id):
 
 @items.route('/items/<int:id>/delete', methods=['POST'])
 @role_required(Role.Editor)
-def delete_item(id):
+def delete(id):
     item = Item.query.get_or_404(id)
     db.session.delete(item)
     db.session.commit()
@@ -105,4 +105,4 @@ def delete_image(id, image_id):
     db.session.delete(image)
     db.session.commit()
     flash(gettext("The image has been deleted successfully"), "success")
-    return redirect(url_for("items.edit_item", id=id))
+    return redirect(url_for("items.edit", id=id))
