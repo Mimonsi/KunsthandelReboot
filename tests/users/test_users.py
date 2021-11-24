@@ -9,19 +9,19 @@ class TestLoginLogout(DatabaseTestCase):
     def test_login_redirect(self):
         """ Test if any route redirects to login """
         result = self.client.get('/home')
-        self.assertEqual(result.status_code, 302)
+        self.assertEqual(302, result.status_code)
         self.assertIn("/login", result.headers["Location"])
 
     def test_login_page(self):
         """ Show Login Page """
         result = self.client.get("/login")
-        self.assertEqual(result.status_code, 200)
+        self.assertEqual(200, result.status_code)
 
     def test_login_page_logged_in(self):
         """ Test redirect to home page as logged in user """
         self._login_user(Role.User)
         result = self.client.get("/login")
-        self.assertEqual(result.status_code, 302)
+        self.assertEqual(302, result.status_code)
         self.assertIn("/home", result.headers["Location"])
 
     def test_successful_login(self):
@@ -31,7 +31,7 @@ class TestLoginLogout(DatabaseTestCase):
             username="test",
             password="password"
         ), follow_redirects=True)
-        self.assertEqual(result.status_code, 200)
+        self.assertEqual(200, result.status_code)
         self.assertIn("Login successful", str(result.data))
 
     def test_failed_login(self):
@@ -41,7 +41,7 @@ class TestLoginLogout(DatabaseTestCase):
             username="test",
             password="wrongpassword"
         ), follow_redirects=True)
-        self.assertEqual(result.status_code, 401)
+        self.assertEqual(401, result.status_code)
         self.assertIn("Login unsuccessful", str(result.data))
 
     def test_invalidated_login(self):
@@ -50,20 +50,20 @@ class TestLoginLogout(DatabaseTestCase):
         result = self.client.post("/login", data=dict(
             username="test"
         ), follow_redirects=True)
-        self.assertEqual(result.status_code, 400)
+        self.assertEqual(400, result.status_code)
         self.assertIn("This field is required.", str(result.data))
 
     def test_logout_not_logged_in(self):
         """ Logout works when not logged in """
         result = self.client.get("/logout")
-        self.assertEqual(result.status_code, 302)  # Should redirect to login
+        self.assertEqual(302, result.status_code)  # Should redirect to login
         self.assertIn("/login", result.headers["Location"])
 
     def test_logout(self):
         """ Logout works when logged in """
         self._login_user(Role.External)
         result = self.client.get("/logout")
-        self.assertEqual(result.status_code, 302)  # Should redirect to login
+        self.assertEqual(302, result.status_code)  # Should redirect to login
         self.assertIn("/login", result.headers["Location"])
 
 
@@ -76,7 +76,7 @@ class TestUserPermissions(DatabaseTestCase):
             with self.subTest(role=role.name):
                 self._login_user(role=role, username="test_" + str(role.name))
                 result = self.client.get("/users/me")
-                self.assertEqual(result.status_code, status)
+                self.assertEqual(status, result.status_code)
                 self._logout()
 
     def test_permission_edit_user(self):
@@ -86,7 +86,7 @@ class TestUserPermissions(DatabaseTestCase):
             with self.subTest(role=role.name):
                 user = self._login_user(role=role, username="test_" + str(role.name))
                 result = self.client.get("/users/" + str(user.id) + "")
-                self.assertEqual(result.status_code, status)
+                self.assertEqual(status, result.status_code)
                 self._logout()
 
     def test_permission_create_user(self):
@@ -96,7 +96,7 @@ class TestUserPermissions(DatabaseTestCase):
             with self.subTest(role=role.name):
                 self._login_user(role=role, username="test_" + str(role.name))
                 result = self.client.get("/users/create")
-                self.assertEqual(result.status_code, status)
+                self.assertEqual(status, result.status_code)
                 self._logout()
 
     def test_permission_delete_user(self):
@@ -106,7 +106,7 @@ class TestUserPermissions(DatabaseTestCase):
             with self.subTest(role=role.name):
                 user = self._login_user(role=role, username="test_" + str(role.name))
                 result = self.client.post("/users/" + str(user.id) + "/delete")
-                self.assertEqual(result.status_code, status)
+                self.assertEqual(status, result.status_code)
                 self._logout()
 
     def test_permission_users(self):
@@ -116,7 +116,7 @@ class TestUserPermissions(DatabaseTestCase):
             with self.subTest(role=role.name):
                 user = self._login_user(role=role, username="test_" + str(role.name))
                 result = self.client.get("/users")
-                self.assertEqual(result.status_code, status)
+                self.assertEqual(status, result.status_code)
                 self._logout()
 
 
@@ -137,7 +137,7 @@ class TestCreateUser(DatabaseTestCase):
         ), follow_redirects=True)
 
         self.assertIn("/users", result.request.url)
-        self.assertEqual(result.status_code, 200)
+        self.assertEqual(200, result.status_code)
         created_user = User.query.filter_by(username="test").first()
         self.assertIsNotNone(created_user, "User now exists in database")
 
@@ -151,7 +151,7 @@ class TestCreateUser(DatabaseTestCase):
             locale="en"
         ), follow_redirects=True)
         self.assertEqual("/users/create", result.request.path)  # Not optimal, /users is also in /users/create
-        self.assertEqual(result.status_code, 200)
+        self.assertEqual(200, result.status_code)
         created_user = User.query.filter_by(username="test").first()
         self.assertIsNotNone(created_user, "User now exists in database")
 
@@ -165,7 +165,7 @@ class TestCreateUser(DatabaseTestCase):
         ), follow_redirects=True)
 
         self.assertEqual("/users/create", result.request.path)
-        self.assertEqual(result.status_code, 400)
+        self.assertEqual(400, result.status_code)
         created_user = User.query.filter_by(username="test").first()
         self.assertIsNone(created_user, "User does not exists in database, as creation failed")
 
@@ -179,7 +179,7 @@ class TestCreateUser(DatabaseTestCase):
             locale="en"
         ), follow_redirects=True)
         self.assertEqual("/users/create", result.request.path)
-        self.assertEqual(result.status_code, 400)
+        self.assertEqual(400, result.status_code)
 
     def test_create_user_passwords_unequal(self):
         """ Passwords don't match """
@@ -192,7 +192,7 @@ class TestCreateUser(DatabaseTestCase):
         ), follow_redirects=True)
 
         self.assertEqual("/users/create", result.request.path)
-        self.assertEqual(result.status_code, 400)
+        self.assertEqual(400, result.status_code)
         created_user = User.query.filter_by(username="test").first()
         self.assertIsNone(created_user, "User does not exists in database, as creation failed")
 
@@ -209,9 +209,9 @@ class TestEditOwnUser(DatabaseTestCase):
         ), follow_redirects=True)
 
         self.assertEqual("/users/me", result.request.path)
-        self.assertEqual(result.status_code, 200)
+        self.assertEqual(200, result.status_code)
         user = User.query.filter_by(username="user").first()
-        self.assertEqual(user.locale, "de", "User locale has been updated")
+        self.assertEqual("de", user.locale, "User locale has been updated")
 
     def test_edit_own_user_missing_parameter(self):
         """ Missing parameter on own editing """
@@ -222,7 +222,7 @@ class TestEditOwnUser(DatabaseTestCase):
         ), follow_redirects=True)
 
         self.assertEqual("/users/me", result.request.path)
-        self.assertEqual(result.status_code, 400)
+        self.assertEqual(400, result.status_code)
         user = User.query.filter_by(username="user").first()
         self.assertEqual(user.locale, "en", "User locale has not been updated")
 
@@ -236,7 +236,7 @@ class TestEditOwnUser(DatabaseTestCase):
         ), follow_redirects=True)
 
         self.assertEqual("/users/me", result.request.path)
-        self.assertEqual(result.status_code, 400)
+        self.assertEqual(400, result.status_code)
         user = User.query.filter_by(username="user").first()
         self.assertEqual(user.locale, "en", "User locale has not been updated")
 
@@ -260,7 +260,7 @@ class TestEditUser(DatabaseTestCase):
         ), follow_redirects=True)
 
         self.assertEqual("/users", result.request.path)
-        self.assertEqual(result.status_code, 200)
+        self.assertEqual(200, result.status_code)
         old_user = User.query.filter_by(username="pre_change").first()
         updated_user = User.query.filter_by(username="post_change").first()
         self.assertIsNone(old_user, "User with previous name doesn't exists in database")
@@ -277,7 +277,7 @@ class TestEditUser(DatabaseTestCase):
         ), follow_redirects=True)
 
         self.assertEqual(f"/users/{user.id}", result.request.path)
-        self.assertEqual(result.status_code, 400)
+        self.assertEqual(400, result.status_code)
         old_user = User.query.filter_by(username="pre_change").first()
         updated_user = User.query.filter_by(username="post_change").first()
         self.assertIsNotNone(old_user, "User with previous name still exists")
@@ -295,11 +295,11 @@ class TestEditUser(DatabaseTestCase):
             locale="en"
         ), follow_redirects=True)
         self.assertEqual(f"/users/{user2.id}", result.request.path)
-        self.assertEqual(result.status_code, 400)
+        self.assertEqual(400, result.status_code)
         old_user = User.query.filter_by(username="pre_change").first()
         existing_user = User.query.filter_by(username="existing_user").first()
         self.assertIsNotNone(old_user, "User with previous name still exists")
-        self.assertEqual(existing_user.id, user1.id, "Existing user is unchanged")
+        self.assertEqual(user1.id, existing_user.id, "Existing user is unchanged")
 
     def test_edit_user_passwords_unequal(self):
         """ Passwords don't match when editing user """
@@ -313,7 +313,7 @@ class TestEditUser(DatabaseTestCase):
         ), follow_redirects=True)
 
         self.assertEqual(f"/users/{user.id}", result.request.path)
-        self.assertEqual(result.status_code, 400)
+        self.assertEqual(400, result.status_code)
         old_user = User.query.filter_by(username="pre_change").first()
         self.assertIsNotNone(old_user, "User with previous name still exists")
 

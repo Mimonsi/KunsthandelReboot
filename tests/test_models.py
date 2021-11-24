@@ -12,10 +12,10 @@ class TestDatabaseModels(DatabaseTestCase):
         db.session.add(user)
         db.session.commit()
         self.assertIsNotNone(User.query.get(user.id))
-        self.assertEqual(str(user), "<User> (username=username, role_id=4)")
-        self.assertEqual(user.role(), "Administrator")
-        self.assertEqual(user.has_permission(3), True)
-        self.assertEqual(user.has_permission(5), False)
+        self.assertEqual("<User> (username=username, role_id=4)", str(user))
+        self.assertEqual("Administrator", user.role())
+        self.assertEqual(True, user.has_permission(3))
+        self.assertEqual(False, user.has_permission(5))
         print(user)
 
     def test_location_model(self):
@@ -23,8 +23,8 @@ class TestDatabaseModels(DatabaseTestCase):
         db.session.add(location)
         db.session.commit()
         self.assertIsNotNone(Location.query.get(location.id))
-        self.assertEqual(str(location), f"<Location> (id={location.id}, name=location)")
-        self.assertEqual(location.model_name(), "Location")
+        self.assertEqual(f"<Location> (id={location.id}, name=location)", str(location))
+        self.assertEqual("Location", location.model_name())
         print(location)
 
     def test_origin_model(self):
@@ -32,8 +32,8 @@ class TestDatabaseModels(DatabaseTestCase):
         db.session.add(origin)
         db.session.commit()
         self.assertIsNotNone(Origin.query.get(origin.id))
-        self.assertEqual(str(origin), f"<Origin> (id={origin.id}, name=origin)")
-        self.assertEqual(origin.model_name(), "Origin")
+        self.assertEqual(f"<Origin> (id={origin.id}, name=origin)", str(origin))
+        self.assertEqual( "Origin", origin.model_name())
         print(origin)
 
     def test_type_model(self):
@@ -41,8 +41,8 @@ class TestDatabaseModels(DatabaseTestCase):
         db.session.add(type)
         db.session.commit()
         self.assertIsNotNone(Type.query.get(type.id))
-        self.assertEqual(str(type), f"<Type> (id={type.id}, name=type)")
-        self.assertEqual(type.model_name(), "Type")
+        self.assertEqual(f"<Type> (id={type.id}, name=type)", str(type))
+        self.assertEqual("Type", type.model_name())
         print(type)
 
     def test_image_model(self):
@@ -50,7 +50,7 @@ class TestDatabaseModels(DatabaseTestCase):
         db.session.add(image)
         db.session.commit()
         self.assertIsNotNone(Image.query.get(image.id))
-        self.assertEqual(str(image), f"<Image> (id={image.id}, path=test.png, item_id=None, is_thumbnail=False)")
+        self.assertEqual( f"<Image> (id={image.id}, path=test.png, item_id=None, is_thumbnail=False)", str(image))
         #self.assertEqual(image.url(), "") This is not testable, as URL_FOR requires application context
         print(image)
 
@@ -59,8 +59,8 @@ class TestDatabaseModels(DatabaseTestCase):
         db.session.add(item)
         db.session.commit()
         self.assertIsNotNone(Item.query.get(item.id))
-        self.assertEqual(str(item), f"<Item> (id={item.id}, name=None, type=None, location=None, origin=None)")
-        self.assertEqual(item.thumbnail(), None)
+        self.assertEqual(f"<Item> (id={item.id}, name=None, type=None, location=None, origin=None)", str(item))
+        self.assertEqual(None, item.thumbnail())
         print(item)
 
 
