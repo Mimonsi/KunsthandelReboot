@@ -27,7 +27,7 @@ class TestStorageOverview(DatabaseTestCase):
         pairs = {Role.External: 403, Role.Visitor: 403, Role.User: 403, Role.Editor: 403, Role.Administrator: 200}
         for role, status in pairs.items():
             with self.subTest(role=role.name):
-                self._login_user(role=role, username="test_" + str(role.name))
+                self._login_user(role=role, username=f"test_{role.name}")
                 result = self.client.get("/admin/storage_overview")
                 self.assertEqual(status, result.status_code)
                 self._logout()
@@ -45,7 +45,7 @@ class TestAdminPermission(DatabaseTestCase):
         pairs = {Role.External: 403, Role.Visitor: 403, Role.User: 403, Role.Editor: 403, Role.Administrator: 200}
         for role, status in pairs.items():
             with self.subTest(role=role.name):
-                self._login_user(role=role, username="test_" + str(role.name))
+                self._login_user(role=role, username=f"test_{role.name}")
                 result = self.client.get("/admin/")
                 self.assertEqual(status, result.status_code)
                 if role == Role.Administrator:

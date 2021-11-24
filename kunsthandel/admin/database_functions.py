@@ -36,11 +36,11 @@ def create_test_items(item_amount, type_amount, location_amount, origin_amount):
     if item_amount == 0:
         item_amount = random.randint(50, 250)
     for i in range(0, item_amount):
-        item = Item(type_id=random.randint(1, type_amount), location_id=random.randint(1, location_amount), origin_id=random.randint(1, origin_amount), name="Test " + str(random.randint(1000, 9999)), comment="Comment for longer texts", size=str(random.randint(5, 110)) + "cm")
+        item = Item(type_id=random.randint(1, type_amount), location_id=random.randint(1, location_amount), origin_id=random.randint(1, origin_amount), name=f"Test {random.randint(1000, 9999)}", comment="Comment for longer texts", size=str(random.randint(5, 110)) + "cm")
         item.qr_hash = utils.get_qr_hash()
         db.session.add(item)
         db.session.commit()
-        thumbnail = Image(path="dummy/" + str(random.randint(0, 63)) + ".png", is_thumbnail=True, item_id=item.id)
+        thumbnail = Image(path=f"dummy/{random.randint(0, 63)}.png", is_thumbnail=True, item_id=item.id)
         db.session.add(thumbnail)
         created += 1
     db.session.commit()
@@ -60,5 +60,5 @@ def create_test_users(amount, password):
         else:
             role = Role.Editor
 
-        create_account("Account_" + str(random.randint(0, 2000000000)), password, role)
+        create_account(f"Account_{random.randint(0, 2000000000)}", password, role)
     return amount

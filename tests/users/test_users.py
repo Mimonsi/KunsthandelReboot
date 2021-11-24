@@ -74,7 +74,7 @@ class TestUserPermissions(DatabaseTestCase):
         pairs = {Role.External: 403, Role.Visitor: 403, Role.User: 200, Role.Editor: 200, Role.Administrator: 200}
         for role, status in pairs.items():
             with self.subTest(role=role.name):
-                self._login_user(role=role, username="test_" + str(role.name))
+                self._login_user(role=role, username=f"test_{role.name}")
                 result = self.client.get("/users/me")
                 self.assertEqual(status, result.status_code)
                 self._logout()
@@ -84,8 +84,8 @@ class TestUserPermissions(DatabaseTestCase):
         pairs = {Role.External: 403, Role.Visitor: 403, Role.User: 403, Role.Editor: 403, Role.Administrator: 200}
         for role, status in pairs.items():
             with self.subTest(role=role.name):
-                user = self._login_user(role=role, username="test_" + str(role.name))
-                result = self.client.get("/users/" + str(user.id) + "")
+                user = self._login_user(role=role, username=f"test_{role.name}")
+                result = self.client.get(f"/users/{user.id}")
                 self.assertEqual(status, result.status_code)
                 self._logout()
 
@@ -94,7 +94,7 @@ class TestUserPermissions(DatabaseTestCase):
         pairs = {Role.External: 403, Role.Visitor: 403, Role.User: 403, Role.Editor: 403, Role.Administrator: 200}
         for role, status in pairs.items():
             with self.subTest(role=role.name):
-                self._login_user(role=role, username="test_" + str(role.name))
+                self._login_user(role=role, username=f"test_{role.name}")
                 result = self.client.get("/users/create")
                 self.assertEqual(status, result.status_code)
                 self._logout()
@@ -104,8 +104,8 @@ class TestUserPermissions(DatabaseTestCase):
         pairs = {Role.External: 403, Role.Visitor: 403, Role.User: 403, Role.Editor: 403, Role.Administrator: 302}
         for role, status in pairs.items():
             with self.subTest(role=role.name):
-                user = self._login_user(role=role, username="test_" + str(role.name))
-                result = self.client.post("/users/" + str(user.id) + "/delete")
+                user = self._login_user(role=role, username=f"test_{role.name}")
+                result = self.client.post(f"/users/{user.id}/delete")
                 self.assertEqual(status, result.status_code)
                 self._logout()
 
@@ -114,7 +114,7 @@ class TestUserPermissions(DatabaseTestCase):
         pairs = {Role.External: 403, Role.Visitor: 403, Role.User: 403, Role.Editor: 403, Role.Administrator: 200}
         for role, status in pairs.items():
             with self.subTest(role=role.name):
-                user = self._login_user(role=role, username="test_" + str(role.name))
+                user = self._login_user(role=role, username=f"test_{role.name}")
                 result = self.client.get("/users")
                 self.assertEqual(status, result.status_code)
                 self._logout()
@@ -251,7 +251,7 @@ class TestEditUser(DatabaseTestCase):
     def test_edit_user_successful(self):
         """ Edit username by an Administrator """
         user = User.query.filter_by(username="pre_change").first()
-        result = self.client.post("/users/" + str(user.id), data=dict(
+        result = self.client.post(f"/users/{user.id}", data=dict(
             username="post_change",
             password="password",
             confirm_password="password",
@@ -269,7 +269,7 @@ class TestEditUser(DatabaseTestCase):
     def test_edit_user_missing_parameter(self):
         """ Missing locale parameter """
         user = User.query.filter_by(username="pre_change").first()
-        result = self.client.post("/users/" + str(user.id), data=dict(
+        result = self.client.post(f"/users/{user.id}", data=dict(
             username="post_change",
             password="password",
             confirm_password="password",
@@ -287,7 +287,7 @@ class TestEditUser(DatabaseTestCase):
         """ Edit user with taken username """
         user1 = create_account(username="existing_user", password="password", role=Role.User)
         user2 = User.query.filter_by(username="pre_change").first()
-        result = self.client.post("/users/" + str(user2.id), data=dict(
+        result = self.client.post(f"/users/{user2.id}", data=dict(
             username=user1.username,  # Use name of reserved Administrator user
             password="password",
             confirm_password="password",
