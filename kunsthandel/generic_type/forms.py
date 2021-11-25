@@ -5,6 +5,6 @@ from wtforms.validators import DataRequired, Length
 
 
 class EditGenericTypeForm(FlaskForm):
-    name = StringField(gettext('Name*'), validators=[DataRequired(), Length(min=2, max=50)])
+    name = StringField(gettext("Name*"), validators=[DataRequired(), Length(min=2, max=50)])
 
-    submit = SubmitField(gettext('Create'))
+    submit = SubmitField(gettext("Create"))

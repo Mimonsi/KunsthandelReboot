@@ -14,9 +14,9 @@ babel = Babel()
 bcrypt = Bcrypt()
 login_manager = LoginManager()
 toolbar = DebugToolbarExtension()
-login_manager.login_view = 'users.login'
-login_manager.login_message_category = 'warning'
-login_manager.login_message = lazy_gettext('Please log in to access this page')
+login_manager.login_view = "users.login"
+login_manager.login_message_category = "warning"
+login_manager.login_message = lazy_gettext("Please log in to access this page")
 
 
 def create_app(config_class=None):
@@ -74,5 +74,5 @@ def get_locale():
     if current_user and current_user.is_authenticated:
         return current_user.locale
     if request:
-        return request.accept_languages.best_match(['de', 'en'])
+        return request.accept_languages.best_match(["de", "en"])
     return "en"  # pragma: no cover

@@ -14,14 +14,15 @@ from kunsthandel import db
 from kunsthandel.models import Role
 
 
-def role_required(access_level: Role):  # Also implements all functionality of @login_required
+def role_required(access_level: Role):  # pragma: no cover
+    # Also implements all functionality of @login_required
     def decorator(func):
         @wraps(func)
         def wrapper(*args, **kwargs):
 
             if request.method in EXEMPT_METHODS:
                 return func(*args, **kwargs)
-            elif current_app.config.get('LOGIN_DISABLED'):
+            elif current_app.config.get("LOGIN_DISABLED"):
                 return func(*args, **kwargs)
             elif not current_user.is_authenticated:
                 return current_app.login_manager.unauthorized()
@@ -40,7 +41,7 @@ def create_qr_code(id, url, version, box_size, border):
     filename = os.path.join(current_app.root_path, f"static/qr/{id}.png")
     #qr = qrcode.make(url)
     #qr.save(filename)
-    qr = qrcode.QRCode(version=version, box_size=box_size, border=border) # 1, 10, 5
+    qr = qrcode.QRCode(version=version, box_size=box_size, border=border)  # 1, 10, 5
     qr.add_data(url)
     qr.make(fit=True)
     img = qr.make_image()
@@ -82,7 +83,7 @@ def save_images(form_images, item):
     dir_path = os.path.join(current_app.root_path, f"static/images/{item.id}/")
     os.makedirs(dir_path, exist_ok=True)
     for form_image in form_images:
-        if form_image.filename == '': # This covers the case of no files being attached
+        if form_image.filename == "": # This covers the case of no files being attached
             continue
         _, f_ext = os.path.splitext(form_image.filename)  # _ -> Throws away value, not needed
         picture_fn = str(index) + f_ext

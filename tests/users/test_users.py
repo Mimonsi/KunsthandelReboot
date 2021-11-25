@@ -8,7 +8,7 @@ class TestLoginLogout(DatabaseTestCase):
 
     def test_login_redirect(self):
         """ Test if any route redirects to login """
-        result = self.client.get('/home')
+        result = self.client.get("/home")
         self.assertEqual(302, result.status_code)
         self.assertIn("/login", result.headers["Location"])
 
@@ -318,5 +318,5 @@ class TestEditUser(DatabaseTestCase):
         self.assertIsNotNone(old_user, "User with previous name still exists")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

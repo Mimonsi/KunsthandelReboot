@@ -10,8 +10,8 @@ from tests import DatabaseTestCase
 class TestStorageOverview(DatabaseTestCase):
     def setUp(self):
         app = create_app(config_class=config.TestConfig)
-        app.config["SQLALCHEMY_DATABASE_URI"] = 'sqlite:///testing.db?charset=utf8mb4'
-        app.config["STORAGE_DATABASE_FILE"] = 'testing.db'
+        app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///testing.db?charset=utf8mb4"
+        app.config["STORAGE_DATABASE_FILE"] = "testing.db"
         self.client = app.test_client()
         db.app = app
         db.drop_all()
@@ -36,7 +36,7 @@ class TestStorageOverview(DatabaseTestCase):
         self._login_user(role=Role.Administrator, username="admin")
         result = self.client.get("/admin/storage_overview")
         self.assertEqual(200, result.status_code)
-        self.assertIn(gettext('Storage Overview'), str(result.data))
+        self.assertIn(gettext("Storage Overview"), str(result.data))
 
 
 class TestAdminPermission(DatabaseTestCase):
@@ -180,5 +180,5 @@ class TestErrorHandlers(DatabaseTestCase):
         self.assertIn("500", str(result.data))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

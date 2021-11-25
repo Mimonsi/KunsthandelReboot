@@ -9,26 +9,26 @@ from kunsthandel.items.forms import EditItemForm
 from kunsthandel.main.utils import role_required, save_images, save_thumbnail
 from kunsthandel.models import create_account, Role, Item, Image
 
-items = Blueprint('items', __name__)
+items = Blueprint("items", __name__)
 
 
-@items.route('/code/<string:hash>')
+@items.route("/code/<string:hash>")
 def token(hash):
     item = Item.query.filter_by(qr_hash=hash).first_or_404()
 
     return render_template("items/item.html", title=gettext("Item details %s") % str(id), item=item)
 
 
-@items.route('/items')
-@items.route('/items/overview')
+@items.route("/items")
+@items.route("/items/overview")
 @role_required(Role.User)
 def overview():
-    page = request.args.get('page', type=int)
+    page = request.args.get("page", type=int)
     items = Item.query.paginate(page=page, per_page=50)
-    return render_template("items/items.html", title=gettext('Item overview'), items=items)
+    return render_template("items/items.html", title=gettext("Item overview"), items=items)
 
 
-@items.route('/items/<int:id>')
+@items.route("/items/<int:id>")
 @role_required(Role.User)
 def details(id):
     item = Item.query.get_or_404(id)
@@ -36,7 +36,7 @@ def details(id):
     return render_template("items/item.html", title=gettext("Item details %s") % str(id), item=item)
 
 
-@items.route('/items/create', methods=['GET', 'POST'])
+@items.route("/items/create", methods=["GET", "POST"])
 @role_required(Role.Editor)
 def create():
     form = EditItemForm()
@@ -54,7 +54,7 @@ def create():
     return render_template("items/item_edit.html", title=gettext("Create new item"), form=form)
 
 
-@items.route('/items/<int:id>/edit', methods=['GET', 'POST'])
+@items.route("/items/<int:id>/edit", methods=["GET", "POST"])
 @role_required(Role.Editor)
 def edit(id):
     item = Item.query.get_or_404(id)
@@ -75,7 +75,7 @@ def edit(id):
         db.session.commit()
         flash(gettext("Item with ID %s successfully updated") % str(item.id), "success")
         return redirect(url_for("items.overview"))
-    if request.method == 'GET':
+    if request.method == "GET":
         item = Item.query.get_or_404(id)
         form.name.data = item.name
         form.type.data = item.type
@@ -87,7 +87,7 @@ def edit(id):
     return render_template("items/item_edit.html", title=gettext("Create new item"), form=form)
 
 
-@items.route('/items/<int:id>/delete', methods=['POST'])
+@items.route("/items/<int:id>/delete", methods=["POST"])
 @role_required(Role.Editor)
 def delete(id):
     item = Item.query.get_or_404(id)
@@ -97,7 +97,7 @@ def delete(id):
     return redirect(url_for("items.overview"))
 
 
-@items.route('/items/<int:id>/images/<int:image_id>/delete', methods=['POST'])
+@items.route("/items/<int:id>/images/<int:image_id>/delete", methods=["POST"])
 @role_required(Role.Editor)
 def delete_image(id, image_id):
 
