@@ -1,5 +1,4 @@
 import os
-import secrets
 from functools import wraps
 
 import qrcode as qrcode
@@ -7,7 +6,7 @@ from PIL import Image
 from flask import abort, request, current_app
 from flask_babel import format_decimal
 
-from flask_login import current_user, login_required
+from flask_login import current_user
 from flask_login.config import EXEMPT_METHODS
 
 import kunsthandel.models
@@ -33,10 +32,6 @@ def role_required(access_level: Role):  # Also implements all functionality of @
         return wrapper
 
     return decorator
-
-
-def get_qr_hash():
-    return secrets.token_urlsafe(16)
 
 
 def create_qr_code(id, url, version, box_size, border):

@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, flash, redirect, url_for, current_app, request, abort
+from flask import Blueprint, render_template, flash, redirect, url_for, current_app, request, abort, session
 from flask_babel import gettext
 
 from kunsthandel.admin.forms import CreateUsersForm, CreateItemsForm, CreateQRCodesForm
@@ -15,11 +15,30 @@ admin = Blueprint('admin', __name__)
 @admin.route('/admin/', methods=['GET'])
 @role_required(Role.Administrator)
 def home():
-    create_user_form = CreateUsersForm()
-    create_items_form = CreateItemsForm()
-    create_qr_codes_form = CreateQRCodesForm()
+    status_code = 200
+    if session.get("redirect_user_form"):
+        create_user_form = CreateUsersForm(data=session.get("redirect_user_form"))
+        create_user_form.validate()
+        session.pop("redirect_user_form")
+        status_code = 400
+    else:
+        create_user_form = CreateUsersForm()
+    if session.get("redirect_items_form"):
+        create_items_form = CreateItemsForm(data=session.get("redirect_items_form"))
+        create_items_form.validate()
+        session.pop("redirect_items_form")
+        status_code = 400
+    else:
+        create_items_form = CreateItemsForm()
+    if session.get("redirect_qr_codes_form"):
+        create_qr_codes_form = CreateQRCodesForm(data=session.get("redirect_qr_codes_form"))
+        create_qr_codes_form.validate()
+        session.pop("redirect_qr_codes_form")
+        status_code = 400
+    else:
+        create_qr_codes_form = CreateQRCodesForm()
     return render_template("admin/home.html", title=gettext("Administration"), create_user_form=create_user_form,
-                           create_items_form=create_items_form, create_qr_codes_form=create_qr_codes_form)
+                           create_items_form=create_items_form, create_qr_codes_form=create_qr_codes_form), status_code
 
 
 @admin.route('/admin/create_users', methods=['POST'])
@@ -29,7 +48,10 @@ def create_users():
     if form.validate_on_submit():
         amount = create_test_users(form.account_amount.data, form.password.data)
         flash(gettext("Successfully created %s user accounts.") % str(amount), "success")
-    return redirect(url_for('admin.home'))
+        return redirect(url_for('admin.home'))
+    else:
+        session["redirect_user_form"] = form.data
+        return redirect(url_for('admin.home'))
 
 
 @admin.route('/admin/create_items', methods=['POST'])
@@ -41,7 +63,10 @@ def create_items():
                                    location_amount=form.location_amount.data,
                                    origin_amount=form.origin_amount.data)
         flash(gettext("Successfully created %s datasets.") % str(amount), "success")
-    return redirect(url_for('admin.home'))
+        return redirect(url_for('admin.home'))
+    else:
+        session["redirect_items_form"] = form.data
+        return redirect(url_for('admin.home'))
 
 
 @admin.route('/admin/qr_printsheet', methods=['POST'])
@@ -57,8 +82,11 @@ def qr_printsheet():
                                       box_size=form.code_size.data, border=form.code_border_size.data)
             urls.append(base_url + url_for('static', filename='qr/' + filename))
         return render_template('qrcode_printscreen.html', urls=urls)
-    flash(gettext("Something went wrong. This is awkward..."), "danger")
-    return redirect(url_for('admin.home'))
+    else:
+        session["redirect_qr_codes_form"] = form.data
+        flash(gettext("Something went wrong. This is awkward..."), "danger")
+        return redirect(url_for('admin.home'))
+
 
 
 @admin.route('/admin/storage_overview', methods=['GET'])

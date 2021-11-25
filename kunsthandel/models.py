@@ -1,3 +1,4 @@
+import secrets
 from enum import Enum
 
 import flask_bcrypt
@@ -107,6 +108,10 @@ class Item(db.Model):
     size = db.Column(db.String(255), nullable=True)
 
     qr_hash = db.Column(db.String(32), nullable=False)
+
+    def __init__(self, **kwargs):
+        super(Item, self).__init__(**kwargs)
+        self.qr_hash = secrets.token_urlsafe(16)
 
     def __repr__(self):
         return f'<Item> (id={self.id}, name={self.name}, type={self.type}, location={self.location}, origin={self.origin})'

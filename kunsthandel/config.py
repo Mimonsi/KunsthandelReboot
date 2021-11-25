@@ -28,8 +28,9 @@ class TestConfig(BaseConfig):
     WTF_CSRF_ENABLED = False
 
     DEBUG_TB_PROFILER_ENABLED = False
-    DEBUG_TB_TEMPLATE_EDITOR_ENABLED = True
+    DEBUG_TB_TEMPLATE_EDITOR_ENABLED = False
     DEBUG_TB_INTERCEPT_REDIRECTS = False
+    DEBUG_TB_ENABLED = False
 
 
 class ProductionConfig(BaseConfig):

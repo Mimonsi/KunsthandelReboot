@@ -3,7 +3,7 @@ import unittest
 from gettext import gettext
 
 from kunsthandel import db, create_app, config
-from kunsthandel.models import Role, User
+from kunsthandel.models import Role, User, Item, Type, Location, Origin
 from tests import DatabaseTestCase
 
 
@@ -69,25 +69,94 @@ class TestRoutes(DatabaseTestCase):
         self.assertEqual(405, result.status_code)
 
     def test_create_users_successful(self):
-        result = self.client.post(f"/admin/create_users", data=dict(
+        result = self.client.post("/admin/create_users", data=dict(
             account_amount=0,
             password="password",
             confirm_password="password",
         ), follow_redirects=True)
         self.assertGreater(len(User.query.all()), 1)  # More than 1 user account after bulk creation
-        self.assertEqual(f"/admin/", result.request.path)
+        self.assertEqual("/admin/", result.request.path)
         self.assertIn("Successfully created", str(result.data))
         self.assertEqual(200, result.status_code)
 
     def test_create_users_passwords_unequal(self):
-        result = self.client.post(f"/admin/create_users", data=dict(
+        result = self.client.post("/admin/create_users", data=dict(
             account_amount=0,
             password="password",
             confirm_password="other_password",
         ), follow_redirects=True)
         self.assertEqual(1, len(User.query.all()))  # More than 1 user account after bulk creation
-        self.assertEqual(f"/admin/create_users", result.request.path)
-        self.assertIn("Must be equal to password.", str(result.data))
+        self.assertEqual("/admin/", result.request.path)
+        self.assertIn("Field must be equal to password.", str(result.data))
+        self.assertEqual(400, result.status_code)
+
+    def test_create_items_get(self):
+        """ Get request should not be allowed """
+        result = self.client.get("/admin/create_items")
+        self.assertEqual(405, result.status_code)
+
+    def test_create_items_successful(self):
+        result = self.client.post("/admin/create_items", data=dict(
+            item_amount=0,
+            type_amount=2,
+            location_amount=2,
+            origin_amount=2,
+        ), follow_redirects=True)
+        self.assertGreater(len(Item.query.all()), 1)  # More than 1 item after bulk creation
+        self.assertEqual(2, len(Type.query.all()))  # Exactly 2 types, locations and origins after bulk creation
+        self.assertEqual(2, len(Location.query.all()))
+        self.assertEqual(2, len(Origin.query.all()))
+        self.assertEqual("/admin/", result.request.path)
+        self.assertIn("Successfully created", str(result.data))
+        self.assertEqual(200, result.status_code)
+
+    def test_create_items_amount_invalid(self):
+        result = self.client.post("/admin/create_items", data=dict(
+            item_amount=0,
+            type_amount=2,
+            location_amount=2,
+            origin_amount="text",  # Text is not allowed here
+        ), follow_redirects=True)
+        self.assertEqual(0, len(Type.query.all()))  # Exactly 0 types, locations and origins after bulk creation
+        self.assertEqual(0, len(Location.query.all()))
+        self.assertEqual(0, len(Origin.query.all()))
+        self.assertEqual(0, len(Item.query.all()))  # More than 1 user account after bulk creation
+        self.assertEqual("/admin/", result.request.path)
+        self.assertIn("This field is required.", str(result.data))
+        self.assertEqual(400, result.status_code)
+
+
+class TestQRCodeCreation(DatabaseTestCase):
+    def setUp(self):
+        super().setUp()
+        self._login_user(role=Role.Administrator, username="Administrator")
+        item = Item()
+        db.session.add(item)
+        db.session.commit()
+
+    def test_create_qr_codes_get(self):
+        """ Get request should not be allowed """
+        result = self.client.get("/admin/qr_printsheet")
+        self.assertEqual(405, result.status_code)
+
+    def test_create_qr_codes_successful(self):
+        result = self.client.post("/admin/qr_printsheet", data=dict(
+            code_version=1,
+            code_size=10,
+            code_border_size=5,
+        ), follow_redirects=True)
+        self.assertEqual("/admin/qr_printsheet", result.request.path)
+        self.assertIn("<img src", str(result.data))
+        self.assertEqual(200, result.status_code)
+
+    def test_create_qr_codes_amount_invalid(self):
+        result = self.client.post("/admin/qr_printsheet", data=dict(
+            code_version=1,
+            code_size=10,
+            code_border_size="text",  # Text is not allowed here
+        ), follow_redirects=True)
+        self.assertEqual("/admin/", result.request.path)
+        self.assertIn("Something went wrong. This is awkward...", str(result.data))
         self.assertEqual(400, result.status_code)
 
 

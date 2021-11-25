@@ -6,7 +6,7 @@ from flask_login import login_required, current_user
 
 from kunsthandel import db
 from kunsthandel.items.forms import EditItemForm
-from kunsthandel.main.utils import role_required, save_images, get_qr_hash, save_thumbnail
+from kunsthandel.main.utils import role_required, save_images, save_thumbnail
 from kunsthandel.models import create_account, Role, Item, Image
 
 items = Blueprint('items', __name__)
