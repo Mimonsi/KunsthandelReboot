@@ -14,7 +14,7 @@ from kunsthandel import db
 from kunsthandel.models import Role
 
 
-def role_required(access_level: Role):  # pragma: no cover
+def role_required(access_level: Role):
     # Also implements all functionality of @login_required
     def decorator(func):
         @wraps(func)

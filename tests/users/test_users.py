@@ -318,5 +318,5 @@ class TestEditUser(DatabaseTestCase):
         self.assertIsNotNone(old_user, "User with previous name still exists")
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":  # pragma: no cover
     unittest.main()

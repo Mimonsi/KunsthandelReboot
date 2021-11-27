@@ -1,13 +1,13 @@
 import bdb
 
-from flask import Blueprint, request, abort, render_template, url_for, flash, redirect
+from flask import Blueprint, request, render_template, url_for, flash, redirect
 from flask_babel import gettext
-from flask_login import login_required, current_user
+from flask_login import current_user
 
 from kunsthandel import db
 from kunsthandel.items.forms import EditItemForm
 from kunsthandel.main.utils import role_required, save_images, save_thumbnail
-from kunsthandel.models import create_account, Role, Item, Image
+from kunsthandel.models import Role, Item, Image
 
 items = Blueprint("items", __name__)
 
@@ -15,7 +15,6 @@ items = Blueprint("items", __name__)
 @items.route("/code/<string:hash>")
 def token(hash):
     item = Item.query.filter_by(qr_hash=hash).first_or_404()
-
     return render_template("items/item.html", title=gettext("Item details %s") % str(id), item=item)
 
 
@@ -32,7 +31,6 @@ def overview():
 @role_required(Role.User)
 def details(id):
     item = Item.query.get_or_404(id)
-
     return render_template("items/item.html", title=gettext("Item details %s") % str(id), item=item)
 
 
@@ -41,8 +39,7 @@ def details(id):
 def create():
     form = EditItemForm()
     if form.validate_on_submit():
-        item = Item(name=form.name.data, type=form.type.data, location=form.location.data, origin=form.origin.data,
-                    size=form.size.data, comment=form.comment.data, qr_hash=get_qr_hash(), edited=current_user)
+        item = Item(name=form.name.data, type=form.type.data, location=form.location.data, origin=form.origin.data, size=form.size.data, comment=form.comment.data, edited=current_user)
         db.session.add(item)
         db.session.commit()
         if form.thumbnail.data:
@@ -100,7 +97,6 @@ def delete(id):
 @items.route("/items/<int:id>/images/<int:image_id>/delete", methods=["POST"])
 @role_required(Role.Editor)
 def delete_image(id, image_id):
-
     image = Image.query.get_or_404(image_id)
     db.session.delete(image)
     db.session.commit()

@@ -180,5 +180,5 @@ class TestErrorHandlers(DatabaseTestCase):
         self.assertIn("500", str(result.data))
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":  # pragma: no cover
     unittest.main()
