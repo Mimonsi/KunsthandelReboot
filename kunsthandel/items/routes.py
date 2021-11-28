@@ -19,7 +19,6 @@ def token(hash):
 
 
 @items.route("/items")
-@items.route("/items/overview")
 @role_required(Role.User)
 def overview():
     page = request.args.get("page", type=int)

@@ -136,10 +136,11 @@ class TestCreateUser(DatabaseTestCase):
             locale="en"
         ), follow_redirects=True)
 
-        self.assertIn("/users", result.request.url)
+        self.assertEqual("/users", result.request.path)
         self.assertEqual(200, result.status_code)
         created_user = User.query.filter_by(username="test").first()
         self.assertIsNotNone(created_user, "User now exists in database")
+
 
     def test_create_user_successful_multiple(self):
         """ Create new user account by an Administrator with redirect to same form """

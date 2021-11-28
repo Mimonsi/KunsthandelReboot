@@ -21,7 +21,11 @@
         <tbody>
         {% for item in items.items %}
             <tr>
-                <td><img height="50" src="{{ item.thumbnail().url() }}" alt="Thumbnail for item {{ item.id }}"></td>
+                {% if item.thumbnail() %}
+                    <td><img height="50" src="{{ item.thumbnail().url() }}" alt="Thumbnail for item {{ item.id }}"></td>
+                {% else %}
+                    <td><img height="50"></td>
+                {% endif %}
                 <td>{{ item.id }}</td>
                 <td>{{ item.type.name }}</td>
                 <td>{{ item.location.name }}</td>
