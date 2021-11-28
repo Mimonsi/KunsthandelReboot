@@ -69,7 +69,7 @@ class TestItemPermissions(DatabaseTestCase):
                 item = Item()
                 db.session.add(item)
                 db.session.commit()
-                result = self.client.post(f"/items/{item.id}/delete")
+                result = self.client.post(f"/items/{item.id}/delete", follow_redirects=True)
                 self.assertEqual(status, result.status_code)
                 self._logout()
 
