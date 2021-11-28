@@ -1,1 +1,5 @@
-recursive-include kunsthandel *.html *.css *.mo *.txt
+recursive-include kunsthandel *.html *.css *.mo
+recursive-include kunsthandel/static/dev/images/dummy *
+recursive-include kunsthandel/static/prod/images/dummy *
+recursive-include kunsthandel/static/prod/images/dummy *
+include kunsthandel/static/texts/*.txt
