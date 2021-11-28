@@ -37,9 +37,9 @@ def role_required(access_level: Role):
 
 
 def create_qr_code(id, url, version, box_size, border):
-    dir_path = os.path.join(current_app.root_path, "static/qr/")
+    dir_path = os.path.join(current_app.root_path, f"static/{current_app.config['MEDIA_ROOT_PATH']}/qr/")
     os.makedirs(dir_path, exist_ok=True)
-    filename = os.path.join(current_app.root_path, f"static/qr/{id}.png")
+    filename = os.path.join(current_app.root_path, f"static/{current_app.config['MEDIA_ROOT_PATH']}/qr/{id}.png")
     # qr = qrcode.make(url)
     # qr.save(filename)
     qr = qrcode.QRCode(version=version, box_size=box_size, border=border)  # 1, 10, 5
@@ -62,12 +62,12 @@ def format_filesize(bytes):
 
 
 def save_thumbnail(thumbnail: FileStorage, item: Item):
-    dir_path = os.path.join(current_app.root_path, f"static/images/{item.id}/")
+    dir_path = os.path.join(current_app.root_path, f"static/{current_app.config['MEDIA_ROOT_PATH']}/images/{item.id}/")
     os.makedirs(dir_path, exist_ok=True)
 
     _, f_ext = os.path.splitext(thumbnail.filename)  # _ -> Throws away value, not needed
     picture_fn = f"thumbnail{f_ext}"
-    picture_path = os.path.join(current_app.root_path, f"static/images/{item.id}/", picture_fn)
+    picture_path = os.path.join(current_app.root_path, f"static/{current_app.config['MEDIA_ROOT_PATH']}/images/{item.id}/", picture_fn)
 
     i = Image.open(thumbnail)
 
@@ -81,14 +81,14 @@ def save_thumbnail(thumbnail: FileStorage, item: Item):
 def save_images(form_images, item):
     image_objects = []
     index = 1
-    dir_path = os.path.join(current_app.root_path, f"static/images/{item.id}/")
+    dir_path = os.path.join(current_app.root_path, f"static/{current_app.config['MEDIA_ROOT_PATH']}/images/{item.id}/")
     os.makedirs(dir_path, exist_ok=True)
     for form_image in form_images:
         if form_image.filename == "":  # This covers the case of no files being attached
             continue
         _, f_ext = os.path.splitext(form_image.filename)  # _ -> Throws away value, not needed
         picture_fn = str(index) + f_ext
-        picture_path = os.path.join(current_app.root_path, f"static/images/{item.id}/", picture_fn)
+        picture_path = os.path.join(current_app.root_path, f"static/{current_app.config['MEDIA_ROOT_PATH']}/images/{item.id}/", picture_fn)
 
         # output_size = (125, 125)
         i = Image.open(form_image)

@@ -2,7 +2,7 @@ import secrets
 from enum import Enum
 
 import flask_bcrypt
-from flask import url_for
+from flask import url_for, current_app
 from flask_login import UserMixin
 
 from kunsthandel import db, login_manager
@@ -74,7 +74,7 @@ class Image(db.Model):
         return f"<Image> (id={self.id}, path={self.path}, item_id={self.item_id}, is_thumbnail={self.is_thumbnail})"
 
     def url(self):
-        return url_for("static", filename="images/" + self.path)  # pragma: no cover
+        return url_for("static", filename=f"{current_app.config['MEDIA_ROOT_PATH']}/images/{self.path}")  # pragma: no cover
 
 
 class Type(db.Model):
