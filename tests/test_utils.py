@@ -1,9 +1,11 @@
 import unittest
 
+from flask import current_app
 from werkzeug.datastructures import FileStorage
 
 from kunsthandel import create_app, config, db
-from kunsthandel.models import Role
+from kunsthandel.main.utils import save_thumbnail
+from kunsthandel.models import Role, Item, Image
 from tests import DatabaseTestCase
 
 
@@ -45,10 +47,18 @@ class TestRoleRequiredDecoratorExemptMethod(DatabaseTestCase):
         self.assertEqual("/admin/", result.request.path)
 
 
-#class TestImageUpload(DatabaseTestCase):
-    #def test_thumbnail_upload(self):
-        #self._login_user(role=Role.Administrator)
-        #FileStorage()
+class TestImageUpload(DatabaseTestCase):
+    def test_thumbnail_upload_successful(self):
+        with db.app.app_context():
+            self._login_user(role=Role.Administrator)
+            item = Item()
+            db.session.add(item)
+            db.session.commit()
+            with current_app.open_resource("static/tests/test.png", mode="rb") as fp:
+                thumbnail = FileStorage(fp)
+                save_thumbnail(thumbnail=thumbnail, item=item)
+            self.assertEqual(1, len(Image.query.all()))
+            self.assertEqual(item.thumbnail(), Image.query.first())
 
 
 if __name__ == "__main__":  # pragma: no cover
