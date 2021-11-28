@@ -57,7 +57,7 @@ class TestImageUpload(DatabaseTestCase):
             with current_app.open_resource("static/tests/test.png", mode="rb") as fp:
                 thumbnail = FileStorage(fp)
                 save_thumbnail(thumbnail=thumbnail, item=item)
-            self.assertEqual(1, len(Image.query.all()))
+            self.assertEqual(1, Image.query.count())
             self.assertEqual(item.thumbnail(), Image.query.first())
 
 

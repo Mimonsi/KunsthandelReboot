@@ -12,7 +12,7 @@ from werkzeug.datastructures import FileStorage
 
 import kunsthandel.models
 from kunsthandel import db
-from kunsthandel.models import Role, Item
+from kunsthandel.models import Role, Item, Image as Model_image
 
 
 def role_required(access_level: Role):
@@ -22,7 +22,7 @@ def role_required(access_level: Role):
         def wrapper(*args, **kwargs):
 
             if request.method in EXEMPT_METHODS:
-                return func(*args, **kwargs)
+                return func(*args, **kwargs)  # pragma: no cover
             elif current_app.config.get("LOGIN_DISABLED"):
                 return func(*args, **kwargs)
             elif not current_user.is_authenticated:
@@ -62,25 +62,19 @@ def format_filesize(bytes):
 
 
 def save_thumbnail(thumbnail: FileStorage, item: Item):
-    dir_path = os.path.join(current_app.root_path, f"static/{current_app.config['MEDIA_ROOT_PATH']}/images/{item.id}/")
-    os.makedirs(dir_path, exist_ok=True)
+    # Remove old thumbnail(s)
+    previous_thumbnails = Model_image.query.filter_by(item=item, is_thumbnail=True).all()
+    for t in previous_thumbnails:
+        t.is_thumbnail = False
 
-    _, f_ext = os.path.splitext(thumbnail.filename)  # _ -> Throws away value, not needed
-    picture_fn = f"thumbnail{f_ext}"
-    picture_path = os.path.join(current_app.root_path, f"static/{current_app.config['MEDIA_ROOT_PATH']}/images/{item.id}/", picture_fn)
-
-    i = Image.open(thumbnail)
-
-    i.save(picture_path)
-    database_path = f"{item.id}/thumbnail{f_ext}"
-    image_object = kunsthandel.models.Image(path=database_path, item=item, is_thumbnail=True)
-    db.session.add(image_object)
+    saved_thumbnail = save_images([thumbnail], item)[0]  # Only one image is saved and returned
+    saved_thumbnail.is_thumbnail = True
     db.session.commit()
 
 
 def save_images(form_images, item):
     image_objects = []
-    index = 1
+    index = Model_image.query.count()
     dir_path = os.path.join(current_app.root_path, f"static/{current_app.config['MEDIA_ROOT_PATH']}/images/{item.id}/")
     os.makedirs(dir_path, exist_ok=True)
     for form_image in form_images:

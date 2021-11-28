@@ -62,7 +62,7 @@ def prepare_database(app, db):
     from kunsthandel.models import create_account
     from kunsthandel.models import Role
     from kunsthandel.models import User
-    if len(User.query.all()) < 1:  # Create first admin account - this is supposed to be a temporary account until
+    if User.query.count() < 1:  # Create first admin account - this is supposed to be a temporary account until
         # replaced by an actual administrator account
         root_admin = create_account(username="admin", password="admin", role=Role.Administrator)
         db.session.add(root_admin)

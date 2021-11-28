@@ -74,7 +74,7 @@ class TestRoutes(DatabaseTestCase):
             password="password",
             confirm_password="password",
         ), follow_redirects=True)
-        self.assertGreater(len(User.query.all()), 1)  # More than 1 user account after bulk creation
+        self.assertGreater(User.query.count(), 1)  # More than 1 user account after bulk creation
         self.assertEqual("/admin/", result.request.path)
         self.assertIn("Successfully created", str(result.data))
         self.assertEqual(200, result.status_code)
@@ -85,7 +85,7 @@ class TestRoutes(DatabaseTestCase):
             password="password",
             confirm_password="other_password",
         ), follow_redirects=True)
-        self.assertEqual(1, len(User.query.all()))  # More than 1 user account after bulk creation
+        self.assertEqual(1, User.query.count())  # More than 1 user account after bulk creation
         self.assertEqual("/admin/", result.request.path)
         self.assertIn("Field must be equal to password.", str(result.data))
         self.assertEqual(400, result.status_code)
@@ -102,10 +102,10 @@ class TestRoutes(DatabaseTestCase):
             location_amount=2,
             origin_amount=2,
         ), follow_redirects=True)
-        self.assertGreater(len(Item.query.all()), 1)  # More than 1 item after bulk creation
-        self.assertEqual(2, len(Type.query.all()))  # Exactly 2 types, locations and origins after bulk creation
-        self.assertEqual(2, len(Location.query.all()))
-        self.assertEqual(2, len(Origin.query.all()))
+        self.assertGreater(Item.query.count(), 1)  # More than 1 item after bulk creation
+        self.assertEqual(2, Type.query.count())  # Exactly 2 types, locations and origins after bulk creation
+        self.assertEqual(2, Location.query.count())
+        self.assertEqual(2, Origin.query.count())
         self.assertEqual("/admin/", result.request.path)
         self.assertIn("Successfully created", str(result.data))
         self.assertEqual(200, result.status_code)
@@ -117,10 +117,10 @@ class TestRoutes(DatabaseTestCase):
             location_amount=2,
             origin_amount="text",  # Text is not allowed here
         ), follow_redirects=True)
-        self.assertEqual(0, len(Type.query.all()))  # Exactly 0 types, locations and origins after bulk creation
-        self.assertEqual(0, len(Location.query.all()))
-        self.assertEqual(0, len(Origin.query.all()))
-        self.assertEqual(0, len(Item.query.all()))  # More than 1 user account after bulk creation
+        self.assertEqual(0, Type.query.count())  # Exactly 0 types, locations and origins after bulk creation
+        self.assertEqual(0, Location.query.count())
+        self.assertEqual(0, Origin.query.count())
+        self.assertEqual(0, Item.query.count())  # More than 1 user account after bulk creation
         self.assertEqual("/admin/", result.request.path)
         self.assertIn("This field is required.", str(result.data))
         self.assertEqual(400, result.status_code)
