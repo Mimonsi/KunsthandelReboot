@@ -113,6 +113,10 @@ class TestInvalidModel(DatabaseTestCase):
         result = self.client.get("/test_model/1/edit")
         self.assertEqual(404, result.status_code)
 
+    def test_delete_generic_item_model_invalid_model(self):
+        result = self.client.post("/test_model/1/delete")
+        self.assertEqual(404, result.status_code)
+
 
 class TestInvalidMethods(DatabaseTestCase):
     def setUp(self):
@@ -131,6 +135,13 @@ class TestInvalidMethods(DatabaseTestCase):
         for name, model in MODELS.items():
             with self.subTest(name):
                 result = self.client.post(f"/{name}/1", follow_redirects=True)
+                self.assertEqual(405, result.status_code)
+
+    def test_generic_type_delete_get(self):
+        """ Route should not accept get """
+        for name, model in MODELS.items():
+            with self.subTest(name):
+                result = self.client.get(f"/{name}/1/delete", follow_redirects=True)
                 self.assertEqual(405, result.status_code)
 
 
@@ -164,6 +175,35 @@ class TestEditGenericType(DatabaseTestCase):
                 self.assertEqual(1, model.query.count())
                 self.assertIsNone(model.query.filter_by(name=f"afterRename_{name}").first())
                 self.assertEqual(f"test_{name}", model.query.first().name)
+
+
+class TestDeleteGenericType(DatabaseTestCase):
+
+    def setUp(self):
+        super(TestDeleteGenericType, self).setUp()
+        for name, model in MODELS.items():
+            db.session.add(model(name=f"test_{name}"))
+        db.session.commit()
+        admin = self._login_user(Role.Administrator, username="Administrator")
+
+    def test_edit_generic_type_successful(self):
+        """ Delete generic type dataset by an Administrator """
+        for name, model in MODELS.items():
+            with self.subTest(name):
+                result = self.client.post(f"/{name}/1/delete", follow_redirects=True)
+                self.assertEqual(200, result.status_code)
+                self.assertEqual(f"/{name}", result.request.path)
+                self.assertEqual(0, model.query.count())
+                self.assertIsNone(model.query.filter_by(name=f"afterRename_{name}").first())
+
+    def test_edit_generic_type_not_existing(self):
+        """ Create new generic type dataset by an Administrator """
+        for name, model in MODELS.items():
+            with self.subTest(name):
+                result = self.client.post(f"/{name}/2/delete", follow_redirects=True)
+                self.assertEqual(404, result.status_code)
+                self.assertEqual(1, model.query.count())
+                self.assertIsNotNone(model.query.filter_by(name=f"test_{name}").first())
 
 
 if __name__ == "__main__":  # pragma: no cover
