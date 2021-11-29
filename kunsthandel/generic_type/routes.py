@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, url_for, request, abort, flash
+from flask import Blueprint, render_template, url_for, request, abort, flash, redirect
 from flask_babel import gettext
 
 from kunsthandel import db
@@ -15,16 +15,14 @@ MODELS = {
 }
 
 
-@generic_type.route("/<string:model_name>/")
-@generic_type.route("/<string:model_name>/overview")
+@generic_type.route("/<string:model_name>", methods=["GET"])
 @role_required(Role.User)
 def overview(model_name):
     page = request.args.get("page", type=int)
     try:
         model = MODELS[model_name].query.paginate(page=page, per_page=50)
     except KeyError:
-        abort(404, "Model not found")
-        return
+        abort(404, gettext("Model not found"))
     return render_template("generic_type_overview.html", title=gettext("User account overview"), model=model,
                            model_name=model_name)
 
@@ -33,20 +31,23 @@ def overview(model_name):
 @role_required(Role.Editor)
 def create(model_name):
     form = EditGenericTypeForm()
-    if form.validate_on_submit():
-        try:
-            model = MODELS[model_name](name=form.name.data)
-        except KeyError:
-            abort(404, "Model not found")
-            return
-        db.session.add(model)
-        db.session.commit()
-        flash(gettext("%s with ID %s has been successfully created") % (gettext(model.model_name()), str(model.id)),
-              "success")
-    elif request.method == "GET":
-        pass
-    legend_text = gettext("Create new %s") % gettext(model_name)
-    return render_template("generic_type_edit.html", title=legend_text, legend_text=legend_text, form=form)
+    try:
+        model = MODELS[model_name](name=form.name.data)
+    except KeyError:
+        abort(404, gettext("Model not found"))
+    if request.method == "POST":
+        if form.validate_on_submit():
+            db.session.add(model)
+            db.session.commit()
+            flash(gettext("%s with ID %s has been successfully created") % (gettext(model.model_name()), str(model.id)),
+                  "success")
+            return redirect(url_for("generic_type.overview", model_name=model_name))
+        else:
+            legend_text = gettext("Create new %s") % gettext(model_name)
+            return render_template("generic_type_edit.html", title=legend_text, legend_text=legend_text, form=form), 400
+    else:  # GET
+        legend_text = gettext("Create new %s") % gettext(model_name)
+        return render_template("generic_type_edit.html", title=legend_text, legend_text=legend_text, form=form)
 
 
 @generic_type.route("/<string:model_name>/<int:id>/edit", methods=["GET", "POST"])
@@ -55,30 +56,46 @@ def edit(model_name, id):
     try:
         model = MODELS[model_name].query.get_or_404(id)
     except KeyError:
-        abort(404, "Model not found")
-        return
+        abort(404, gettext("Model not found"))
     form = EditGenericTypeForm()
     form.submit.label.text = gettext("Update")
-    if form.validate_on_submit():
-        model.name = form.name.data
-        db.session.commit()
-        flash(gettext("%s with ID %s has been successfully updated") % (gettext(model.model_name()), str(model.id)),
-              "success")
-    elif request.method == "GET":
+    if request.method == "POST":
+        if form.validate_on_submit():
+            model.name = form.name.data
+            db.session.commit()
+            flash(gettext("%s with ID %s has been successfully updated") % (gettext(model.model_name()), str(model.id)),
+                  "success")
+            return redirect(url_for("generic_type.overview", model_name=model_name))
+        else:
+            legend_text = gettext("Details for %s with ID %s") % (gettext(model.model_name()), str(id))
+            return render_template("generic_type_edit.html", title=gettext("Edit %s") % gettext(model.model_name()), legend_text=legend_text, model=model, model_name=model_name, form=form), 400
+    else:  # GET
         form.name.data = model.name
-    legend_text = gettext("Details for %s with ID %s") % (gettext(model.model_name()), str(id))
-    return render_template("generic_type_edit.html", title=gettext("Edit %s") % gettext(model.model_name()),
-                           legend_text=legend_text, model=model, form=form)
+        legend_text = gettext("Details for %s with ID %s") % (gettext(model.model_name()), str(id))
+        return render_template("generic_type_edit.html", title=gettext("Edit %s") % gettext(model.model_name()), legend_text=legend_text, model=model, model_name=model_name, form=form)
 
 
-@generic_type.route("/<string:model_name>/<int:id>")
-@role_required(Role.Editor)
+@generic_type.route("/<string:model_name>/<int:id>", methods=["GET"])
+@role_required(Role.User)
 def details(model_name, id):
     try:
         model = MODELS[model_name].query.get_or_404(id)
     except KeyError:
-        abort(404, "Model not found")
-        return
+        abort(404, gettext("Model not found"))
     legend_text = gettext("Details for %s with ID %s") % (gettext(model.model_name()), str(id))
     return render_template("generic_type.html", model_name=model_name, model=model,
                            title=gettext("%s Details") % gettext(model.model_name()), legend_text=legend_text)
+
+
+@generic_type.route("/<string:model_name>/<int:id>/delete", methods=["POST"])
+@role_required(Role.Editor)
+def delete(model_name, id):
+    try:
+        model = MODELS[model_name].query.get_or_404(id)
+    except KeyError:
+        abort(404, gettext("Model not found"))
+    dataset = MODELS[model_name].query.get_or_404(id)
+    db.session.delete(dataset)
+    db.session.commit()
+    flash(gettext("The dataset has been deleted successfully"), "success")
+    return redirect(url_for("generic_type.overview", model_name=model_name))

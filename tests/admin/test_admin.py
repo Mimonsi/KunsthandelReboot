@@ -26,7 +26,7 @@ class TestStorageOverview(DatabaseTestCase):
         """ Check permissions to access storage overview """
         pairs = {Role.External: 403, Role.Visitor: 403, Role.User: 403, Role.Editor: 403, Role.Administrator: 200}
         for role, status in pairs.items():
-            with self.subTest(role=role.name):
+            with self.subTest(role.name):
                 self._login_user(role=role, username=f"test_{role.name}")
                 result = self.client.get("/admin/storage_overview")
                 self.assertEqual(status, result.status_code)
@@ -46,7 +46,7 @@ class TestAdminPermission(DatabaseTestCase):
         for role, status in pairs.items():
             with self.subTest(role=role.name):
                 self._login_user(role=role, username=f"test_{role.name}")
-                result = self.client.get("/admin/")
+                result = self.client.get("/admin")
                 self.assertEqual(status, result.status_code)
                 if role == Role.Administrator:
                     self.assertIn("Welcome, test_Administrator", str(result.data))
@@ -60,7 +60,7 @@ class TestRoutes(DatabaseTestCase):
 
     def test_home_post(self):
         """ Post request to home should not be allowed """
-        result = self.client.post("/admin/")
+        result = self.client.post("/admin")
         self.assertEqual(405, result.status_code)
 
     def test_create_users_get(self):
@@ -75,7 +75,7 @@ class TestRoutes(DatabaseTestCase):
             confirm_password="password",
         ), follow_redirects=True)
         self.assertGreater(User.query.count(), 1)  # More than 1 user account after bulk creation
-        self.assertEqual("/admin/", result.request.path)
+        self.assertEqual("/admin", result.request.path)
         self.assertIn("Successfully created", str(result.data))
         self.assertEqual(200, result.status_code)
 
@@ -86,7 +86,7 @@ class TestRoutes(DatabaseTestCase):
             confirm_password="other_password",
         ), follow_redirects=True)
         self.assertEqual(1, User.query.count())  # More than 1 user account after bulk creation
-        self.assertEqual("/admin/", result.request.path)
+        self.assertEqual("/admin", result.request.path)
         self.assertIn("Field must be equal to password.", str(result.data))
         self.assertEqual(400, result.status_code)
 
@@ -106,7 +106,7 @@ class TestRoutes(DatabaseTestCase):
         self.assertEqual(2, Type.query.count())  # Exactly 2 types, locations and origins after bulk creation
         self.assertEqual(2, Location.query.count())
         self.assertEqual(2, Origin.query.count())
-        self.assertEqual("/admin/", result.request.path)
+        self.assertEqual("/admin", result.request.path)
         self.assertIn("Successfully created", str(result.data))
         self.assertEqual(200, result.status_code)
 
@@ -121,7 +121,7 @@ class TestRoutes(DatabaseTestCase):
         self.assertEqual(0, Location.query.count())
         self.assertEqual(0, Origin.query.count())
         self.assertEqual(0, Item.query.count())  # More than 1 user account after bulk creation
-        self.assertEqual("/admin/", result.request.path)
+        self.assertEqual("/admin", result.request.path)
         self.assertIn("This field is required.", str(result.data))
         self.assertEqual(400, result.status_code)
 
@@ -155,7 +155,7 @@ class TestQRCodeCreation(DatabaseTestCase):
             code_size=10,
             code_border_size="text",  # Text is not allowed here
         ), follow_redirects=True)
-        self.assertEqual("/admin/", result.request.path)
+        self.assertEqual("/admin", result.request.path)
         self.assertIn("Something went wrong. This is awkward...", str(result.data))
         self.assertEqual(400, result.status_code)
 

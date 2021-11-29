@@ -14,19 +14,19 @@ class TestRoleRequiredDecorator(DatabaseTestCase):
     def test_exempt_method(self):  # TODO not working correctly
         """ options method is exempt """
         self._login_user(role=Role.External)
-        result = self.client.options(f"/admin/")
+        result = self.client.options("/admin")
         self.assertEqual(200, result.status_code)
 
     def test_unauthorized(self):
         """ user is not logged in """
-        result = self.client.get(f"/admin/", follow_redirects=True)
+        result = self.client.get("/admin", follow_redirects=True)
         self.assertEqual(200, result.status_code)
         self.assertEqual("/login", result.request.path)
 
     def test_forbidden(self):
         """ user has no permission to access function """
         self._login_user(role=Role.External)
-        result = self.client.get(f"/admin/")
+        result = self.client.get("/admin")
         self.assertEqual(403, result.status_code)
 
 
@@ -42,9 +42,9 @@ class TestRoleRequiredDecoratorExemptMethod(DatabaseTestCase):
 
     def test_forbidden(self):
         """ login is disabled, user can continue without login """
-        result = self.client.get(f"/admin/")
+        result = self.client.get("/admin")
         self.assertEqual(200, result.status_code)
-        self.assertEqual("/admin/", result.request.path)
+        self.assertEqual("/admin", result.request.path)
 
 
 class TestImageUpload(DatabaseTestCase):

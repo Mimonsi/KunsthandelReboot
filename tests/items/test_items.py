@@ -15,8 +15,8 @@ class TestItemPermissions(DatabaseTestCase):
         """ Check roles for permission to access item token """
         pairs = {Role.External: 200, Role.Visitor: 200, Role.User: 200, Role.Editor: 200, Role.Administrator: 200}
         for role, status in pairs.items():
-            with self.subTest(role=role.name):
-                self._login_user(role=role, username=f"test_{role.name}")
+            with self.subTest(role.name):
+                self._login_user(role, f"test_{role.name}")
                 item = Item()
                 db.session.add(item)
                 db.session.commit()
@@ -28,8 +28,8 @@ class TestItemPermissions(DatabaseTestCase):
         """ Check roles for permission to view items overview """
         pairs = {Role.External: 403, Role.Visitor: 403, Role.User: 200, Role.Editor: 200, Role.Administrator: 200}
         for role, status in pairs.items():
-            with self.subTest(role=role.name):
-                self._login_user(role=role, username=f"test_{role.name}")
+            with self.subTest(role.name):
+                self._login_user(role, f"test_{role.name}")
                 result = self.client.get("/items")
                 self.assertEqual(status, result.status_code)
                 self._logout()
@@ -38,8 +38,8 @@ class TestItemPermissions(DatabaseTestCase):
         """ Check roles for permission to view item details """
         pairs = {Role.External: 403, Role.Visitor: 403, Role.User: 200, Role.Editor: 200, Role.Administrator: 200}
         for role, status in pairs.items():
-            with self.subTest(role=role.name):
-                self._login_user(role=role, username=f"test_{role.name}")
+            with self.subTest(role.name):
+                self._login_user(role, f"test_{role.name}")
                 item = Item()
                 db.session.add(item)
                 db.session.commit()
@@ -51,8 +51,8 @@ class TestItemPermissions(DatabaseTestCase):
         """ Check roles for permission to view item create route """
         pairs = {Role.External: 403, Role.Visitor: 403, Role.User: 403, Role.Editor: 200, Role.Administrator: 200}
         for role, status in pairs.items():
-            with self.subTest(role=role.name):
-                self._login_user(role=role, username=f"test_{role.name}")
+            with self.subTest(role.name):
+                self._login_user(role, f"test_{role.name}")
                 result = self.client.get(f"/items/create")
                 self.assertEqual(status, result.status_code)
                 self._logout()
@@ -61,8 +61,8 @@ class TestItemPermissions(DatabaseTestCase):
         """ Check roles for permission to view item edit route """
         pairs = {Role.External: 403, Role.Visitor: 403, Role.User: 403, Role.Editor: 200, Role.Administrator: 200}
         for role, status in pairs.items():
-            with self.subTest(role=role.name):
-                self._login_user(role=role, username=f"test_{role.name}")
+            with self.subTest(role.name):
+                self._login_user(role, f"test_{role.name}")
                 item = Item()
                 db.session.add(item)
                 db.session.commit()
@@ -74,14 +74,40 @@ class TestItemPermissions(DatabaseTestCase):
         """ Check roles for permission to delete item """
         pairs = {Role.External: 403, Role.Visitor: 403, Role.User: 403, Role.Editor: 200, Role.Administrator: 200}
         for role, status in pairs.items():
-            with self.subTest(role=role.name):
-                self._login_user(role=role, username=f"test_{role.name}")
+            with self.subTest(role.name):
+                self._login_user(role, f"test_{role.name}")
                 item = Item()
                 db.session.add(item)
                 db.session.commit()
                 result = self.client.post(f"/items/{item.id}/delete", follow_redirects=True)
                 self.assertEqual(status, result.status_code)
                 self._logout()
+
+
+class TestInvalidMethods(DatabaseTestCase):
+    def setUp(self):
+        super(TestInvalidMethods, self).setUp()
+        admin = self._login_user(Role.Administrator, username="Administrator")
+
+    def test_item_token_post(self):
+        result = self.client.post("/code/x", follow_redirects=True)
+        self.assertEqual(405, result.status_code)
+
+    def test_items_post(self):
+        result = self.client.post("/items", follow_redirects=True)
+        self.assertEqual(405, result.status_code)
+
+    def test_item_details_post(self):
+        result = self.client.post("/items/1", follow_redirects=True)
+        self.assertEqual(405, result.status_code)
+
+    def test_delete_item_get(self):
+        result = self.client.get("/items/1/delete", follow_redirects=True)
+        self.assertEqual(405, result.status_code)
+
+    def test_delete_item_image_get(self):
+        result = self.client.get("/items/1/images/1/delete", follow_redirects=True)
+        self.assertEqual(405, result.status_code)
 
 
 class TestCreateItem(DatabaseTestCase):
@@ -118,7 +144,7 @@ class TestCreateItem(DatabaseTestCase):
         """ Create new item with images """
         with db.app.app_context(), current_app.open_resource("static/tests/test.png",
                                                              mode="rb") as fp1, current_app.open_resource(
-                "static/tests/test.png", mode="rb") as fp2:
+            "static/tests/test.png", mode="rb") as fp2:
             image_1 = FileStorage(fp1)
             image_2 = FileStorage(fp2)
             result = self.client.post("/items/create", data=dict(
@@ -209,7 +235,7 @@ class TestEditItem(DatabaseTestCase):
         """ Create new item with images """
         with db.app.app_context(), current_app.open_resource("static/tests/test.png",
                                                              mode="rb") as fp1, current_app.open_resource(
-                "static/tests/test.png", mode="rb") as fp2:
+            "static/tests/test.png", mode="rb") as fp2:
             image_1 = FileStorage(fp1)
             image_2 = FileStorage(fp2)
             result = self.client.post("/items/1/edit", data=dict(

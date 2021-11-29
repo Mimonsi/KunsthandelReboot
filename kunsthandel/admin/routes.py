@@ -12,7 +12,7 @@ admin = Blueprint("admin", __name__)
 
 
 @admin.route("/admin/home", methods=["GET"])
-@admin.route("/admin/", methods=["GET"])
+@admin.route("/admin", methods=["GET"])
 @role_required(Role.Administrator)
 def home():
     status_code = 200

@@ -12,13 +12,13 @@ from kunsthandel.models import Role, Item, Image
 items = Blueprint("items", __name__)
 
 
-@items.route("/code/<string:hash>")
+@items.route("/code/<string:hash>", methods=["GET"])
 def token(hash):
     item = Item.query.filter_by(qr_hash=hash).first_or_404()
     return render_template("items/item.html", title=gettext("Item details %s") % str(id), item=item)
 
 
-@items.route("/items")
+@items.route("/items", methods=["GET"])
 @role_required(Role.User)
 def overview():
     page = request.args.get("page", type=int)
@@ -26,7 +26,7 @@ def overview():
     return render_template("items/items.html", title=gettext("Item overview"), items=items)
 
 
-@items.route("/items/<int:id>")
+@items.route("/items/<int:id>", methods=["GET"])
 @role_required(Role.User)
 def details(id):
     item = Item.query.get_or_404(id)

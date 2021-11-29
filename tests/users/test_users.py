@@ -73,8 +73,8 @@ class TestUserPermissions(DatabaseTestCase):
         """ Check roles for permission to edit own profile """
         pairs = {Role.External: 403, Role.Visitor: 403, Role.User: 200, Role.Editor: 200, Role.Administrator: 200}
         for role, status in pairs.items():
-            with self.subTest(role=role.name):
-                self._login_user(role=role, username=f"test_{role.name}")
+            with self.subTest(role.name):
+                self._login_user(role, f"test_{role.name}")
                 result = self.client.get("/users/me")
                 self.assertEqual(status, result.status_code)
                 self._logout()
@@ -83,8 +83,8 @@ class TestUserPermissions(DatabaseTestCase):
         """ Check roles for permission to edit user profiles """
         pairs = {Role.External: 403, Role.Visitor: 403, Role.User: 403, Role.Editor: 403, Role.Administrator: 200}
         for role, status in pairs.items():
-            with self.subTest(role=role.name):
-                user = self._login_user(role=role, username=f"test_{role.name}")
+            with self.subTest(role.name):
+                user = self._login_user(role, f"test_{role.name}")
                 result = self.client.get(f"/users/{user.id}")
                 self.assertEqual(status, result.status_code)
                 self._logout()
@@ -93,8 +93,8 @@ class TestUserPermissions(DatabaseTestCase):
         """ Check roles for permission to create user profiles """
         pairs = {Role.External: 403, Role.Visitor: 403, Role.User: 403, Role.Editor: 403, Role.Administrator: 200}
         for role, status in pairs.items():
-            with self.subTest(role=role.name):
-                self._login_user(role=role, username=f"test_{role.name}")
+            with self.subTest(role.name):
+                self._login_user(role, f"test_{role.name}")
                 result = self.client.get("/users/create")
                 self.assertEqual(status, result.status_code)
                 self._logout()
@@ -103,8 +103,8 @@ class TestUserPermissions(DatabaseTestCase):
         """ Check roles for permission to delete user profiles """
         pairs = {Role.External: 403, Role.Visitor: 403, Role.User: 403, Role.Editor: 403, Role.Administrator: 302}
         for role, status in pairs.items():
-            with self.subTest(role=role.name):
-                user = self._login_user(role=role, username=f"test_{role.name}")
+            with self.subTest(role.name):
+                user = self._login_user(role, f"test_{role.name}")
                 result = self.client.post(f"/users/{user.id}/delete")
                 self.assertEqual(status, result.status_code)
                 self._logout()
@@ -113,11 +113,25 @@ class TestUserPermissions(DatabaseTestCase):
         """ Check roles for permission to view users overview """
         pairs = {Role.External: 403, Role.Visitor: 403, Role.User: 403, Role.Editor: 403, Role.Administrator: 200}
         for role, status in pairs.items():
-            with self.subTest(role=role.name):
-                user = self._login_user(role=role, username=f"test_{role.name}")
+            with self.subTest(role.name):
+                user = self._login_user(role, f"test_{role.name}")
                 result = self.client.get("/users")
                 self.assertEqual(status, result.status_code)
                 self._logout()
+
+
+class TestInvalidMethods(DatabaseTestCase):
+    def setUp(self):
+        super(TestInvalidMethods, self).setUp()
+        admin = self._login_user(Role.Administrator, username="Administrator")
+
+    def test_delete_user_get(self):
+        result = self.client.get("/users/1/delete", follow_redirects=True)
+        self.assertEqual(405, result.status_code)
+
+    def test_users_post(self):
+        result = self.client.post("/users", follow_redirects=True)
+        self.assertEqual(405, result.status_code)
 
 
 class TestCreateUser(DatabaseTestCase):
@@ -140,7 +154,6 @@ class TestCreateUser(DatabaseTestCase):
         self.assertEqual(200, result.status_code)
         created_user = User.query.filter_by(username="test").first()
         self.assertIsNotNone(created_user, "User now exists in database")
-
 
     def test_create_user_successful_multiple(self):
         """ Create new user account by an Administrator with redirect to same form """

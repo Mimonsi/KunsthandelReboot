@@ -33,7 +33,7 @@ def login():
         return render_template("users/login.html", title=gettext("Login"), form=form)
 
 
-@users.route("/logout")
+@users.route("/logout", methods=["GET", "POST"])
 def logout():
     logout_user()
     flash(gettext("You have been logged out"), "success")
@@ -119,7 +119,7 @@ def delete(id):
     return redirect(url_for("users.overview"))
 
 
-@users.route("/users")
+@users.route("/users", methods=["GET"])
 @role_required(Role.Administrator)
 def overview():
     page = request.args.get("page", type=int)
