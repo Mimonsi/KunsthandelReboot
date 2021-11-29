@@ -35,7 +35,7 @@ def role_required(access_level: Role):
     return decorator
 
 
-def create_qr_code(id, url, version, box_size, border):
+def create_qr_code(id, url, version=1, box_size=10, border=5):
     dir_path = os.path.join(current_app.root_path, f"static/{current_app.config['MEDIA_ROOT_PATH']}/qr/")
     os.makedirs(dir_path, exist_ok=True)
     filename = os.path.join(current_app.root_path, f"static/{current_app.config['MEDIA_ROOT_PATH']}/qr/{id}.png")

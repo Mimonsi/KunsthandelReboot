@@ -1,10 +1,10 @@
-from flask import Blueprint, request, render_template, url_for, flash, redirect
+from flask import Blueprint, request, render_template, url_for, flash, redirect, current_app
 from flask_babel import gettext
 from flask_login import current_user
 
 from kunsthandel import db
 from kunsthandel.items.forms import EditItemForm
-from kunsthandel.main.utils import role_required, save_images, save_thumbnail
+from kunsthandel.main.utils import role_required, save_images, save_thumbnail, create_qr_code
 from kunsthandel.models import Role, Item, Image
 
 items = Blueprint("items", __name__)
@@ -29,6 +29,16 @@ def overview():
 def details(id):
     item = Item.query.get_or_404(id)
     return render_template("items/item.html", title=gettext("Item details %s") % str(id), item=item)
+
+
+@items.route("/items/<int:id>/code", methods=["GET"])
+@role_required(Role.User)
+def code(id):
+    item = Item.query.get_or_404(id)
+    base_url = current_app.config["BASE_URL"]
+    filename = create_qr_code(item.id, f"{base_url}/code/{item.qr_hash}")
+    urls = [base_url + url_for("static", filename=f"{current_app.config['MEDIA_ROOT_PATH']}/qr/{filename}")]
+    return render_template("qrcode_printscreen.html", urls=urls)
 
 
 @items.route("/items/create", methods=["GET", "POST"])

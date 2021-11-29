@@ -83,6 +83,19 @@ class TestItemPermissions(DatabaseTestCase):
                 self.assertEqual(status, result.status_code)
                 self._logout()
 
+    def test_permission_item_code(self):
+        """ Check roles for permission to create item code """
+        pairs = {Role.External: 403, Role.Visitor: 403, Role.User: 200, Role.Editor: 200, Role.Administrator: 200}
+        for role, status in pairs.items():
+            with self.subTest(role.name):
+                self._login_user(role, f"test_{role.name}")
+                item = Item()
+                db.session.add(item)
+                db.session.commit()
+                result = self.client.get(f"/items/{item.id}/code", follow_redirects=True)
+                self.assertEqual(status, result.status_code)
+                self._logout()
+
 
 class TestInvalidMethods(DatabaseTestCase):
     def setUp(self):
@@ -107,6 +120,10 @@ class TestInvalidMethods(DatabaseTestCase):
 
     def test_delete_item_image_get(self):
         result = self.client.get("/items/1/images/1/delete", follow_redirects=True)
+        self.assertEqual(405, result.status_code)
+
+    def test_item_code(self):
+        result = self.client.post("/items/1/code", follow_redirects=True)
         self.assertEqual(405, result.status_code)
 
 

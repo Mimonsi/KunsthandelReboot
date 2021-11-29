@@ -79,7 +79,7 @@ def qr_printsheet():
         for item in items:
             filename = create_qr_code(item.id, f"{base_url}/code/{item.qr_hash}", version=form.code_version.data,
                                       box_size=form.code_size.data, border=form.code_border_size.data)
-            urls.append(base_url + url_for("static", filename="qr/" + filename))
+            urls.append(base_url + url_for("static", filename=f"{current_app.config['MEDIA_ROOT_PATH']}/qr/{filename}"))
         return render_template("qrcode_printscreen.html", urls=urls)
     else:
         session["redirect_qr_codes_form"] = form.data
