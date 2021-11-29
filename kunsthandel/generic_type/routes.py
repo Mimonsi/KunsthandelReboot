@@ -4,7 +4,7 @@ from flask_babel import gettext
 from kunsthandel import db
 from kunsthandel.generic_type.forms import EditGenericTypeForm
 from kunsthandel.main.utils import role_required
-from kunsthandel.models import Item, Image, Role, Type, Location, Origin
+from kunsthandel.models import Role, Type, Location, Origin
 
 generic_type = Blueprint("generic_type", __name__)
 

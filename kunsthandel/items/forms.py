@@ -2,8 +2,8 @@ from flask_babel import lazy_gettext
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField
 from wtforms import StringField, SubmitField, MultipleFileField
-from wtforms_sqlalchemy.fields import QuerySelectField
 from wtforms.validators import DataRequired, Length
+from wtforms_sqlalchemy.fields import QuerySelectField
 
 from kunsthandel.models import Type, Location, Origin
 

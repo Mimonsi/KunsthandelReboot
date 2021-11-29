@@ -1,8 +1,8 @@
-from flask import Blueprint, render_template, flash, redirect, url_for, current_app, request, abort, session
+from flask import Blueprint, render_template, flash, redirect, url_for, current_app, abort, session
 from flask_babel import gettext
 
-from kunsthandel.admin.forms import CreateUsersForm, CreateItemsForm, CreateQRCodesForm
 from kunsthandel.admin.database_functions import create_test_items, create_test_users
+from kunsthandel.admin.forms import CreateUsersForm, CreateItemsForm, CreateQRCodesForm
 from kunsthandel.admin.storage_manager import get_database_usage, get_directory_usage
 from kunsthandel.main import utils
 from kunsthandel.main.utils import role_required, create_qr_code

@@ -1,6 +1,6 @@
 from flask_babel import gettext, lazy_gettext
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, PasswordField, SelectField, BooleanField, IntegerField, HiddenField
+from wtforms import StringField, SubmitField, PasswordField, SelectField, BooleanField, HiddenField
 from wtforms.validators import DataRequired, EqualTo, Length, ValidationError
 
 from kunsthandel.models import User, Role

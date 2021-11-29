@@ -5,7 +5,6 @@ import qrcode as qrcode
 from PIL import Image
 from flask import abort, request, current_app
 from flask_babel import format_decimal
-
 from flask_login import current_user
 from flask_login.config import EXEMPT_METHODS
 from werkzeug.datastructures import FileStorage

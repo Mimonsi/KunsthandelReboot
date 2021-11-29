@@ -1,5 +1,5 @@
 import flask_bcrypt
-from flask import Blueprint, redirect, url_for, render_template, request, flash, abort
+from flask import Blueprint, redirect, url_for, render_template, request, flash
 from flask_babel import gettext
 from flask_login import current_user, login_user, logout_user
 

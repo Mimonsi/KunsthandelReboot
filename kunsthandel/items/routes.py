@@ -1,5 +1,3 @@
-import bdb
-
 from flask import Blueprint, request, render_template, url_for, flash, redirect
 from flask_babel import gettext
 from flask_login import current_user

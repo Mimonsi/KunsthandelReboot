@@ -1,6 +1,6 @@
-from flask_babel import gettext, lazy_gettext
+from flask_babel import lazy_gettext
 from flask_wtf import FlaskForm
-from wtforms import IntegerField, SubmitField, PasswordField, FormField
+from wtforms import IntegerField, SubmitField, PasswordField
 from wtforms.validators import DataRequired, EqualTo
 
 

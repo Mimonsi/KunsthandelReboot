@@ -1,10 +1,9 @@
 import random
 
-from flask import url_for, current_app
+from flask import current_app
 
 from kunsthandel import db
-from kunsthandel.main import utils
-from kunsthandel.models import User, create_account, Role, Location, Origin, Type, Item, Image
+from kunsthandel.models import create_account, Role, Location, Origin, Type, Item, Image
 
 
 def create_test_items(item_amount, type_amount, location_amount, origin_amount):

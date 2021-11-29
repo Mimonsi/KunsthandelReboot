@@ -1,6 +1,3 @@
-import os
-
-
 class BaseConfig:
     BABEL_TRANSLATION_DIRECTORIES = "./translations"
     SQLALCHEMY_TRACK_MODIFICATIONS = False
