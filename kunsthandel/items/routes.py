@@ -37,17 +37,21 @@ def details(id):
 @role_required(Role.Editor)
 def create():
     form = EditItemForm()
-    if form.validate_on_submit():
-        item = Item(name=form.name.data, type=form.type.data, location=form.location.data, origin=form.origin.data, size=form.size.data, comment=form.comment.data, edited=current_user)
-        db.session.add(item)
-        db.session.commit()
-        if form.thumbnail.data:
-            save_thumbnail(form.thumbnail.data, item)
-        if form.images.data:
-            save_images(form.images.data, item)
-        flash(gettext("Item with ID %s successfully created") % str(item.id), "success")
-        return redirect(url_for("items.overview"))
-    return render_template("items/item_edit.html", title=gettext("Create new item"), form=form)
+    if request.method == "POST":
+        if form.validate_on_submit():
+            item = Item(name=form.name.data, type=form.type.data, location=form.location.data, origin=form.origin.data, size=form.size.data, comment=form.comment.data, edited=current_user)
+            db.session.add(item)
+            db.session.commit()
+            if form.thumbnail.data:
+                save_thumbnail(form.thumbnail.data, item)
+            if form.images.data:
+                save_images(form.images.data, item)
+            flash(gettext("Item with ID %s successfully created") % str(item.id), "success")
+            return redirect(url_for("items.overview"))
+        else:
+            return render_template("items/item_edit.html", title=gettext("Create new item"), form=form), 400
+    else:  # GET
+        return render_template("items/item_edit.html", title=gettext("Create new item"), form=form)
 
 
 @items.route("/items/<int:id>/edit", methods=["GET", "POST"])
@@ -56,22 +60,25 @@ def edit(id):
     item = Item.query.get_or_404(id)
     form = EditItemForm()
     form.submit.label.text = gettext("Update")
-    if form.validate_on_submit():
-        if form.thumbnail.data:
-            save_thumbnail(form.thumbnail.data, item)
-        if form.images.data:
-            save_images(form.images.data, item)
-        item.name = form.name.data
-        item.type = form.type.data
-        item.location = form.location.data
-        item.origin = form.origin.data
-        item.size = form.size.data
-        item.comment = form.comment.data
-        item.edited = current_user
-        db.session.commit()
-        flash(gettext("Item with ID %s successfully updated") % str(item.id), "success")
-        return redirect(url_for("items.overview"))
-    if request.method == "GET":
+    if request.method == "POST":
+        if form.validate_on_submit():
+            if form.thumbnail.data:
+                save_thumbnail(form.thumbnail.data, item)
+            if form.images.data:
+                save_images(form.images.data, item)
+            item.name = form.name.data
+            item.type = form.type.data
+            item.location = form.location.data
+            item.origin = form.origin.data
+            item.size = form.size.data
+            item.comment = form.comment.data
+            item.edited = current_user
+            db.session.commit()
+            flash(gettext("Item with ID %s successfully updated") % str(item.id), "success")
+            return redirect(url_for("items.overview"))
+        else:
+            return render_template("items/item_edit.html", title=gettext("Edit item %s") % str(id), form=form, item=item), 400
+    else:  # GET
         item = Item.query.get_or_404(id)
         form.name.data = item.name
         form.type.data = item.type
@@ -80,7 +87,6 @@ def edit(id):
         form.size.data = item.size
         form.comment.data = item.comment
         return render_template("items/item_edit.html", title=gettext("Edit item %s") % str(id), form=form, item=item)
-    return render_template("items/item_edit.html", title=gettext("Create new item"), form=form)
 
 
 @items.route("/items/<int:id>/delete", methods=["POST"])

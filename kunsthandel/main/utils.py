@@ -21,8 +21,8 @@ def role_required(access_level: Role):
         @wraps(func)
         def wrapper(*args, **kwargs):
 
-            if request.method in EXEMPT_METHODS:
-                return func(*args, **kwargs)  # pragma: no cover
+            if request.method in EXEMPT_METHODS:  # pragma: no cover
+                return func(*args, **kwargs)
             elif current_app.config.get("LOGIN_DISABLED"):
                 return func(*args, **kwargs)
             elif not current_user.is_authenticated:
@@ -78,7 +78,7 @@ def save_images(form_images, item):
     dir_path = os.path.join(current_app.root_path, f"static/{current_app.config['MEDIA_ROOT_PATH']}/images/{item.id}/")
     os.makedirs(dir_path, exist_ok=True)
     for form_image in form_images:
-        if form_image.filename == "":  # This covers the case of no files being attached
+        if form_image.filename == "":  # pragma: no cover This covers the case of no files being attached
             continue
         _, f_ext = os.path.splitext(form_image.filename)  # _ -> Throws away value, not needed
         picture_fn = str(index) + f_ext

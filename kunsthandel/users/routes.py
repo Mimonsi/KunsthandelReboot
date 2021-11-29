@@ -104,7 +104,7 @@ def create():
             return redirect(url_for("users.overview"))
         else:
             return render_template("users/user.html", title=gettext("Create user account"), user=None, form=form), 400
-    else:
+    else:  # GET
         form.role.data = "1"  # Default role
         return render_template("users/user.html", title=gettext("Create user account"), user=None, form=form)
 
