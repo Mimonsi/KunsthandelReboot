@@ -101,6 +101,8 @@ def edit(id):
 @role_required(Role.Editor)
 def delete(id):
     item = Item.query.get_or_404(id)
+    paths = [image.path for image in item.images]
+    delete_images(paths)
     db.session.delete(item)
     db.session.commit()
     flash(gettext("The item has been deleted successfully"), "success")

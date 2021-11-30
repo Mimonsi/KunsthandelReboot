@@ -1,6 +1,6 @@
 import os
 import random
-from shutil import copy
+from shutil import copy, copyfile
 
 from flask import current_app
 
@@ -41,9 +41,10 @@ def create_test_items(item_amount, type_amount, location_amount, origin_amount):
         db.session.add(item)
         db.session.commit()
         src_path = os.path.join(current_app.root_path, f"static/{current_app.config['MEDIA_ROOT_PATH']}/images/dummy/{random.randint(0, 63)}.png")
-        dest_path = os.path.join(current_app.root_path, f"static/{current_app.config['MEDIA_ROOT_PATH']}/images/{item.id}/0.png")
-        copy(src_path, dest_path) # TODO: Fix, not working
-        thumbnail = Image(path=f"/{item.id}/0", is_thumbnail=True, item_id=item.id)
+        dest_path = os.path.join(current_app.root_path, f"static/{current_app.config['MEDIA_ROOT_PATH']}/images/{item.id}")
+        os.makedirs(dest_path, exist_ok=True)
+        copyfile(src_path, rf"{dest_path}/0.png")
+        thumbnail = Image(path=f"{item.id}/0.png", is_thumbnail=True, item_id=item.id)
         db.session.add(thumbnail)
         created += 1
     db.session.commit()
