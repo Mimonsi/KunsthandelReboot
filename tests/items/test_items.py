@@ -118,7 +118,7 @@ class TestInvalidMethods(DatabaseTestCase):
         result = self.client.get("/items/1/delete", follow_redirects=True)
         self.assertEqual(405, result.status_code)
 
-    def test_delete_item_image_get(self):
+    def test_delete_image_get(self):
         result = self.client.get("/items/1/images/1/delete", follow_redirects=True)
         self.assertEqual(405, result.status_code)
 
@@ -307,7 +307,7 @@ class TestEditItem(DatabaseTestCase):
         self.assertIsNotNone(editedItem.images)
         self.assertEqual(1, len(editedItem.images))
         image = Item.query.get(1).images[0]
-        result = self.client.post(f"/items/1/images/{image.id}/delete", follow_redirects=True)
+        result = self.client.post(f"/items/{editedItem.id}/images/{image.id}/delete", follow_redirects=True)
         self.assertEqual(200, result.status_code)
         self.assertEqual(0, len(Item.query.get(1).images))
 

@@ -95,3 +95,14 @@ def save_images(form_images, item):
         index += 1
     db.session.commit()
     return image_objects
+
+
+def delete_images(ids):
+    for id in ids:
+        try:
+            path = Image.query.get(id).path
+            full_path = f"{current_app.config['MEDIA_ROOT_PATH']}/images/{path}"
+            os.remove(full_path)
+        except Exception:
+            return False
+    return True
