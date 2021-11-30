@@ -4,6 +4,7 @@
     <div class="content-section">
         <legend class="border-bottom mb-4">{{ legend_text }}</legend>
         {% if model %}
+            <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">{{ _('Delete') }}</button>
             <p>{{ gettext('ID: ') }} {{ model.id }}</p>
         {% endif %}
 
@@ -18,4 +19,24 @@
         </form>
 
     </div>
+    {% if model %}
+        <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">{{ _('Are you sure you want to delete the dataset?') }}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-footer">
+                <form action="{{ url_for('generic_type.delete', id=model.id, model_name=model_name) }}" method="POST">
+                    <input class="btn btn-danger" type="submit" value="{{ _('Delete') }}">
+                </form>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ _('Close') }}</button>
+              </div>
+            </div>
+          </div>
+        </div>
+    {% endif %}
 {% endblock content %}

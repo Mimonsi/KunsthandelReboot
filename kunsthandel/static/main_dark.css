@@ -36,14 +36,6 @@ h1, h2, h3, h4, h5, h6 {
   color: #444444;
 }
 
-.article-title-status-Rejected{
-  color: #ff3a1e;
-}
-
-.article-title-status-Approved{
-  color: #1eb55e;
-}
-
 .article-title {
   color: #bfbfbf;
 }
