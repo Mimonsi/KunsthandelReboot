@@ -97,12 +97,8 @@ def save_images(form_images, item):
     return image_objects
 
 
-def delete_images(ids):
-    for id in ids:
-        try:
-            path = Image.query.get(id).path
-            full_path = f"{current_app.config['MEDIA_ROOT_PATH']}/images/{path}"
-            os.remove(full_path)
-        except Exception:
-            return False
+def delete_images(paths):
+    for path in paths:
+        full_path = os.path.join(current_app.root_path, f"static/{current_app.config['MEDIA_ROOT_PATH']}/images/{path}")
+        os.remove(full_path)
     return True
