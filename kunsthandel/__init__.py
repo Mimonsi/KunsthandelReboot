@@ -44,12 +44,14 @@ def create_app(config_class=None):
     from kunsthandel.items.routes import items
     from kunsthandel.generic_type.routes import generic_type
     from kunsthandel.errors.handlers import errors
+    from kunsthandel.images.routes import images
     app.register_blueprint(main)
     app.register_blueprint(users)
     app.register_blueprint(admin)
     app.register_blueprint(items)
     app.register_blueprint(generic_type)
     app.register_blueprint(errors)
+    app.register_blueprint(images)
 
     with app.app_context():
         prepare_database(app, db)

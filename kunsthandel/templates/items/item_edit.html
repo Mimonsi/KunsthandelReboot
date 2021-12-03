@@ -34,7 +34,7 @@
             </div>
 
             {% if item and item.thumbnail() %}
-                <img class="rounded-circle account-img" src="{{ item.thumbnail().url() }}" alt="Thumbnail for item {{ item.id }}">
+                <a href="{{ url_for("images.details", id=item.thumbnail().id) }}"><img class="rounded-circle account-img" src="{{ item.thumbnail().url() }}" alt="Thumbnail for item {{ item.id }}"></a>
             {% endif %}
 
             <div class="form-group">
@@ -49,7 +49,7 @@
 
             {% if item %}
                 {% for image in item.images %}
-                    <img src="{{ image.url() }}" class="img-fluid" style="padding-top:20px" alt="Image {{ image.id }} of item {{ item.id }}">
+                    <a href="{{ url_for("images.details", id=image.id) }}"><img src="{{ image.url() }}" class="img-fluid" style="padding-top:20px" alt="Image {{ image.id }} of item {{ item.id }}"></a>
                     <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteImageModal{{ image.id }}">x</button>
                 {% endfor %}
             {% endif %}
@@ -93,7 +93,7 @@
                 </button>
               </div>
               <div class="modal-footer">
-                <form action="{{ url_for('items.delete_image', id=item.id, image_id=image.id) }}" method="POST">
+                <form action="{{ url_for('images.delete', id=image.id) }}" method="POST">
                     <input class="btn btn-danger" type="submit" value="{{ _('Delete') }}">
                 </form>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ _('Close') }}</button>

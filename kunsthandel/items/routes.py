@@ -109,13 +109,4 @@ def delete(id):
     return redirect(url_for("items.overview"))
 
 
-@items.route("/items/<int:id>/images/<int:image_id>/delete", methods=["POST"])
-@role_required(Role.Editor)
-def delete_image(id, image_id):
-    item = Item.query.get_or_404(id)
-    image = Image.query.get_or_404(image_id)
-    delete_images([image.path])
-    db.session.delete(image)
-    db.session.commit()
-    flash(gettext("The image has been deleted successfully"), "success")
-    return redirect(url_for("items.edit", id=item.id))
+
