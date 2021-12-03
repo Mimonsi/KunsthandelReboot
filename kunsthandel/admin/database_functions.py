@@ -40,10 +40,11 @@ def create_test_items(item_amount, type_amount, location_amount, origin_amount):
         item = Item(type_id=random.randint(1, type_amount), location_id=random.randint(1, location_amount), origin_id=random.randint(1, origin_amount), name=f"Test {random.randint(1000, 9999)}", comment="Comment for longer texts", size=str(random.randint(5, 110)) + "cm")
         db.session.add(item)
         db.session.commit()
-        src_path = os.path.join(current_app.root_path, f"static/{current_app.config['MEDIA_ROOT_PATH']}/images/dummy/{random.randint(0, 63)}.png")
-        dest_path = os.path.join(current_app.root_path, f"static/{current_app.config['MEDIA_ROOT_PATH']}/images/{item.id}")
+        src_path = os.path.join(current_app.root_path, rf"static\{current_app.config['MEDIA_ROOT_PATH']}\images/dummy\{random.randint(0, 63)}.png")
+        dest_path = os.path.join(current_app.root_path, rf"static\{current_app.config['MEDIA_ROOT_PATH']}\images\{item.id}")
+        dest_file = rf"{dest_path}\0.png"
         os.makedirs(dest_path, exist_ok=True)
-        copyfile(src_path, rf"{dest_path}/0.png")
+        copyfile(src_path, dest_file)
         thumbnail = Image(path=f"{item.id}/0.png", is_thumbnail=True, item_id=item.id)
         db.session.add(thumbnail)
         created += 1

@@ -99,6 +99,6 @@ def save_images(form_images, item):
 
 def delete_images(paths):
     for path in paths:
-        full_path = os.path.join(current_app.root_path, f"static/{current_app.config['MEDIA_ROOT_PATH']}/images/{path}")
+        full_path = os.path.join(current_app.root_path, rf"static\{current_app.config['MEDIA_ROOT_PATH']}\images\{path}")
         os.remove(full_path)
     return True

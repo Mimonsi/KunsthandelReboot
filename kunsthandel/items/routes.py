@@ -114,7 +114,7 @@ def delete(id):
 def delete_image(id, image_id):
     item = Item.query.get_or_404(id)
     image = Image.query.get_or_404(image_id)
-    delete_images([image.id])
+    delete_images([image.path])
     db.session.delete(image)
     db.session.commit()
     flash(gettext("The image has been deleted successfully"), "success")
