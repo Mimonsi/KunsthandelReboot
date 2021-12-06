@@ -83,7 +83,7 @@ def edit(id):
             item.edited = current_user
             db.session.commit()
             flash(gettext("Item with ID %s successfully updated") % str(item.id), "success")
-            return redirect(url_for("items.overview"))
+            return redirect(url_for("items.details", id=item.id))
         else:
             return render_template("items/item_edit.html", title=gettext("Edit item %s") % str(id), form=form, item=item), 400
     else:  # GET

@@ -216,7 +216,7 @@ class TestEditItem(DatabaseTestCase):
             name="afterEdit",
         ), follow_redirects=True)
 
-        self.assertEqual("/items", result.request.path)
+        self.assertEqual("/items/1", result.request.path)
         self.assertEqual(200, result.status_code)
         beforeItem = Item.query.filter_by(name="testItem").first()
         afterItem = Item.query.filter_by(name="afterEdit").first()
@@ -242,7 +242,7 @@ class TestEditItem(DatabaseTestCase):
                     name="afterEdit",
                     thumbnail=thumbnail
                 ), follow_redirects=True)
-            self.assertEqual("/items", result.request.path)
+            self.assertEqual("/items/1", result.request.path)
             self.assertEqual(200, result.status_code)
             updated_item = Item.query.get(1)
             self.assertIsNotNone(updated_item.thumbnail())
@@ -259,7 +259,7 @@ class TestEditItem(DatabaseTestCase):
                 name="afterEdit",
                 images=[image_1, image_2]
             ), follow_redirects=True)
-        self.assertEqual("/items", result.request.path)
+        self.assertEqual("/items/1", result.request.path)
         self.assertEqual(200, result.status_code)
         created_item = Item.query.first()
         self.assertIsNotNone(created_item.images)
@@ -273,7 +273,7 @@ class TestEditItem(DatabaseTestCase):
                 name="afterEdit",
                 images=[]
             ), follow_redirects=True)
-        self.assertEqual("/items", result.request.path)
+        self.assertEqual("/items/1", result.request.path)
         self.assertEqual(200, result.status_code)
         created_item = Item.query.first()
         self.assertIsNotNone(created_item.images)
@@ -301,7 +301,7 @@ class TestEditItem(DatabaseTestCase):
                 name="afterEdit",
                 images=[image_1]
             ), follow_redirects=True)
-        self.assertEqual("/items", result.request.path)
+        self.assertEqual("/items/1", result.request.path)
         self.assertEqual(200, result.status_code)
         editedItem = Item.query.get(1)
         self.assertIsNotNone(editedItem.images)
