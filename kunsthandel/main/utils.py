@@ -95,3 +95,11 @@ def save_images(form_images, item):
         index += 1
     db.session.commit()
     return image_objects
+
+
+def delete_images(paths):
+    for path in paths:
+        full_path = os.path.join(current_app.root_path, rf"static\{current_app.config['MEDIA_ROOT_PATH']}\images\{path}")
+        if os.path.exists(full_path):
+            os.remove(full_path)
+    return True

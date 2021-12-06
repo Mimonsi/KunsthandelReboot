@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: info@webgadgets.de\n"
-"POT-Creation-Date: 2021-11-29 17:54+0100\n"
+"POT-Creation-Date: 2021-12-05 22:38+0100\n"
 "PO-Revision-Date: 2021-10-24 23:34+0200\n"
 "Last-Translator: Konstantin Schwarze <info@webgadgets.de>\n"
 "Language: de\n"
@@ -133,7 +133,7 @@ msgstr "%s mit ID %s erfolgreich erstellt"
 msgid "Create new %s"
 msgstr "Neuen Datensatz der Klasse %s erstellen"
 
-#: kunsthandel/generic_type/routes.py:61 kunsthandel/items/routes.py:62
+#: kunsthandel/generic_type/routes.py:61 kunsthandel/items/routes.py:70
 #: kunsthandel/users/forms.py:37 kunsthandel/users/forms.py:48
 msgid "Update"
 msgstr "Aktualisieren"
@@ -162,6 +162,10 @@ msgstr "%s-Details"
 #: kunsthandel/generic_type/routes.py:100
 msgid "The dataset has been deleted successfully"
 msgstr "Dieser Datensatz wurde erfolgreich gelöscht"
+
+#: kunsthandel/images/routes.py:27
+msgid "The image has been deleted successfully"
+msgstr "Dieses Bild wurde erfolgreich gelöscht"
 
 #: kunsthandel/items/forms.py:13
 #: kunsthandel/templates/admin/storage_overview.html:7
@@ -198,41 +202,37 @@ msgstr "Vorschaubild hochladen"
 msgid "Upload images"
 msgstr "Bilder hochladen"
 
-#: kunsthandel/items/routes.py:18 kunsthandel/items/routes.py:33
+#: kunsthandel/items/routes.py:16 kunsthandel/items/routes.py:31
 #, python-format
 msgid "Item details %s"
 msgstr "Gegenstand-Details %s"
 
-#: kunsthandel/items/routes.py:26
+#: kunsthandel/items/routes.py:24
 msgid "Item overview"
 msgstr "Gegenstandsübersicht"
 
-#: kunsthandel/items/routes.py:49
+#: kunsthandel/items/routes.py:57
 #, python-format
 msgid "Item with ID %s successfully created"
 msgstr "Gegenstand mit ID %s erfolgreich erstellt"
 
-#: kunsthandel/items/routes.py:52 kunsthandel/items/routes.py:54
+#: kunsthandel/items/routes.py:60 kunsthandel/items/routes.py:62
 msgid "Create new item"
 msgstr "Gegenstand erstellen"
 
-#: kunsthandel/items/routes.py:77
+#: kunsthandel/items/routes.py:85
 #, python-format
 msgid "Item with ID %s successfully updated"
 msgstr "Gegenstand mit ID %s erfolgreich aktualisiert"
 
-#: kunsthandel/items/routes.py:80 kunsthandel/items/routes.py:89
+#: kunsthandel/items/routes.py:88 kunsthandel/items/routes.py:97
 #, python-format
 msgid "Edit item %s"
 msgstr "Gegenstand %s bearbeiten"
 
-#: kunsthandel/items/routes.py:98
+#: kunsthandel/items/routes.py:108
 msgid "The item has been deleted successfully"
 msgstr "Dieser Gegenstand wurde erfolgreich gelöscht"
-
-#: kunsthandel/items/routes.py:108
-msgid "The image has been deleted successfully"
-msgstr "Dieses Bild wurde erfolgreich gelöscht"
 
 #: kunsthandel/templates/generic_type.html:6
 #: kunsthandel/templates/generic_type_overview.html:12

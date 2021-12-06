@@ -118,8 +118,8 @@ class TestInvalidMethods(DatabaseTestCase):
         result = self.client.get("/items/1/delete", follow_redirects=True)
         self.assertEqual(405, result.status_code)
 
-    def test_delete_item_image_get(self):
-        result = self.client.get("/items/1/images/1/delete", follow_redirects=True)
+    def test_delete_image_get(self):
+        result = self.client.get("/images/1/delete", follow_redirects=True)
         self.assertEqual(405, result.status_code)
 
     def test_item_code(self):
@@ -216,7 +216,7 @@ class TestEditItem(DatabaseTestCase):
             name="afterEdit",
         ), follow_redirects=True)
 
-        self.assertEqual("/items", result.request.path)
+        self.assertEqual("/items/1", result.request.path)
         self.assertEqual(200, result.status_code)
         beforeItem = Item.query.filter_by(name="testItem").first()
         afterItem = Item.query.filter_by(name="afterEdit").first()
@@ -242,7 +242,7 @@ class TestEditItem(DatabaseTestCase):
                     name="afterEdit",
                     thumbnail=thumbnail
                 ), follow_redirects=True)
-            self.assertEqual("/items", result.request.path)
+            self.assertEqual("/items/1", result.request.path)
             self.assertEqual(200, result.status_code)
             updated_item = Item.query.get(1)
             self.assertIsNotNone(updated_item.thumbnail())
@@ -259,7 +259,7 @@ class TestEditItem(DatabaseTestCase):
                 name="afterEdit",
                 images=[image_1, image_2]
             ), follow_redirects=True)
-        self.assertEqual("/items", result.request.path)
+        self.assertEqual("/items/1", result.request.path)
         self.assertEqual(200, result.status_code)
         created_item = Item.query.first()
         self.assertIsNotNone(created_item.images)
@@ -273,7 +273,7 @@ class TestEditItem(DatabaseTestCase):
                 name="afterEdit",
                 images=[]
             ), follow_redirects=True)
-        self.assertEqual("/items", result.request.path)
+        self.assertEqual("/items/1", result.request.path)
         self.assertEqual(200, result.status_code)
         created_item = Item.query.first()
         self.assertIsNotNone(created_item.images)
@@ -301,13 +301,13 @@ class TestEditItem(DatabaseTestCase):
                 name="afterEdit",
                 images=[image_1]
             ), follow_redirects=True)
-        self.assertEqual("/items", result.request.path)
+        self.assertEqual("/items/1", result.request.path)
         self.assertEqual(200, result.status_code)
         editedItem = Item.query.get(1)
         self.assertIsNotNone(editedItem.images)
         self.assertEqual(1, len(editedItem.images))
         image = Item.query.get(1).images[0]
-        result = self.client.post(f"/items/1/images/{image.id}/delete", follow_redirects=True)
+        result = self.client.post(f"/images/{image.id}/delete", follow_redirects=True)
         self.assertEqual(200, result.status_code)
         self.assertEqual(0, len(Item.query.get(1).images))
 

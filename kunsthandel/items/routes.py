@@ -4,7 +4,7 @@ from flask_login import current_user
 
 from kunsthandel import db
 from kunsthandel.items.forms import EditItemForm
-from kunsthandel.main.utils import role_required, save_images, save_thumbnail, create_qr_code
+from kunsthandel.main.utils import role_required, save_images, save_thumbnail, create_qr_code, delete_images
 from kunsthandel.models import Role, Item, Image
 
 items = Blueprint("items", __name__)
@@ -83,7 +83,7 @@ def edit(id):
             item.edited = current_user
             db.session.commit()
             flash(gettext("Item with ID %s successfully updated") % str(item.id), "success")
-            return redirect(url_for("items.overview"))
+            return redirect(url_for("items.details", id=item.id))
         else:
             return render_template("items/item_edit.html", title=gettext("Edit item %s") % str(id), form=form, item=item), 400
     else:  # GET
@@ -101,17 +101,12 @@ def edit(id):
 @role_required(Role.Editor)
 def delete(id):
     item = Item.query.get_or_404(id)
+    paths = [image.path for image in item.images]
+    delete_images(paths)
     db.session.delete(item)
     db.session.commit()
     flash(gettext("The item has been deleted successfully"), "success")
     return redirect(url_for("items.overview"))
 
 
-@items.route("/items/<int:id>/images/<int:image_id>/delete", methods=["POST"])
-@role_required(Role.Editor)
-def delete_image(id, image_id):
-    image = Image.query.get_or_404(image_id)
-    db.session.delete(image)
-    db.session.commit()
-    flash(gettext("The image has been deleted successfully"), "success")
-    return redirect(url_for("items.edit", id=id))
+
