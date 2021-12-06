@@ -9,6 +9,9 @@
             <div class="media-body">
                 <h2 class="account-heading">{{ item.id }} - {{ item.name }}</h2>
                 <p class="text-secondary">{{ item.type.name }}</p>
+                {% if current_user.has_permission(3) %}
+                    <a href="{{ url_for("items.edit", id=item.id) }}" class="btn btn-outline-primary btn-sm m-1">{{ _("Edit") }}</a>
+                {% endif %}
             </div>
         </div>
         <legend class="border-bottom mb-4">{{ _('Details') }}</legend>
