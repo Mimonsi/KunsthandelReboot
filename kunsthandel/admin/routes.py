@@ -1,4 +1,10 @@
-from flask import Blueprint, render_template, flash, redirect, url_for, current_app, abort, session
+import io
+import os
+import time
+import zipfile
+from datetime import datetime
+
+from flask import Blueprint, render_template, flash, redirect, url_for, current_app, abort, session, make_response
 from flask_babel import gettext
 
 from kunsthandel.admin.database_functions import create_test_items, create_test_users
@@ -6,7 +12,7 @@ from kunsthandel.admin.forms import CreateUsersForm, CreateItemsForm, CreateQRCo
 from kunsthandel.admin.storage_manager import get_database_usage, get_directory_usage
 from kunsthandel.main import utils
 from kunsthandel.main.utils import role_required, create_qr_code
-from kunsthandel.models import Role, Item
+from kunsthandel.models import Role, Item, Image
 
 admin = Blueprint("admin", __name__)
 
@@ -39,6 +45,32 @@ def home():
         create_qr_codes_form = CreateQRCodesForm()
     return render_template("admin/home.html", title=gettext("Administration"), create_user_form=create_user_form,
                            create_items_form=create_items_form, create_qr_codes_form=create_qr_codes_form), status_code
+
+
+@admin.route("/admin/fullbackup", methods=["GET"])
+@role_required(Role.Administrator)
+def full_backup():
+    fileobj = io.BytesIO()
+    paths = [(current_app.config.get("STORAGE_DATABASE_FILE"), os.path.join(current_app.root_path, current_app.config.get("STORAGE_DATABASE_FILE")))]
+    media_dir = os.path.join(current_app.root_path, f"static/{current_app.config.get('MEDIA_ROOT_PATH')}/images/")
+    image_objects = Image.query.all()
+    for image_object in image_objects:
+        paths.append((image_object.path, media_dir + image_object.path))
+    with zipfile.ZipFile(fileobj, "w") as zip_file:
+        for path in paths:
+            zip_info = zipfile.ZipInfo(path[1])
+            zip_info.filename = path[0]
+            zip_info.date_time = time.localtime(time.time())[:6]
+            zip_info.compress_type = zipfile.ZIP_DEFLATED
+            with open(path[1], "rb") as fd:
+                zip_file.writestr(zip_info, fd.read())
+    fileobj.seek(0)
+
+    response = make_response(fileobj.read())
+    response.headers.set("Content-Type", "zip")
+    time_string = datetime.now().strftime("%d.%m.%y_%H:%M")
+    response.headers.set("Content-Disposition", "attachment", filename=f"backup_full_{time_string}.zip")
+    return response
 
 
 @admin.route("/admin/create_users", methods=["POST"])
