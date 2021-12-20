@@ -1,8 +1,12 @@
+import io
 import os
 import random
+import time
+import zipfile
+from datetime import datetime
 from shutil import copy, copyfile
 
-from flask import current_app
+from flask import current_app, make_response
 
 from kunsthandel import db
 from kunsthandel.models import create_account, Role, Location, Origin, Type, Item, Image
@@ -67,3 +71,30 @@ def create_test_users(amount, password):
 
         create_account(f"Account_{random.randint(0, 2000000000)}", password, role)
     return amount
+
+
+def backup(include_database=True, include_media=True, type="full"):
+    fileobj = io.BytesIO()
+    paths = []
+    if include_database:
+        paths.append((current_app.config.get("STORAGE_DATABASE_FILE"), os.path.join(current_app.root_path, current_app.config.get("STORAGE_DATABASE_FILE"))))
+    media_dir = os.path.join(current_app.root_path, f"static/{current_app.config.get('MEDIA_ROOT_PATH')}/images/")
+    image_objects = Image.query.all()
+    if include_media:
+        for image_object in image_objects:
+            paths.append((image_object.path, media_dir + image_object.path))
+    with zipfile.ZipFile(fileobj, "w") as zip_file:
+        for path in paths:
+            zip_info = zipfile.ZipInfo(path[1])
+            zip_info.filename = path[0]
+            zip_info.date_time = time.localtime(time.time())[:6]
+            zip_info.compress_type = zipfile.ZIP_DEFLATED
+            with open(path[1], "rb") as fd:
+                zip_file.writestr(zip_info, fd.read())
+    fileobj.seek(0)
+
+    response = make_response(fileobj.read())
+    response.headers.set("Content-Type", "zip")
+    time_string = datetime.now().strftime("%d.%m.%y_%H:%M")
+    response.headers.set("Content-Disposition", "attachment", filename=f"backup_{type}_{time_string}.zip")
+    return response

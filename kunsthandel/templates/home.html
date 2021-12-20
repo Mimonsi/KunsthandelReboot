@@ -1,4 +1,11 @@
 {% extends "layout.html" %}
 {% block content %}
-    <h1>{{_('Welcome to the homepage') }}</h1>
+    <div class="content-section">
+        <div class="media">
+            <div class="media-body">
+                <h2 class="account-heading">{{_('Welcome to the homepage') }}</h2>
+                <h5>{{ text }}</h5>
+            </div>
+        </div>
+    </div>
 {% endblock content %}

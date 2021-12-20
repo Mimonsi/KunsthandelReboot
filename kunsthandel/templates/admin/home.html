@@ -3,9 +3,14 @@
     <h1>{{ _("Welcome, ") }}{{ current_user.username }}</h1>
     <article class="media content-section">
       <div class="media-body">
-          <h2>{{ _('General Functions') }}</h2>
+          <h2 class="border-bottom mb-4">{{ _('General Functions') }}</h2>
           <a href="{{ url_for('users.overview') }}" class="btn btn-primary" style="margin-top: 10px; margin-bottom: 10px">{{ _('Open User Account Overview') }}</a>
           <a href="{{ url_for('admin.storage_overview') }}" class="btn btn-primary" style="margin-top: 10px; margin-bottom: 10px">{{ _('Open Storage Overview') }}</a>
+
+          <h3 class="border-bottom mb-4">{{ _('Backup Options') }}</h3>
+            <a href="{{ url_for("admin.backup_database") }}" class="btn btn-primary">{{ _("Download Database Backup") }}</a>
+            <a href="{{ url_for("admin.backup_media") }}" class="btn btn-primary">{{ _("Download Media Backup") }}</a>
+            <a href="{{ url_for("admin.backup_full") }}" class="btn btn-primary">{{ _('Download Full Backup') }}</a>
       </div>
     </article>
 
@@ -62,7 +67,6 @@
         </form>
       </div>
     </article>
-
 
     <article class="media content-section">
       <div class="media-body">

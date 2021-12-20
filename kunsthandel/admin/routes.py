@@ -1,12 +1,18 @@
-from flask import Blueprint, render_template, flash, redirect, url_for, current_app, abort, session
+import io
+import os
+import time
+import zipfile
+from datetime import datetime
+
+from flask import Blueprint, render_template, flash, redirect, url_for, current_app, abort, session, make_response
 from flask_babel import gettext
 
-from kunsthandel.admin.database_functions import create_test_items, create_test_users
+from kunsthandel.admin.database_functions import create_test_items, create_test_users, backup
 from kunsthandel.admin.forms import CreateUsersForm, CreateItemsForm, CreateQRCodesForm
 from kunsthandel.admin.storage_manager import get_database_usage, get_directory_usage
 from kunsthandel.main import utils
 from kunsthandel.main.utils import role_required, create_qr_code
-from kunsthandel.models import Role, Item
+from kunsthandel.models import Role, Item, Image
 
 admin = Blueprint("admin", __name__)
 
@@ -39,6 +45,24 @@ def home():
         create_qr_codes_form = CreateQRCodesForm()
     return render_template("admin/home.html", title=gettext("Administration"), create_user_form=create_user_form,
                            create_items_form=create_items_form, create_qr_codes_form=create_qr_codes_form), status_code
+
+
+@admin.route("/admin/backup/database", methods=["GET"])
+@role_required(Role.Administrator)
+def backup_database():
+    return backup(True, False, "database")
+
+
+@admin.route("/admin/backup/media", methods=["GET"])
+@role_required(Role.Administrator)
+def backup_media():
+    return backup(False, True, "media")
+
+
+@admin.route("/admin/backup/full", methods=["GET"])
+@role_required(Role.Administrator)
+def backup_full():
+    return backup(True, True, "full")
 
 
 @admin.route("/admin/create_users", methods=["POST"])
