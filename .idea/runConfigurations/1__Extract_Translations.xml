@@ -1,8 +1,8 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Update Localizations" type="ShConfigurationType" activateToolWindowBeforeRun="false">
-    <option name="SCRIPT_TEXT" value="pybabel update -i messages.pot -d kunsthandel\translations" />
+  <configuration default="false" name="1. Extract Translations" type="ShConfigurationType" activateToolWindowBeforeRun="false">
+    <option name="SCRIPT_TEXT" value="pybabel extract -F babel.cfg -k lazy_gettext -o messages.pot ./kunsthandel" />
     <option name="INDEPENDENT_SCRIPT_PATH" value="false" />
-    <option name="SCRIPT_PATH" value="$PROJECT_DIR$/utils_scripts/update_localizations.bat" />
+    <option name="SCRIPT_PATH" value="$PROJECT_DIR$/utils_scripts/extract_translations.bat" />
     <option name="SCRIPT_OPTIONS" value="" />
     <option name="INDEPENDENT_SCRIPT_WORKING_DIRECTORY" value="true" />
     <option name="SCRIPT_WORKING_DIRECTORY" value="$PROJECT_DIR$" />
