@@ -7,7 +7,7 @@ from datetime import datetime
 from flask import Blueprint, render_template, flash, redirect, url_for, current_app, abort, session, make_response
 from flask_babel import gettext
 
-from kunsthandel.admin.database_functions import create_test_items, create_test_users
+from kunsthandel.admin.database_functions import create_test_items, create_test_users, backup
 from kunsthandel.admin.forms import CreateUsersForm, CreateItemsForm, CreateQRCodesForm
 from kunsthandel.admin.storage_manager import get_database_usage, get_directory_usage
 from kunsthandel.main import utils
@@ -47,30 +47,22 @@ def home():
                            create_items_form=create_items_form, create_qr_codes_form=create_qr_codes_form), status_code
 
 
-@admin.route("/admin/fullbackup", methods=["GET"])
+@admin.route("/admin/backup/database", methods=["GET"])
 @role_required(Role.Administrator)
-def full_backup():
-    fileobj = io.BytesIO()
-    paths = [(current_app.config.get("STORAGE_DATABASE_FILE"), os.path.join(current_app.root_path, current_app.config.get("STORAGE_DATABASE_FILE")))]
-    media_dir = os.path.join(current_app.root_path, f"static/{current_app.config.get('MEDIA_ROOT_PATH')}/images/")
-    image_objects = Image.query.all()
-    for image_object in image_objects:
-        paths.append((image_object.path, media_dir + image_object.path))
-    with zipfile.ZipFile(fileobj, "w") as zip_file:
-        for path in paths:
-            zip_info = zipfile.ZipInfo(path[1])
-            zip_info.filename = path[0]
-            zip_info.date_time = time.localtime(time.time())[:6]
-            zip_info.compress_type = zipfile.ZIP_DEFLATED
-            with open(path[1], "rb") as fd:
-                zip_file.writestr(zip_info, fd.read())
-    fileobj.seek(0)
+def backup_database():
+    return backup(True, False, "database")
 
-    response = make_response(fileobj.read())
-    response.headers.set("Content-Type", "zip")
-    time_string = datetime.now().strftime("%d.%m.%y_%H:%M")
-    response.headers.set("Content-Disposition", "attachment", filename=f"backup_full_{time_string}.zip")
-    return response
+
+@admin.route("/admin/backup/media", methods=["GET"])
+@role_required(Role.Administrator)
+def backup_media():
+    return backup(False, True, "media")
+
+
+@admin.route("/admin/backup/full", methods=["GET"])
+@role_required(Role.Administrator)
+def backup_full():
+    return backup(True, True, "full")
 
 
 @admin.route("/admin/create_users", methods=["POST"])
