@@ -1,6 +1,5 @@
-from gettext import gettext
-
 from flask import Blueprint, render_template
+from flask_babel import gettext
 
 from kunsthandel.main.utils import role_required
 from kunsthandel.models import Role, Item, Origin, Image
@@ -12,6 +11,5 @@ main = Blueprint("main", __name__)
 @main.route("/home")
 @role_required(Role.Visitor)
 def home():
-    full_text = f"Currently there are {Item.query.count()} items from {Origin.query.count()} origins. {Image.query.count()} pictures have been uploaded."
-    # ??? TODO: Die Übersetzung funktioniert hier nicht aus irgendeinem Grund...?
+    full_text = gettext("Currently there are %(items)s items from %(origins)s origins. %(images)s pictures have been uploaded.", items=Item.query.count(), origins=Origin.query.count(), images=Image.query.count())
     return render_template("home.html", text=full_text)

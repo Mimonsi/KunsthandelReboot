@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: info@webgadgets.de\n"
-"POT-Creation-Date: 2021-12-05 22:38+0100\n"
+"POT-Creation-Date: 2021-12-21 12:58+0100\n"
 "PO-Revision-Date: 2021-10-24 23:34+0200\n"
 "Last-Translator: Konstantin Schwarze <info@webgadgets.de>\n"
 "Language: de\n"
@@ -74,29 +74,29 @@ msgstr "Randgröße des QR-Code"
 msgid "Create QR codes"
 msgstr "QR-Codes erstellen"
 
-#: kunsthandel/admin/routes.py:40 kunsthandel/templates/layout.html:45
+#: kunsthandel/admin/routes.py:46 kunsthandel/templates/layout.html:45
 msgid "Administration"
 msgstr "Administration"
 
-#: kunsthandel/admin/routes.py:50
+#: kunsthandel/admin/routes.py:74
 #, python-format
 msgid "Successfully created %s user accounts."
 msgstr "%s Benutzerkonten wurden erfolgreich erstellt."
 
-#: kunsthandel/admin/routes.py:64
+#: kunsthandel/admin/routes.py:88
 #, python-format
 msgid "Successfully created %s datasets."
 msgstr "%s Datensätze wurden erfolgreich erstellt."
 
-#: kunsthandel/admin/routes.py:86
+#: kunsthandel/admin/routes.py:110
 msgid "Something went wrong. This is awkward..."
 msgstr "Da ist etwas schiefgelaufen..."
 
-#: kunsthandel/admin/routes.py:101
+#: kunsthandel/admin/routes.py:125
 msgid "Total"
 msgstr "Gesamt"
 
-#: kunsthandel/admin/routes.py:102
+#: kunsthandel/admin/routes.py:126
 msgid "Storage management"
 msgstr "Speicherplatzverwaltung"
 
@@ -173,23 +173,23 @@ msgstr "Dieses Bild wurde erfolgreich gelöscht"
 msgid "Type"
 msgstr "Typ"
 
-#: kunsthandel/items/forms.py:14 kunsthandel/templates/items/item.html:17
+#: kunsthandel/items/forms.py:14 kunsthandel/templates/items/item.html:20
 #: kunsthandel/templates/items/items.html:13
 #: kunsthandel/templates/layout.html:38
 msgid "Location"
 msgstr "Ort"
 
-#: kunsthandel/items/forms.py:15 kunsthandel/templates/items/item.html:18
+#: kunsthandel/items/forms.py:15 kunsthandel/templates/items/item.html:21
 #: kunsthandel/templates/items/items.html:14
 #: kunsthandel/templates/layout.html:39
 msgid "Origin"
 msgstr "Herkunft"
 
-#: kunsthandel/items/forms.py:16 kunsthandel/templates/items/item.html:19
+#: kunsthandel/items/forms.py:16 kunsthandel/templates/items/item.html:22
 msgid "Size"
 msgstr "Größe"
 
-#: kunsthandel/items/forms.py:17 kunsthandel/templates/items/item.html:21
+#: kunsthandel/items/forms.py:17 kunsthandel/templates/items/item.html:24
 #: kunsthandel/templates/items/items.html:17
 msgid "Comment"
 msgstr "Kommentar"
@@ -234,9 +234,15 @@ msgstr "Gegenstand %s bearbeiten"
 msgid "The item has been deleted successfully"
 msgstr "Dieser Gegenstand wurde erfolgreich gelöscht"
 
+#: kunsthandel/main/routes.py:14
+msgid ""
+"Currently there are %(items)s items from %(origins)s origins. %(images)s "
+"pictures have been uploaded."
+msgstr "Aktuell gibt es %(items)s Gegenstände mit %(origins)s Herkünften. %(images)s Bilddateien wurden hochgeladen."
+
 #: kunsthandel/templates/generic_type.html:6
 #: kunsthandel/templates/generic_type_overview.html:12
-#: kunsthandel/templates/items/item.html:15
+#: kunsthandel/templates/items/item.html:18
 #: kunsthandel/templates/items/items.html:11
 #: kunsthandel/templates/users/users.html:28
 msgid "ID"
@@ -244,7 +250,7 @@ msgstr "ID"
 
 #: kunsthandel/templates/generic_type.html:7
 #: kunsthandel/templates/generic_type_overview.html:13
-#: kunsthandel/templates/items/item.html:16
+#: kunsthandel/templates/items/item.html:19
 #: kunsthandel/templates/items/items.html:15
 msgid "Name"
 msgstr "Name"
@@ -284,18 +290,19 @@ msgid "Create new entry"
 msgstr "Neuen Datensatz erstellen"
 
 #: kunsthandel/templates/generic_type_overview.html:24
-#: kunsthandel/templates/items/item.html:14
+#: kunsthandel/templates/items/item.html:17
 #: kunsthandel/templates/items/items.html:38
 msgid "Details"
 msgstr "Details"
 
 #: kunsthandel/templates/generic_type_overview.html:28
+#: kunsthandel/templates/items/item.html:13
 #: kunsthandel/templates/items/items.html:42
 #: kunsthandel/templates/users/users.html:45
 msgid "Edit"
 msgstr "Bearbeiten"
 
-#: kunsthandel/templates/home.html:3
+#: kunsthandel/templates/home.html:6
 msgid "Welcome to the homepage"
 msgstr "Willkommen auf der Startseite"
 
@@ -359,33 +366,49 @@ msgstr "Benutzerkontenverwaltung öffnen"
 msgid "Open Storage Overview"
 msgstr "Speicherplatzverwaltung öffnen"
 
-#: kunsthandel/templates/admin/home.html:14
+#: kunsthandel/templates/admin/home.html:10
+msgid "Backup Options"
+msgstr "Backupoptionen"
+
+#: kunsthandel/templates/admin/home.html:11
+msgid "Download Database Backup"
+msgstr "Datenbank Backup herunterladen"
+
+#: kunsthandel/templates/admin/home.html:12
+msgid "Download Media Backup"
+msgstr "Medienbackup herunterladen"
+
+#: kunsthandel/templates/admin/home.html:13
+msgid "Download Full Backup"
+msgstr "Vollständiges Backup herunterladen"
+
+#: kunsthandel/templates/admin/home.html:19
 msgid "Create User Accounts"
 msgstr "Benutzerkonten erstellen"
 
-#: kunsthandel/templates/admin/home.html:32
+#: kunsthandel/templates/admin/home.html:37
 msgid "Create items"
 msgstr "Gegenstände erstellen"
 
-#: kunsthandel/templates/admin/home.html:51
+#: kunsthandel/templates/admin/home.html:56
 msgid "Create QR Codes"
 msgstr "QR-Codes erstellen"
 
-#: kunsthandel/templates/admin/home.html:69
+#: kunsthandel/templates/admin/home.html:73
 msgid "Error Page Testing"
 msgstr "Test der Fehlerseiten"
 
-#: kunsthandel/templates/admin/home.html:70
+#: kunsthandel/templates/admin/home.html:74
 #: kunsthandel/templates/errors/403.html:4
 msgid "Unauthorized (403)"
 msgstr "Kein Zugriff (403)"
 
-#: kunsthandel/templates/admin/home.html:71
+#: kunsthandel/templates/admin/home.html:75
 #: kunsthandel/templates/errors/404.html:4
 msgid "Page not found (404)"
 msgstr "Seite nicht gefunden (404)"
 
-#: kunsthandel/templates/admin/home.html:72
+#: kunsthandel/templates/admin/home.html:76
 #: kunsthandel/templates/errors/500.html:4
 msgid "Something went wrong (500)"
 msgstr "Da ist etwas schiefgelaufen (500)"
@@ -414,7 +437,7 @@ msgstr ""
 "Es scheint ein Problem auf unserer Seite zu geben. Bitte versuchen Sie es"
 " später erneut oder kontaktieren Sie einen Administrator."
 
-#: kunsthandel/templates/items/item.html:20
+#: kunsthandel/templates/items/item.html:23
 msgid "Last edited by"
 msgstr "Zuletzt bearbeitet von:"
 
