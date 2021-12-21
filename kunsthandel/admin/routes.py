@@ -71,7 +71,7 @@ def create_users():
     form = CreateUsersForm()
     if form.validate_on_submit():
         amount = create_test_users(form.account_amount.data, form.password.data)
-        flash(gettext("Successfully created %s user accounts.") % str(amount), "success")
+        flash(gettext("Successfully created %(amount)s user accounts.", amount=amount), "success")
         return redirect(url_for("admin.home"))
     else:
         session["redirect_user_form"] = form.data
@@ -85,7 +85,7 @@ def create_items():
     if form.validate_on_submit():
         amount = create_test_items(item_amount=form.item_amount.data, type_amount=form.type_amount.data,
                                    location_amount=form.location_amount.data, origin_amount=form.origin_amount.data)
-        flash(gettext("Successfully created %s datasets.") % str(amount), "success")
+        flash(gettext("Successfully created %(amount)s datasets.", amount=amount), "success")
         return redirect(url_for("admin.home"))
     else:
         session["redirect_items_form"] = form.data

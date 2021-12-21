@@ -39,14 +39,13 @@ def create(model_name):
         if form.validate_on_submit():
             db.session.add(model)
             db.session.commit()
-            flash(gettext("%s with ID %s has been successfully created") % (gettext(model.model_name()), str(model.id)),
-                  "success")
+            flash(gettext("%(model_name)s with ID %(id)s has been successfully created", model_name=model.model_name, id=model.id), "success")
             return redirect(url_for("generic_type.overview", model_name=model_name))
         else:
-            legend_text = gettext("Create new %s") % gettext(model_name)
+            legend_text = gettext("Create new %(model_name)s", model_name=model_name)
             return render_template("generic_type_edit.html", title=legend_text, legend_text=legend_text, form=form), 400
     else:  # GET
-        legend_text = gettext("Create new %s") % gettext(model_name)
+        legend_text = gettext("Create new %(model_name)s", model_name=model_name)
         return render_template("generic_type_edit.html", title=legend_text, legend_text=legend_text, form=form)
 
 
@@ -63,16 +62,15 @@ def edit(model_name, id):
         if form.validate_on_submit():
             model.name = form.name.data
             db.session.commit()
-            flash(gettext("%s with ID %s has been successfully updated") % (gettext(model.model_name()), str(model.id)),
-                  "success")
-            return redirect(url_for("generic_type.overview", model_name=model_name))
+            flash(gettext("%(model_name)s with ID %(id)s has been successfully updated", model_name=model.model_name(), id=id), "success")
+            return redirect(url_for("generic_type.overview", model_name=model_name()))
         else:
-            legend_text = gettext("Details for %s with ID %s") % (gettext(model.model_name()), str(id))
-            return render_template("generic_type_edit.html", title=gettext("Edit %s") % gettext(model.model_name()), legend_text=legend_text, model=model, model_name=model_name, form=form), 400
+            legend_text = gettext("Details for %(model_name)s with ID %(id)s", model_name=model.model_name(), id=model.id)
+            return render_template("generic_type_edit.html", title=gettext("Edit %(model_name)s", model_name=model.model_name()), legend_text=legend_text, model=model, model_name=model_name, form=form), 400
     else:  # GET
         form.name.data = model.name
-        legend_text = gettext("Details for %s with ID %s") % (gettext(model.model_name()), str(id))
-        return render_template("generic_type_edit.html", title=gettext("Edit %s") % gettext(model.model_name()), legend_text=legend_text, model=model, model_name=model_name, form=form)
+        legend_text = gettext("Details for %(model_name)s with ID %(id)s", model_name=model.model_name(), id=id)
+        return render_template("generic_type_edit.html", title=gettext("Edit %(model_name)s", model_name=model.model_name()), legend_text=legend_text, model=model, model_name=model_name, form=form)
 
 
 @generic_type.route("/<string:model_name>/<int:id>", methods=["GET"])
@@ -82,9 +80,9 @@ def details(model_name, id):
         model = MODELS[model_name].query.get_or_404(id)
     except KeyError:
         abort(404, gettext("Model not found"))
-    legend_text = gettext("Details for %s with ID %s") % (gettext(model.model_name()), str(id))
+    legend_text = gettext("Details for %(model_name)s with ID %(id)s", model_name=model.model_name(), id=id)
     return render_template("generic_type.html", model_name=model_name, model=model,
-                           title=gettext("%s Details") % gettext(model.model_name()), legend_text=legend_text)
+                           title=gettext("%(model_name)s Details", model_name=model.model_name()), legend_text=legend_text)
 
 
 @generic_type.route("/<string:model_name>/<int:id>/delete", methods=["POST"])

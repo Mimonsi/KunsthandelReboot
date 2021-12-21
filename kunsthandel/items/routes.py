@@ -13,7 +13,7 @@ items = Blueprint("items", __name__)
 @items.route("/code/<string:hash>", methods=["GET"])
 def token(hash):
     item = Item.query.filter_by(qr_hash=hash).first_or_404()
-    return render_template("items/item.html", title=gettext("Item details %s") % str(id), item=item)
+    return render_template("items/item.html", title=gettext("Item details %(id)s", id=id), item=item)
 
 
 @items.route("/items", methods=["GET"])
@@ -28,7 +28,7 @@ def overview():
 @role_required(Role.User)
 def details(id):
     item = Item.query.get_or_404(id)
-    return render_template("items/item.html", title=gettext("Item details %s") % str(id), item=item)
+    return render_template("items/item.html", title=gettext("Item details %(id)s", id=id), item=item)
 
 
 @items.route("/items/<int:id>/code", methods=["GET"])
@@ -54,7 +54,7 @@ def create():
                 save_thumbnail(form.thumbnail.data, item)
             if form.images.data:
                 save_images(form.images.data, item)
-            flash(gettext("Item with ID %s successfully created") % str(item.id), "success")
+            flash(gettext("Item with ID %(id)s successfully created", id=item.id), "success")
             return redirect(url_for("items.overview"))
         else:
             return render_template("items/item_edit.html", title=gettext("Create new item"), form=form), 400
@@ -82,10 +82,10 @@ def edit(id):
             item.comment = form.comment.data
             item.edited = current_user
             db.session.commit()
-            flash(gettext("Item with ID %s successfully updated") % str(item.id), "success")
+            flash(gettext("Item with ID %(id)s successfully updated", id=item.id), "success")
             return redirect(url_for("items.details", id=item.id))
         else:
-            return render_template("items/item_edit.html", title=gettext("Edit item %s") % str(id), form=form, item=item), 400
+            return render_template("items/item_edit.html", title=gettext("Edit item %(id)s", id=id), form=form, item=item), 400
     else:  # GET
         item = Item.query.get_or_404(id)
         form.name.data = item.name
@@ -94,7 +94,7 @@ def edit(id):
         form.origin.data = item.origin
         form.size.data = item.size
         form.comment.data = item.comment
-        return render_template("items/item_edit.html", title=gettext("Edit item %s") % str(id), form=form, item=item)
+        return render_template("items/item_edit.html", title=gettext("Edit item %(id)s", id=id), form=form, item=item)
 
 
 @items.route("/items/<int:id>/delete", methods=["POST"])
