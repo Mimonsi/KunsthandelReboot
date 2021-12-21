@@ -6,7 +6,7 @@
         <div class="media-body">
             {% if user %}
                 <h2 class="account-heading">{{ _('Edit profile') }} - {{ user.username }}</h2>
-                <p class="text-secondary">{{ user.role() }}</p>
+                <p class="text-secondary">{{ user.role }}</p>
                     {% if current_user.has_permission(4) %}
                         <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">{{ _('Delete') }}</button>
                     {% endif %}

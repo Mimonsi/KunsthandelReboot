@@ -39,6 +39,67 @@ class TestStorageOverview(DatabaseTestCase):
         self.assertIn(gettext("Storage Overview"), str(result.data))
 
 
+class TestBackup(DatabaseTestCase):
+    def setUp(self):
+        app = create_app(config_class=config.TestConfig)
+        app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///testing.db?charset=utf8mb4"
+        app.config["STORAGE_DATABASE_FILE"] = "testing.db"
+        self.client = app.test_client()
+        db.app = app
+        db.drop_all()
+        db.create_all()
+
+    def tearDown(self):
+        db.session.remove()
+        db.drop_all()
+        # TODO: Delete database file
+
+    def test_permission_backup_database(self):
+        """ Check permissions to access database backup """
+        pairs = {Role.External: 403, Role.Visitor: 403, Role.User: 403, Role.Editor: 403, Role.Administrator: 200}
+        for role, status in pairs.items():
+            with self.subTest(role.name):
+                self._login_user(role=role, username=f"test_{role.name}")
+                result = self.client.get("/admin/backup/database")
+                self.assertEqual(status, result.status_code)
+                self._logout()
+
+    def test_permission_backup_media(self):
+        """ Check permissions to access media backup """
+        pairs = {Role.External: 403, Role.Visitor: 403, Role.User: 403, Role.Editor: 403, Role.Administrator: 200}
+        for role, status in pairs.items():
+            with self.subTest(role.name):
+                self._login_user(role=role, username=f"test_{role.name}")
+                result = self.client.get("/admin/backup/media")
+                self.assertEqual(status, result.status_code)
+                self._logout()
+
+    def test_permission_backup_full(self):
+        """ Check permissions to access full backup """
+        pairs = {Role.External: 403, Role.Visitor: 403, Role.User: 403, Role.Editor: 403, Role.Administrator: 200}
+        for role, status in pairs.items():
+            with self.subTest(role.name):
+                self._login_user(role=role, username=f"test_{role.name}")
+                result = self.client.get("/admin/backup/full")
+                self.assertEqual(status, result.status_code)
+                self._logout()
+
+    def test_post_backup_database(self):
+        self._login_user(role=Role.Administrator, username="admin")
+        result = self.client.post("/admin/backup/database")
+        self.assertEqual(405, result.status_code)
+
+    def test_post_backup_media(self):
+        self._login_user(role=Role.Administrator, username="admin")
+        result = self.client.post("/admin/backup/media")
+        self.assertEqual(405, result.status_code)
+
+    def test_post_backup_full(self):
+        self._login_user(role=Role.Administrator, username="admin")
+        result = self.client.post("/admin/backup/full")
+        self.assertEqual(405, result.status_code)
+
+
 class TestAdminPermission(DatabaseTestCase):
     def test_permission_home(self):
         """ Check permissions to access admin home """

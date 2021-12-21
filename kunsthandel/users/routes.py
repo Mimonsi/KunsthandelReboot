@@ -77,14 +77,14 @@ def edit(id):
             flash(gettext("The account has been updated"), "success")
             return redirect(url_for("users.overview"))
         else:  # Form not validating
-            return render_template("users/user.html", title=gettext("Edit user account %s") % user.username, user=user, form=form), 400
+            return render_template("users/user.html", title=gettext("Edit user account %(username)s", username=user.username), user=user, form=form), 400
     else:  # GET
         form.old_username.data = user.username
         form.username.data = user.username
         form.password.data = user.password
         form.role.data = str(user.role_id)
         form.locale.data = user.locale
-        return render_template("users/user.html", title=gettext("Edit user account %s") % user.username, user=user,
+        return render_template("users/user.html", title=gettext("Edit user account %(username)s", username=user.username), user=user,
                                form=form)
 
 
@@ -98,7 +98,7 @@ def create():
             user = User(username=form.username.data, password=hashed_password, role_id=int(form.role.data), locale=form.locale.data)
             db.session.add(user)
             db.session.commit()
-            flash(gettext("User account with id %s has been created") % str(user.id), "success")
+            flash(gettext("User account with id %(id)s has been created", id=user.id), "success")
             if request.args.get("multiple", False):
                 return redirect(url_for("users.create", multiple=True))
             return redirect(url_for("users.overview"))

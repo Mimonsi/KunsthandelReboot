@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: info@webgadgets.de\n"
-"POT-Creation-Date: 2021-12-21 12:58+0100\n"
+"POT-Creation-Date: 2021-12-21 14:09+0100\n"
 "PO-Revision-Date: 2021-10-24 23:34+0200\n"
 "Last-Translator: Konstantin Schwarze <info@webgadgets.de>\n"
 "Language: de\n"
@@ -79,14 +79,12 @@ msgid "Administration"
 msgstr "Administration"
 
 #: kunsthandel/admin/routes.py:74
-#, python-format
-msgid "Successfully created %s user accounts."
-msgstr "%s Benutzerkonten wurden erfolgreich erstellt."
+msgid "Successfully created %(amount)s user accounts."
+msgstr "%(amount)s Benutzerkonten wurden erfolgreich erstellt."
 
 #: kunsthandel/admin/routes.py:88
-#, python-format
-msgid "Successfully created %s datasets."
-msgstr "%s Datensätze wurden erfolgreich erstellt."
+msgid "Successfully created %(amount)s datasets."
+msgstr "%(amount)s Datensätze wurden erfolgreich erstellt."
 
 #: kunsthandel/admin/routes.py:110
 msgid "Something went wrong. This is awkward..."
@@ -114,8 +112,8 @@ msgid "Create"
 msgstr "Erstellen"
 
 #: kunsthandel/generic_type/routes.py:25 kunsthandel/generic_type/routes.py:37
-#: kunsthandel/generic_type/routes.py:59 kunsthandel/generic_type/routes.py:84
-#: kunsthandel/generic_type/routes.py:96
+#: kunsthandel/generic_type/routes.py:58 kunsthandel/generic_type/routes.py:82
+#: kunsthandel/generic_type/routes.py:94
 msgid "Model not found"
 msgstr "Modell nicht gefunden"
 
@@ -124,42 +122,36 @@ msgid "User account overview"
 msgstr "Benutzerkontenverwaltung"
 
 #: kunsthandel/generic_type/routes.py:42
-#, python-format
-msgid "%s with ID %s has been successfully created"
-msgstr "%s mit ID %s erfolgreich erstellt"
+msgid "%(model_name)s with ID %(id)s has been successfully created"
+msgstr "%(model_name)s mit ID %(id)s erfolgreich erstellt"
 
-#: kunsthandel/generic_type/routes.py:46 kunsthandel/generic_type/routes.py:49
-#, python-format
-msgid "Create new %s"
-msgstr "Neuen Datensatz der Klasse %s erstellen"
+#: kunsthandel/generic_type/routes.py:45 kunsthandel/generic_type/routes.py:48
+msgid "Create new %(model_name)s"
+msgstr "Neuen Datensatz der Klasse %(model_name)s erstellen"
 
-#: kunsthandel/generic_type/routes.py:61 kunsthandel/items/routes.py:70
+#: kunsthandel/generic_type/routes.py:60 kunsthandel/items/routes.py:70
 #: kunsthandel/users/forms.py:37 kunsthandel/users/forms.py:48
 msgid "Update"
 msgstr "Aktualisieren"
 
-#: kunsthandel/generic_type/routes.py:66
-#, python-format
-msgid "%s with ID %s has been successfully updated"
-msgstr "%s mit ID %s erfolgreich aktualisiert"
+#: kunsthandel/generic_type/routes.py:65
+msgid "%(model_name)s with ID %(id)s has been successfully updated"
+msgstr "%(model_name)s mit ID %(id)s erfolgreich aktualisiert"
 
-#: kunsthandel/generic_type/routes.py:70 kunsthandel/generic_type/routes.py:74
+#: kunsthandel/generic_type/routes.py:68 kunsthandel/generic_type/routes.py:72
+#: kunsthandel/generic_type/routes.py:83
+msgid "Details for %(model_name)s with ID %(id)s"
+msgstr "Details für %(model_name)s mit ID %(id)s"
+
+#: kunsthandel/generic_type/routes.py:69 kunsthandel/generic_type/routes.py:73
+msgid "Edit %(model_name)s"
+msgstr "Neuen Datensatz der Klasse %(model_name)s erstellen"
+
 #: kunsthandel/generic_type/routes.py:85
-#, python-format
-msgid "Details for %s with ID %s"
-msgstr "Details für %s mit ID %s"
+msgid "%(model_name)s Details"
+msgstr "%(model_name)s-Details"
 
-#: kunsthandel/generic_type/routes.py:71 kunsthandel/generic_type/routes.py:75
-#, python-format
-msgid "Edit %s"
-msgstr "%s bearbeiten"
-
-#: kunsthandel/generic_type/routes.py:87
-#, python-format
-msgid "%s Details"
-msgstr "%s-Details"
-
-#: kunsthandel/generic_type/routes.py:100
+#: kunsthandel/generic_type/routes.py:98
 msgid "The dataset has been deleted successfully"
 msgstr "Dieser Datensatz wurde erfolgreich gelöscht"
 
@@ -203,32 +195,28 @@ msgid "Upload images"
 msgstr "Bilder hochladen"
 
 #: kunsthandel/items/routes.py:16 kunsthandel/items/routes.py:31
-#, python-format
-msgid "Item details %s"
-msgstr "Gegenstand-Details %s"
+msgid "Item details %(id)s"
+msgstr "Gegenstand-Details %(id)s"
 
 #: kunsthandel/items/routes.py:24
 msgid "Item overview"
 msgstr "Gegenstandsübersicht"
 
 #: kunsthandel/items/routes.py:57
-#, python-format
-msgid "Item with ID %s successfully created"
-msgstr "Gegenstand mit ID %s erfolgreich erstellt"
+msgid "Item with ID %(id)s successfully created"
+msgstr "Gegenstand mit ID %(id)s erfolgreich erstellt"
 
 #: kunsthandel/items/routes.py:60 kunsthandel/items/routes.py:62
 msgid "Create new item"
 msgstr "Gegenstand erstellen"
 
 #: kunsthandel/items/routes.py:85
-#, python-format
-msgid "Item with ID %s successfully updated"
-msgstr "Gegenstand mit ID %s erfolgreich aktualisiert"
+msgid "Item with ID %(id)s successfully updated"
+msgstr "Gegenstand mit ID %(id)s erfolgreich aktualisiert"
 
 #: kunsthandel/items/routes.py:88 kunsthandel/items/routes.py:97
-#, python-format
-msgid "Edit item %s"
-msgstr "Gegenstand %s bearbeiten"
+msgid "Edit item %(id)s"
+msgstr "Gegenstand %(id)s bearbeiten"
 
 #: kunsthandel/items/routes.py:108
 msgid "The item has been deleted successfully"
@@ -238,7 +226,9 @@ msgstr "Dieser Gegenstand wurde erfolgreich gelöscht"
 msgid ""
 "Currently there are %(items)s items from %(origins)s origins. %(images)s "
 "pictures have been uploaded."
-msgstr "Aktuell gibt es %(items)s Gegenstände mit %(origins)s Herkünften. %(images)s Bilddateien wurden hochgeladen."
+msgstr ""
+"Aktuell gibt es %(items)s Gegenstände mit %(origins)s Herkünften. "
+"%(images)s Bilddateien wurden hochgeladen."
 
 #: kunsthandel/templates/generic_type.html:6
 #: kunsthandel/templates/generic_type_overview.html:12
@@ -579,14 +569,12 @@ msgid "The account has been updated"
 msgstr "Das Konto wurde aktualisiert"
 
 #: kunsthandel/users/routes.py:80 kunsthandel/users/routes.py:87
-#, python-format
-msgid "Edit user account %s"
-msgstr "Benutzerkonto %s bearbeiten"
+msgid "Edit user account %(username)s"
+msgstr "Benutzerkonto %(username)s bearbeiten"
 
 #: kunsthandel/users/routes.py:101
-#, python-format
-msgid "User account with id %s has been created"
-msgstr "Benutzerkonto mit ID %s wurde erstellt"
+msgid "User account with id %(id)s has been created"
+msgstr "Benutzerkonto mit ID %(id)s wurde erstellt"
 
 #: kunsthandel/users/routes.py:106 kunsthandel/users/routes.py:109
 msgid "Create user account"
