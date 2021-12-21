@@ -23,6 +23,7 @@ def overview(model_name):
         model = MODELS[model_name].query.paginate(page=page, per_page=50)
     except KeyError:
         abort(404, gettext("Model not found"))
+        return
     return render_template("generic_type_overview.html", title=gettext("User account overview"), model=model,
                            model_name=model_name)
 
@@ -35,6 +36,7 @@ def create(model_name):
         model = MODELS[model_name](name=form.name.data)
     except KeyError:
         abort(404, gettext("Model not found"))
+        return
     if request.method == "POST":
         if form.validate_on_submit():
             db.session.add(model)
@@ -56,6 +58,7 @@ def edit(model_name, id):
         model = MODELS[model_name].query.get_or_404(id)
     except KeyError:
         abort(404, gettext("Model not found"))
+        return
     form = EditGenericTypeForm()
     form.submit.label.text = gettext("Update")
     if request.method == "POST":
@@ -80,6 +83,7 @@ def details(model_name, id):
         model = MODELS[model_name].query.get_or_404(id)
     except KeyError:
         abort(404, gettext("Model not found"))
+        return
     legend_text = gettext("Details for %(model_name)s with ID %(id)s", model_name=model.model_name(), id=id)
     return render_template("generic_type.html", model_name=model_name, model=model,
                            title=gettext("%(model_name)s Details", model_name=model.model_name()), legend_text=legend_text)
@@ -92,6 +96,7 @@ def delete(model_name, id):
         model = MODELS[model_name].query.get_or_404(id)
     except KeyError:
         abort(404, gettext("Model not found"))
+        return
     dataset = MODELS[model_name].query.get_or_404(id)
     db.session.delete(dataset)
     db.session.commit()
