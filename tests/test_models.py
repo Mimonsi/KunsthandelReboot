@@ -12,7 +12,7 @@ class TestDatabaseModels(DatabaseTestCase):
         db.session.commit()
         self.assertIsNotNone(User.query.get(user.id))
         self.assertEqual("<User> (username=username, role_id=4)", str(user))
-        self.assertEqual("Administrator", user.role())
+        self.assertEqual("Administrator", user.role)
         self.assertEqual(True, user.has_permission(3))
         self.assertEqual(False, user.has_permission(5))
 

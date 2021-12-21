@@ -32,6 +32,7 @@ class User(db.Model, UserMixin):
     def __repr__(self):
         return f"<User> (username={self.username}, role_id={self.role_id})"
 
+    @property
     def role(self):
         return Role(self.role_id).name
 
