@@ -33,8 +33,8 @@
                 {% endif %}
             </div>
 
-            {% if item and item.thumbnail() %}
-                <a href="{{ url_for("images.details", id=item.thumbnail().id) }}"><img class="rounded-circle account-img" src="{{ item.thumbnail().url() }}" alt="Thumbnail for item {{ item.id }}"></a>
+            {% if item and item.thumbnail %}
+                <a href="{{ url_for("images.details", id=item.thumbnail.id) }}"><img class="rounded-circle account-img" src="{{ item.thumbnail.url() }}" alt="Thumbnail for item {{ item.id }}"></a>
             {% endif %}
 
             <div class="form-group">

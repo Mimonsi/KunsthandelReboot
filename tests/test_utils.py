@@ -58,7 +58,7 @@ class TestImageUpload(DatabaseTestCase):
                 thumbnail = FileStorage(fp)
                 save_thumbnail(thumbnail=thumbnail, item=item)
             self.assertEqual(1, Image.query.count())
-            self.assertEqual(item.thumbnail(), Image.query.first())
+            self.assertEqual(item.thumbnail, Image.query.first())
 
 
 if __name__ == "__main__":  # pragma: no cover

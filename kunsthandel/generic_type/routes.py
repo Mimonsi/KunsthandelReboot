@@ -65,15 +65,15 @@ def edit(model_name, id):
         if form.validate_on_submit():
             model.name = form.name.data
             db.session.commit()
-            flash(gettext("%(model_name)s with ID %(id)s has been successfully updated", model_name=model.model_name(), id=id), "success")
-            return redirect(url_for("generic_type.overview", model_name=model_name()))
+            flash(gettext("%(model_name)s with ID %(id)s has been successfully updated", model_name=model.model_name, id=id), "success")
+            return redirect(url_for("generic_type.overview", model_name=model_name))
         else:
-            legend_text = gettext("Details for %(model_name)s with ID %(id)s", model_name=model.model_name(), id=model.id)
-            return render_template("generic_type_edit.html", title=gettext("Edit %(model_name)s", model_name=model.model_name()), legend_text=legend_text, model=model, model_name=model_name, form=form), 400
+            legend_text = gettext("Details for %(model_name)s with ID %(id)s", model_name=model.model_name, id=model.id)
+            return render_template("generic_type_edit.html", title=gettext("Edit %(model_name)s", model_name=model.model_name), legend_text=legend_text, model=model, model_name=model_name, form=form), 400
     else:  # GET
         form.name.data = model.name
-        legend_text = gettext("Details for %(model_name)s with ID %(id)s", model_name=model.model_name(), id=id)
-        return render_template("generic_type_edit.html", title=gettext("Edit %(model_name)s", model_name=model.model_name()), legend_text=legend_text, model=model, model_name=model_name, form=form)
+        legend_text = gettext("Details for %(model_name)s with ID %(id)s", model_name=model.model_name, id=id)
+        return render_template("generic_type_edit.html", title=gettext("Edit %(model_name)s", model_name=model.model_name), legend_text=legend_text, model=model, model_name=model_name, form=form)
 
 
 @generic_type.route("/<string:model_name>/<int:id>", methods=["GET"])
@@ -84,9 +84,9 @@ def details(model_name, id):
     except KeyError:
         abort(404, gettext("Model not found"))
         return
-    legend_text = gettext("Details for %(model_name)s with ID %(id)s", model_name=model.model_name(), id=id)
+    legend_text = gettext("Details for %(model_name)s with ID %(id)s", model_name=model.model_name, id=id)
     return render_template("generic_type.html", model_name=model_name, model=model,
-                           title=gettext("%(model_name)s Details", model_name=model.model_name()), legend_text=legend_text)
+                           title=gettext("%(model_name)s Details", model_name=model.model_name), legend_text=legend_text)
 
 
 @generic_type.route("/<string:model_name>/<int:id>/delete", methods=["POST"])

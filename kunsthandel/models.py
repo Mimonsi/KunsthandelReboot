@@ -46,6 +46,7 @@ class Location(db.Model):
     def __repr__(self):
         return f"<Location> (id={self.id}, name={self.name})"
 
+    @property
     def model_name(self):
         return "Location"
 
@@ -57,6 +58,7 @@ class Origin(db.Model):
     def __repr__(self):
         return f"<Origin> (id={self.id}, name={self.name})"
 
+    @property
     def model_name(self):
         return "Origin"
 
@@ -84,6 +86,7 @@ class Type(db.Model):
     def __repr__(self):
         return f"<Type> (id={self.id}, name={self.name})"
 
+    @property
     def model_name(self):
         return "Type"
 
@@ -119,6 +122,7 @@ class Item(db.Model):
     #def images(self):
     #    return Image.query.filter_by(item_id=self.id).all()
 
+    @property
     def thumbnail(self):
         thumbnail = Image.query.filter_by(item_id=self.id, is_thumbnail=True).first()
         return thumbnail

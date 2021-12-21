@@ -154,7 +154,7 @@ class TestCreateItem(DatabaseTestCase):
         self.assertEqual("/items", result.request.path)
         self.assertEqual(200, result.status_code)
         created_item = Item.query.first()
-        self.assertIsNotNone(created_item.thumbnail())
+        self.assertIsNotNone(created_item.thumbnail)
         self.assertIsNotNone(created_item, "Item now exists in database")
 
     def test_create_item_with_images(self):
@@ -245,7 +245,7 @@ class TestEditItem(DatabaseTestCase):
             self.assertEqual("/items/1", result.request.path)
             self.assertEqual(200, result.status_code)
             updated_item = Item.query.get(1)
-            self.assertIsNotNone(updated_item.thumbnail())
+            self.assertIsNotNone(updated_item.thumbnail)
             self.assertIsNotNone(updated_item, "Item still exists in database")
 
     def test_edit_item_with_images(self):

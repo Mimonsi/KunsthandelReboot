@@ -22,7 +22,7 @@ class TestDatabaseModels(DatabaseTestCase):
         db.session.commit()
         self.assertIsNotNone(Location.query.get(location.id))
         self.assertEqual(f"<Location> (id={location.id}, name=location)", str(location))
-        self.assertEqual("Location", location.model_name())
+        self.assertEqual("Location", location.model_name)
 
     def test_origin_model(self):
         origin = Origin(name="origin")
@@ -30,7 +30,7 @@ class TestDatabaseModels(DatabaseTestCase):
         db.session.commit()
         self.assertIsNotNone(Origin.query.get(origin.id))
         self.assertEqual(f"<Origin> (id={origin.id}, name=origin)", str(origin))
-        self.assertEqual( "Origin", origin.model_name())
+        self.assertEqual( "Origin", origin.model_name)
 
     def test_type_model(self):
         type = Type(name="type")
@@ -38,7 +38,7 @@ class TestDatabaseModels(DatabaseTestCase):
         db.session.commit()
         self.assertIsNotNone(Type.query.get(type.id))
         self.assertEqual(f"<Type> (id={type.id}, name=type)", str(type))
-        self.assertEqual("Type", type.model_name())
+        self.assertEqual("Type", type.model_name)
 
     def test_image_model(self):
         image = Image(path="test.png")
@@ -54,7 +54,7 @@ class TestDatabaseModels(DatabaseTestCase):
         db.session.commit()
         self.assertIsNotNone(Item.query.get(item.id))
         self.assertEqual(f"<Item> (id={item.id}, name=None, type=None, location=None, origin=None)", str(item))
-        self.assertEqual(None, item.thumbnail())
+        self.assertEqual(None, item.thumbnail)
 
 
 if __name__ == "__main__":  # pragma: no cover
