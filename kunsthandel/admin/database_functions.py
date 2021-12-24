@@ -13,7 +13,6 @@ from kunsthandel.models import create_account, Role, Location, Origin, Type, Ite
 
 
 def create_test_items(item_amount, type_amount, location_amount, origin_amount):
-
     type_values = []
     location_values = []
     origin_values = []
