@@ -59,7 +59,6 @@ def create_test_users(amount, password):
     if amount == 0:
         amount = random.randint(15, 100)
     for i in range(0, amount):
-        role = Role.External
         role_number = random.randint(0, 10)
         if role_number < 5:
             role = Role.Visitor
