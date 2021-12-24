@@ -66,7 +66,6 @@ def create_test_users(amount, password):
             role = Role.User
         else:
             role = Role.Editor
-
         create_account(f"Account_{random.randint(0, 2000000000)}", password, role)
     return amount
 
