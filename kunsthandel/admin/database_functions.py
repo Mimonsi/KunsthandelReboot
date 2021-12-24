@@ -20,19 +20,19 @@ def create_test_items(item_amount, type_amount, location_amount, origin_amount):
     with current_app.open_resource("static/texts/types.txt", mode="rb") as t:
         type_values = t.read().decode("utf-8").splitlines()
     for i in range(0, type_amount):
-        type = Type(name=type_values[random.randint(0, len(type_values)-1)])
+        type = Type(name=type_values[random.randint(0, len(type_values) - 1)])
         db.session.add(type)
         created += 1
     with current_app.open_resource("static/texts/locations.txt", mode="rb") as l:
         location_values = l.read().decode("utf-8").splitlines()
     for i in range(0, location_amount):
-        location = Location(name=location_values[random.randint(0, len(location_values)-1)])
+        location = Location(name=location_values[random.randint(0, len(location_values) - 1)])
         db.session.add(location)
         created += 1
     with current_app.open_resource("static/texts/origins.txt", mode="rb") as o:
         origin_values = o.read().decode("utf-8").splitlines()
     for i in range(0, origin_amount):
-        origin = Origin(name=origin_values[random.randint(0, len(origin_values)-1)])
+        origin = Origin(name=origin_values[random.randint(0, len(origin_values) - 1)])
         db.session.add(origin)
         created += 1
     db.session.commit()
