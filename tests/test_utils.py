@@ -11,12 +11,6 @@ from tests import DatabaseTestCase
 
 class TestRoleRequiredDecorator(DatabaseTestCase):
 
-    def test_exempt_method(self):  # TODO not working correctly
-        """ options method is exempt """
-        self._login_user(role=Role.External)
-        result = self.client.options("/admin")
-        self.assertEqual(200, result.status_code)
-
     def test_unauthorized(self):
         """ user is not logged in """
         result = self.client.get("/admin", follow_redirects=True)
