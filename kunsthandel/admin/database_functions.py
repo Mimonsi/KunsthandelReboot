@@ -13,9 +13,6 @@ from kunsthandel.models import create_account, Role, Location, Origin, Type, Ite
 
 
 def create_test_items(item_amount, type_amount, location_amount, origin_amount):
-    type_values = []
-    location_values = []
-    origin_values = []
     created = 0
     with current_app.open_resource("static/texts/types.txt", mode="rb") as t:
         type_values = t.read().decode("utf-8").splitlines()
