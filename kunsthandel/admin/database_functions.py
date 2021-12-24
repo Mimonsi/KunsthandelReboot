@@ -81,7 +81,7 @@ def backup(include_database=True, include_media=True, type="full"):
     image_objects = Image.query.all()
     if include_media:
         for image_object in image_objects:
-            paths.append((image_object.path, media_dir + image_object.path))
+            paths.append((image_object.path, media_dir + image_object.path))  # pragma: no cover
     with zipfile.ZipFile(fileobj, "w") as zip_file:
         for path in paths:
             zip_info = zipfile.ZipInfo(path[1])
