@@ -7,7 +7,7 @@ from kunsthandel.models import Role, User, Item, Type, Location, Origin
 from tests import DatabaseTestCase
 
 
-class TestStorageOverview(DatabaseTestCase):
+class AdminTestCase(DatabaseTestCase):
     def setUp(self):
         app = create_app(config_class=config.TestConfig)
         app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///testing.db?charset=utf8mb4"
@@ -20,8 +20,11 @@ class TestStorageOverview(DatabaseTestCase):
     def tearDown(self):
         db.session.remove()
         db.drop_all()
-        # TODO: Delete database file
+        db_path = os.path.join(db.app.root_path, rf"{db.app.config['STORAGE_DATABASE_FILE']}")
+        os.remove(db_path)
 
+
+class TestStorageOverview(AdminTestCase):
     def test_permission_storage(self):
         """ Check permissions to access storage overview """
         pairs = {Role.External: 403, Role.Visitor: 403, Role.User: 403, Role.Editor: 403, Role.Administrator: 200}
@@ -39,20 +42,7 @@ class TestStorageOverview(DatabaseTestCase):
         self.assertIn(gettext("Storage Overview"), str(result.data))
 
 
-class TestBackup(DatabaseTestCase):
-    def setUp(self):
-        app = create_app(config_class=config.TestConfig)
-        app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///testing.db?charset=utf8mb4"
-        app.config["STORAGE_DATABASE_FILE"] = "testing.db"
-        self.client = app.test_client()
-        db.app = app
-        db.drop_all()
-        db.create_all()
-
-    def tearDown(self):
-        db.session.remove()
-        db.drop_all()
-        # TODO: Delete database file
+class TestBackup(AdminTestCase):
 
     def test_permission_backup_database(self):
         """ Check permissions to access database backup """
