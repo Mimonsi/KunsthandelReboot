@@ -47,7 +47,7 @@ def create_test_items(item_amount, type_amount, location_amount, origin_amount):
             os.makedirs(dest_path, exist_ok=True)
             copyfile(src_path, dest_file)
         except FileNotFoundError:
-            print("No dummy data found, skipping thumbnail")
+            pass
         thumbnail = Image(path=f"{item.id}/0.png", is_thumbnail=True, item_id=item.id)
         db.session.add(thumbnail)
         created += 1
