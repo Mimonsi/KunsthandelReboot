@@ -11,7 +11,6 @@ on:
 
 jobs:
   tests:
-    name: ${{ matrix.name }}
     runs-on: ubuntu-latest
     
     
