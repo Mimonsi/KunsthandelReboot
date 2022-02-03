@@ -131,4 +131,8 @@ dmypy.json
 /.idea/inspectionProfiles/Project_Default.xml
 /.idea/dataSources.xml
 *.db
-/kunsthandel/static/qr/
+
+# Static application files
+/kunsthandel/static/dev/
+/kunsthandel/static/test/
+/kunsthandel/static/prod/

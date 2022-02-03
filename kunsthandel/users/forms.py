@@ -30,8 +30,8 @@ class CreateAccountForm(FlaskForm):
 
 
 class UpdateOwnAccountForm(FlaskForm):
-    password = PasswordField(lazy_gettext("Password"), validators=[DataRequired()])
-    confirm_password = PasswordField(lazy_gettext("Confirm Password"), validators=[DataRequired(), EqualTo("password")])  #
+    password = PasswordField(lazy_gettext("Password"))
+    confirm_password = PasswordField(lazy_gettext("Confirm Password"), validators=[EqualTo("password")])  #
     locale = SelectField(lazy_gettext("Locale*"), validators=[DataRequired()], choices=[("en", "English"), ("de", "Deutsch")], default=("en", "English"))
 
     submit = SubmitField(lazy_gettext("Update"))
