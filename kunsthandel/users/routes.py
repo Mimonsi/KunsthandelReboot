@@ -47,8 +47,9 @@ def edit_own_user():
     user = User.query.get(current_user.id)
     if request.method == "POST":
         if form.validate_on_submit():
-            hashed_password = flask_bcrypt.generate_password_hash(form.password.data).decode("utf-8")
-            user.password = hashed_password
+            if form.password.data:
+                hashed_password = flask_bcrypt.generate_password_hash(form.password.data).decode("utf-8")
+                user.password = hashed_password
             user.locale = form.locale.data
             db.session.commit()
             flash(gettext("Your account has been updated"), "success")
